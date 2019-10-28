@@ -1,3 +1,5 @@
+:- ['database.pl'].
+
 /* INFO */
 
 % A sentence is a list of atoms (words) [atom1, atom2, atom3, ...]

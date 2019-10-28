@@ -88,8 +88,8 @@ semsin(opinion, [["i", "think", "that", "..."]]).
 semsin(nopinion, [["i've", "never", "given", "it", "much", "thought"]]).
 semsin(agree, [["i", "agree"], ["exactly!"]]).
 semsin(disagree, [["i", "am", "not", "sure", "about", "that"]]).
-semsin(good, ["good"], ["great"]).  % we can use synonyms(good, X), to define semsin(good, [X])
-semsin(bad, ["bad"], ["terrible"]). % we can use synonyms
+semsin(good, [["good"], ["great"]]).  % we can use synonyms(good, X), to define semsin(good, [X])
+semsin(bad, [["bad"], ["terrible"]]). % we can use synonyms
 semsin(right, ["right"]).           % we can use synonyms
 semsin(wrong, ["wrong"]).           % we can use synonyms
 semsin(am(X), [["i", "am", X]]).
