@@ -100,8 +100,17 @@ singen(are(X,Y), [X, "are", Y]).  % are(X,Y) = xyz(X, "are", Y).
 singen(repeat(X), [X]).
 
 % Semantic-Sintax relations
+% Words
 semsin(greet, S)     :- singen(greet, S).
 semsin(goodbye, S)   :- singen(goodbye, S).
+semsin(agree, S)     :- singen(agree, S).
+semsin(disagree, S)  :- singen(disagree, S).
+semsin(good, S)      :- singen(good, S).
+semsin(bad, S)       :- singen(bad, S).
+semsin(right, S)     :- singen(right, S).
+semsin(wrong, S)     :- singen(wrong, S).
+
+% Sentences
 semsin(qgreet, S)    :- singen(qgreet, S).
 semsin(qgoodbye, S)  :- singen(qgoodbye, S).
 semsin(approve, S)   :- singen(approve, S).
@@ -112,12 +121,8 @@ semsin(know, S)      :- singen(know, S).
 semsin(dknow, S)     :- singen(dknow, S).
 semsin(opinion, S)   :- singen(opinion, S).
 semsin(nopinion, S)  :- singen(nopinion, S).
-semsin(agree, S)     :- singen(agree, S).
-semsin(disagree, S)  :- singen(disagree, S).
-semsin(good, S)      :- singen(good, S).
-semsin(bad, S)       :- singen(bad, S).
-semsin(right, S)     :- singen(right, S).
-semsin(wrong, S)     :- singen(wrong, S).
+
+% References
 semsin(am(X), S)     :- singen(am(X), S).
 semsin(is(X,Y), S)   :- singen(is(X,Y), S).
 semsin(are(X,Y), S)  :- singen(are(X,Y), S).
