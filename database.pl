@@ -28,7 +28,7 @@ semval([question, goodbye]).
 %semval([answer, X]).
 
 % Relative semantic value
-rsemval(repeat(_)).
+semval(repeat(_)).
 
 % Top-Down Lists
 tdl(lgreet,[
@@ -105,4 +105,4 @@ semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
 semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
 
 % Relative Semantic-Sintax relations
-rsemsin(repeat(X), X).
+semsin(repeat(X), [X]).

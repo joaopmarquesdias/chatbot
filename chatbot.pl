@@ -17,7 +17,7 @@
 
 % redefine produce and productions
 produce([],[]).
-produce([S|NSM], P) :- semsin(S, P1), produce(NSM, P2), append(P1, P2, P).
+produce([S|NSM], [P|PS]) :- semsin(S, P), produce(NSM, PS).
 
 % All productions of a NSM
 productions(NSM, PS) :- findall(P, produce(NSM, P), PS).
@@ -29,6 +29,8 @@ answers(S, AS) :-
 
 % Predicate 2 : bestanswer(S, A)
 %   A is the answer to S with highest score
+% Not implemented
+bestanswer(S, A) :- answers(S, [A|_]).
 
 % Predicate 3 : runifanswer(S, A)
 %   A is a random answer to S
