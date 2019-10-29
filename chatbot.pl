@@ -22,7 +22,10 @@ produce([S|NSM], P) :- semsin(S, P1), produce(NSM, P2), append(P1, P2, P).
 % All productions of a NSM
 productions(NSM, PS) :- findall(P, produce(NSM, P), PS).
 
-answers(S, AS) :- semantics(S, SM), productions(SM, AS).
+answers(S, AS) :-
+  semantics(S, SM),
+  normalize(SM, NSM),
+  productions(NSM, AS).
 
 % Predicate 2 : bestanswer(S, A)
 %   A is the answer to S with highest score

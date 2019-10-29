@@ -75,8 +75,7 @@ antonyms(right, wrong).
 singen(greet, S)    :- member(S, [["hello"]]).
 singen(goodbye, S)  :- member(S, [["goodbye"]]).
 singen(qgreet, S)   :- member(S, [["how", "are", "you?"]]).
-singen(qgoodbye, S) :- member(S,
-  [["are", "you", "sure", "you", "don't", "have", "any", "other", "question?"]]).
+singen(qgoodbye, S) :- member(S, [["are", "you", "sure", "you", "don't", "have", "any", "other", "question?"]]).
 singen(approve, S)  :- member(S, [["i", "accept", "that"]]).
 singen(reprove, S)  :- member(S, [["i", "censore", "that"]]).
 singen(thank, S)    :- member(S, [["i", "really", "apreciate", "it"]]).
