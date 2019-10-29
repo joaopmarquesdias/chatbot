@@ -1,6 +1,6 @@
-/*teste */
 :- ['database.pl'].
 :- ['semantic.pl'].
+:- ['relations.pl'].
 
 /* INFO */
 

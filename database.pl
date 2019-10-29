@@ -2,6 +2,8 @@
 
 % Semantic values
 % Primitive semantic values
+semval(i).
+semval(you).
 semval(greet).
 semval(goodbye).
 semval(agree).
@@ -17,7 +19,6 @@ semval(thank).
 semval(dknow).
 semval(nopinion).
 semval(question).
-semval(repeat(_)).
 
 % Complex semantic values
 semval([question, greet]).
@@ -26,15 +27,20 @@ semval([question, goodbye]).
 %semval([opinion, X]).
 %semval([answer, X]).
 
+% Relative semantic value
+rsemval(repeat(_)).
+
 % Top-Down Lists
 tdl(lgreet,[
-  ["it is good", "it is nice", "I am pleased"],
+  ["it is good", "it is nice", "i am pleased"],
   ["to"],
   ["meet", "see"],
-  ["you!"]]).
+  ["you"]]).
 
 % Sentence Lists
-sl(greet,[["hello"], ["hi"], ["Hey"]]).
+sl(i,[["i"]]).
+sl(you,[["you"]]).
+sl(greet,[["hello"], ["hi"], ["hey"]]).
 sl(goodbye, [["goodbye"],["bye"]]).
 sl(agree, [["agree"],["acknowledge"],["recognize"],["concur"]]).
 sl(disagree, [["disagree"],["differ"]]).
@@ -76,6 +82,8 @@ topdowngen([X|BS], S) :-
 slgen(SL, S) :- member(S, SL).
 
 % Semantic-Sintax relations
+semsin(i, S)         :- sl(i, TDL), slgen(TDL, S).
+semsin(you, S)       :- sl(you, TDL), slgen(TDL, S).
 semsin(greet, S)     :- sl(greet, TDL), slgen(TDL, S).
 semsin(goodbye, S)   :- sl(goodbye, TDL), slgen(TDL, S).
 semsin(agree, S)     :- sl(agree, TDL), slgen(TDL, S).
@@ -87,13 +95,14 @@ semsin(wrong, S)     :- sl(wrong, TDL), slgen(TDL, S).
 semsin(approve, S)   :- sl(approve, TDL), slgen(TDL, S).
 semsin(reprove, S)   :- sl(reprove, TDL), slgen(TDL, S).
 semsin(lgreet, S)    :- tdl(lgreet, TDL), topdowngen(TDL, S).
-semsin(lgreet, S)    :- semsin(greet, S1), dl(lgreet, TDL),
+semsin(lgreet, S)    :- semsin(greet, S1), tdl(lgreet, TDL),
   topdowngen(TDL, S2), append(S1, S2, S).
 semsin(thank, S)     :- sl(thank, SL), slgen(SL, S).
 semsin(dknow, S)     :- sl(dknow, SL), slgen(SL, S).
 semsin(nopinion, S)  :- sl(nopinion, SL), slgen(SL, S).
 semsin(question, S)  :- sl(question, SL), slgen(SL, S).
-semsin(repeat(X), X).
-
 semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
 semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
+
+% Relative Semantic-Sintax relations
+rsemsin(repeat(X), X).
