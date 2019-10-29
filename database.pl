@@ -27,7 +27,6 @@ semval([question, goodbye]).
 semval([answer, greet]).
 %semval([know, X]).
 %semval([opinion, X]).
-%semval([answer, X]).
 
 % Relative semantic value
 semval(repeat(_)).

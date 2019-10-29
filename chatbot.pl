@@ -12,12 +12,6 @@
 
 /* PREDICATES */
 
-print_sentence([]).
-print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).
-
-print_sentences([]).
-print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
-
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
 
@@ -49,6 +43,24 @@ bestanswer(S, A) :- answers(S, [A|_]).
 %   produces an interactive conversation
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
+
+chat(E) :-
+  write("\n"),
+  read_sentence(S, E),
+  bestanswer(S, A),
+  write("Bot: "),
+  print_sentence(A),
+  chat(E).
+
+read_sentence(S, E) :-
+  read_string(user_input, "\n", "\r", E, S1),
+  split_string(S1, " ", "", S).
+
+print_sentence([]).
+print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).
+
+print_sentences([]).
+print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
 
 % Predicate 6 : stats(C)
 %   C is a conversation.

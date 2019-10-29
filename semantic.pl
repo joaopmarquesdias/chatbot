@@ -12,12 +12,14 @@ semantics(["good", "morning"|WS], [greet|SM]) :- semantics(WS, SM), !.
 semantics(["good", "afternoon"|WS], [greet|SM]) :- semantics(WS, SM), !.
 semantics(["good", "evening"|WS], [greet|SM]) :- semantics(WS, SM), !.
 semantics(["i", "am", X|WS], [greet, repeat(X)|SM]) :- semantics(WS, SM), !.
+semantics(["my", "name", "is", X|WS], [greet, repeat(X)|SM]) :- semantics(WS, SM), !.
 % generic semantic unification
 semantics([W|WS], [S|SM]) :- semsin(S, [W]), not(S = repeat(_)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
 
 % NSM is the normalized list of SM
+normalize([],[dknow]).
 normalize(SM,NSM) :- rmrep(SM, SMR), combine(SMR, NSM).
 
 % combine(SMR, SMC) is true when SMC is SMR with combined semantics
