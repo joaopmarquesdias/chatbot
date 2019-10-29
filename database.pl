@@ -38,28 +38,28 @@ Syntactic values:
 */
 
 % Semantic Value
-sval(greet).
-sval(goodbye).
-sval(qgreet).   % question_greet, ex: "how are you?"
-sval(qgoodbye). % question_goodbye, ex: "are you sure you don't have any other question?"
-sval(approve).  % ex: "i accept that"
-sval(reprove).  % ex: "i censore that"
-sval(thank).
-sval(athank).   % answer_thank, ex: "no problem!"
-sval(know).     % (must be divided into subtopics) ex: know_niilism
-sval(dknow).    % don't_know, ex: "i can't help you there"
-sval(opinion).  % (must be divided into subtopics) e: opinion_picasso
-sval(nopinion). % ex: "i don't have an opinion about that"
-sval(agree).
-sval(disagree).
-sval(good).
-sval(bad).
-sval(right).
-sval(wrong).
-sval(am(_)).
-sval(is(_,_)).
-sval(are(_,_)).
-sval(repeat(_)).
+semval(greet).
+semval(goodbye).
+semval(qgreet).   % question_greet, ex: "how are you?"
+semval(qgoodbye). % question_goodbye, ex: "are you sure you don't have any other question?"
+semval(approve).  % ex: "i accept that"
+semval(reprove).  % ex: "i censore that"
+semval(thank).
+semval(athank).   % answer_thank, ex: "no problem!"
+semval(know).     % (must be divided into subtopics) ex: know_niilism
+semval(dknow).    % don't_know, ex: "i can't help you there"
+semval(opinion).  % (must be divided into subtopics) e: opinion_picasso
+semval(nopinion). % ex: "i don't have an opinion about that"
+semval(agree).
+semval(disagree).
+semval(good).
+semval(bad).
+semval(right).
+semval(wrong).
+semval(am(_)).
+semval(is(_,_)).
+semval(are(_,_)).
+semval(repeat(_)).
 
 % Semantic relations
 antonyms(greet, goodbye).
