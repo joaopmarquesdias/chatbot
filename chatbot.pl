@@ -1,3 +1,4 @@
+/*teste */
 :- ['database.pl'].
 
 /* INFO */
