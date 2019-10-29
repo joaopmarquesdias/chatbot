@@ -71,28 +71,55 @@ antonyms(agree, disagree).
 antonyms(good, bad).
 antonyms(right, wrong).
 
+% Sintax generator
+singen(greet, S)    :- member(S, [["hello"]]).
+singen(goodbye, S)  :- member(S, [["goodbye"]]).
+singen(qgreet, S)   :- member(S, [["how", "are", "you?"]]).
+singen(qgoodbye, S) :- member(S,
+  [["are", "you", "sure", "you", "don't", "have", "any", "other", "question?"]]).
+singen(approve, S)  :- member(S, [["i", "accept", "that"]]).
+singen(reprove, S)  :- member(S, [["i", "censore", "that"]]).
+singen(thank, S)    :- member(S, [["i", "really", "apreciate", "it"]]).
+singen(athank, S)   :- member(S, [["no", "problem"], ["my", "pleasure"]]).
+singen(know, S)     :- member(S, [["i", "know", "that"]]).
+singen(dknow, S)    :- member(S, [["i", "can't", "help", "you", "there"]]).
+singen(opinion, S)  :- member(S, [["i", "think", "that", "..."]]).
+singen(nopinion, S) :- member(S, [["i've", "never", "given", "it", "much", "thought"]]).
+singen(agree, S)    :- member(S, [["i", "agree"], ["exactly!"]]).
+singen(disagree, S) :- member(S, [["i", "am", "not", "sure", "about", "that"]]).
+singen(good, S)     :- member(S, [["good"], ["great"]]).
+% we can use synonyms(good, X), to define semsin(good, [X])
+singen(bad, S)      :- member(S, [["bad"], ["terrible"]]).
+% we can use synonyms
+singen(right, S)    :- member(S, [["right"]]).
+% we can use synonyms
+singen(wrong, S)    :- member(S, [["wrong"]]).
+% we can use synonyms
+singen(am(X), ["i", "am", X]).
+singen(is(X,Y), [X, "is", Y]).    % reduce is/are to xyz(X, Y, Z)? is(X,Y) = xyz(X, "is", Y).
+singen(are(X,Y), [X, "are", Y]).  % are(X,Y) = xyz(X, "are", Y).
+singen(repeat(X), [X]).
+
 % Semantic-Sintax relations
-% sugestion: define semsin(semantic_value, S), were S is a single sentence insted of a list of sentences
-%            use an auxiliar predicate to generate multiple S's
-semsin(greet, [["hello"]]).
-semsin(goodbye, [["goodbye"]]).
-semsin(qgreet, [["how", "are", "you?"]]).
-semsin(qgoodbye, [["are", "you", "sure", "you", "don't", "have", "any", "other", "question?"]]).
-semsin(approve, [["i", "accept", "that"]]).
-semsin(reprove, [["i", "censore", "that"]]).
-semsin(thank, [["i", "really", "apreciate", "it"]]).
-semsin(athank, [["no", "problem"], ["my", "pleasure"]]).
-semsin(know, [["i", "know", "that"]]).
-semsin(dknow, [["i", "can't", "help", "you", "there"]]).
-semsin(opinion, [["i", "think", "that", "..."]]).
-semsin(nopinion, [["i've", "never", "given", "it", "much", "thought"]]).
-semsin(agree, [["i", "agree"], ["exactly!"]]).
-semsin(disagree, [["i", "am", "not", "sure", "about", "that"]]).
-semsin(good, [["good"], ["great"]]).  % we can use synonyms(good, X), to define semsin(good, [X])
-semsin(bad, [["bad"], ["terrible"]]). % we can use synonyms
-semsin(right, ["right"]).           % we can use synonyms
-semsin(wrong, ["wrong"]).           % we can use synonyms
-semsin(am(X), [["i", "am", X]]).
-semsin(is(X,Y), [[X, "is", Y]]).    % reduce is/are to xyz(X, Y, Z)? is(X,Y) = xyz(X, "is", Y).
-semsin(are(X,Y), [[X, "are", Y]]).  % are(X,Y) = xyz(X, "are", Y).
-semsin(repeat(X), [[X]]).
+semsin(greet, S)      :- singen(greet, S).
+semsin(goodbye, S)    :- singen(goodbye, S).
+semsin(qgreet, S)     :- singen(qgreet, S).
+semsin(qgoodbye, S)   :- singen(qgoodbye, S).
+semsin(approve, S)    :- singen(approve, S).
+semsin(reprove, S)    :- singen(reprove, S).
+semsin(thank, S)      :- singen(thank, S).
+semsin(athank, S)     :- singen(athank, S).
+semsin(know, S)       :- singen(know, S).
+semsin(dknow, S)      :- singen(dknow, S).
+semsin(opinion, S)    :- singen(opinion, S).
+semsin(nopinion, S)   :- singen(nopinion, S).
+semsin(agree, S)      :- singen(agree, S).
+semsin(disagree, S)   :- singen(disagree, S).
+semsin(good, S)       :- singen(good, S).
+semsin(bad, S)        :- singen(bad, S).
+semsin(right, S)      :- singen(right, S).
+semsin(wrong, S)      :- singen(wrong, S).
+semsin(am(X), S)      :- singen(am(X), S).
+semsin(is(X,Y), S)    :- singen(is(X,Y), S).
+semsin(are(X,Y), S)   :- singen(are(X,Y), S).
+semsin(repeat(X), S)  :- singen(repeat(X), S).
