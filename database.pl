@@ -16,6 +16,7 @@ semval(approve).
 semval(reprove).
 semval(lgreet).
 semval(thank).
+semval(lthank).
 semval(dknow).
 semval(nopinion).
 semval(question).
@@ -23,6 +24,7 @@ semval(question).
 % Complex semantic values
 semval([question, greet]).
 semval([question, goodbye]).
+semval([answer, greet]).
 %semval([know, X]).
 %semval([opinion, X]).
 %semval([answer, X]).
@@ -50,9 +52,8 @@ sl(right, [["right"],["true"],["legitimate"]]).
 sl(wrong, [["wrong"],["false"],["inaccurate"],["mistaken"]]).
 sl(approve, [["approve"],["accept"],["respect"]]).
 sl(reprove, [["reprove"],["censure"],["condemn"]]).
-sl(thank,[
-  ["i", "really", "apreciate", "it"],
-  ["thank", "you"],["thanks"]]).
+sl(thank,[["thank", "you"],["thanks"]]).
+sl(lthank,[["i", "really", "apreciate", "it"]]).
 sl(dknow,[
   ["i", "can't", "help", "you", "there"],
   ["i", "do", "not", "know", "that"]]).
@@ -68,41 +69,53 @@ sl([question, goodbye],[
   ["are", "you", "sure"],
   ["are", "you", "sure", "you", "do", "not", "have", "any", "other", "question"]]).
 
+% Sentence combination
+sc([answer, greet],[["i", "am"],X,Y,["for", "asking"]]) :-
+  semsin(good, X), semsin(thank, Y).
+
 % Sintax generators
 % Top-Down generator
 % True when S is a possible combination of words in TDL
 topdowngen([],[]).
 topdowngen([X|BS], S) :-
   member(W, X), split_string(W, " ", "", W1),
-  append(W1, S1, S),
-  topdowngen(BS, S1).
+  topdowngen(BS, S1),
+  append(W1, S1, S).
 
 % Sentence list generator
 % True when S is a sentence in SL
 slgen(SL, S) :- member(S, SL).
 
+% Combine semsin generator
+% True when S is a sentence combination of sentences
+scgen([],[]).
+scgen([X|SC], S) :- scgen(SC, S1), append(X, S1, S).
+
 % Semantic-Sintax relations
-semsin(i, S)         :- sl(i, TDL), slgen(TDL, S).
-semsin(you, S)       :- sl(you, TDL), slgen(TDL, S).
-semsin(greet, S)     :- sl(greet, TDL), slgen(TDL, S).
-semsin(goodbye, S)   :- sl(goodbye, TDL), slgen(TDL, S).
-semsin(agree, S)     :- sl(agree, TDL), slgen(TDL, S).
-semsin(disagree, S)  :- sl(disagree, TDL), slgen(TDL, S).
-semsin(good, S)      :- sl(good, TDL), slgen(TDL, S).
-semsin(bad, S)       :- sl(bad, TDL), slgen(TDL, S).
-semsin(right, S)     :- sl(right, TDL), slgen(TDL, S).
-semsin(wrong, S)     :- sl(wrong, TDL), slgen(TDL, S).
-semsin(approve, S)   :- sl(approve, TDL), slgen(TDL, S).
-semsin(reprove, S)   :- sl(reprove, TDL), slgen(TDL, S).
-semsin(lgreet, S)    :- tdl(lgreet, TDL), topdowngen(TDL, S).
-semsin(lgreet, S)    :- semsin(greet, S1), tdl(lgreet, TDL),
+semsin(i, S)                   :- sl(i, TDL), slgen(TDL, S).
+semsin(you, S)                 :- sl(you, TDL), slgen(TDL, S).
+semsin(greet, S)               :- sl(greet, TDL), slgen(TDL, S).
+semsin(goodbye, S)             :- sl(goodbye, TDL), slgen(TDL, S).
+semsin(agree, S)               :- sl(agree, TDL), slgen(TDL, S).
+semsin(disagree, S)            :- sl(disagree, TDL), slgen(TDL, S).
+semsin(good, S)                :- sl(good, TDL), slgen(TDL, S).
+semsin(bad, S)                 :- sl(bad, TDL), slgen(TDL, S).
+semsin(right, S)               :- sl(right, TDL), slgen(TDL, S).
+semsin(wrong, S)               :- sl(wrong, TDL), slgen(TDL, S).
+semsin(approve, S)             :- sl(approve, TDL), slgen(TDL, S).
+semsin(reprove, S)             :- sl(reprove, TDL), slgen(TDL, S).
+semsin(lgreet, S)              :- tdl(lgreet, TDL), topdowngen(TDL, S).
+semsin(lgreet, S)              :- semsin(greet, S1), tdl(lgreet, TDL),
   topdowngen(TDL, S2), append(S1, S2, S).
-semsin(thank, S)     :- sl(thank, SL), slgen(SL, S).
-semsin(dknow, S)     :- sl(dknow, SL), slgen(SL, S).
-semsin(nopinion, S)  :- sl(nopinion, SL), slgen(SL, S).
-semsin(question, S)  :- sl(question, SL), slgen(SL, S).
+semsin(thank, S)               :- sl(thank, SL), slgen(SL, S).
+semsin(lthank, S)              :- sl(lthank, SL), slgen(SL, S).
+semsin(dknow, S)               :- sl(dknow, SL), slgen(SL, S).
+semsin(nopinion, S)            :- sl(nopinion, SL), slgen(SL, S).
+semsin(question, S)            :- sl(question, SL), slgen(SL, S).
 semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
 semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
+semsin([answer, greet], S)     :- sc([answer, greet], SC), scgen(SC, S).
+
 
 % Relative Semantic-Sintax relations
 semsin(repeat(X), [X]).

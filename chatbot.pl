@@ -12,6 +12,12 @@
 
 /* PREDICATES */
 
+print_sentence([]).
+print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).
+
+print_sentences([]).
+print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
+
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
 
