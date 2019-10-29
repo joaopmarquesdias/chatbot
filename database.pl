@@ -1,41 +1,30 @@
-/*
-The main data are the relations (semantic, sintax), where
-  semantic is a defined value and
-  sintax is a set of phrases that share the semantic value defined
+% TODO: implement [know, X], [opinion, X] and [answer, X] semantics
 
-We can store this relations using the predicate
-->> semsin(semantic_value, [phrases]).
+% Semantic values
+% Primitive semantic values
+semval(greet).
+semval(goodbye).
+semval(agree).
+semval(disagree).
+semval(good).
+semval(bad).
+semval(right).
+semval(wrong).
+semval(approve).
+semval(reprove).
+semval(lgreet).
+semval(thank).
+semval(dknow).
+semval(nopinion).
+semval(question).
+semval(repeat(_)).
 
-We can store semantic values using
-->> sval(semantic_value).
-
-We can have semantic relations such as
-->> antonyms(V1, V2).
-->> synonyms(V1, V2).     useful to find keywords
-->> (maybe useful) meronym, holonym, hyponym, hyperonym
-
-Semantic values:
-  greet   | goodbye
-  qgreet  | qgoodbye    (question_greet, question_goodbye)
-  approve | reprove
-  thank   | ?
-  athank  | ?           (answer to thank)
-  know    | dknow       (know, don't know) :: must be divided into subtopics ex:. know_niilism
-  opinion | nopinion    (opinion, no opinion) :: must be divided into subtopics ex:. opinion_picasso
-  agree   | disagree
-  good    | bad         ex:. ("good", "great"), ("bad","terrible")
-  right   | wrong       ex:. "right", "wrong"
-
-  is(X, Y)              (X is Y) :: ex:. (we can use good) semsin(good, Y), is("That", Y) -> "That is great"
-  am(X)                 (i am X) :: ex:. semsin(good, X), am(X) -> "i am great"
-  are(X, Y)             (X are Y) :: ex:. semsin(wrong, Y), are("They", Y) -> "They are wrong"
-
-  repeat(X)             (X) :: this semantic value is whatever is in X
-
-Syntactic values:
-  Sentences with a well defined semantic value
-  ex:. semsin(greet, [["hello"],["it", "is", "nice", "to", "see", "you"]]).
-*/
+% Complex semantic values
+semval([question, greet]).
+semval([question, goodbye]).
+%semval([know, X]).
+%semval([opinion, X]).
+%semval([answer, X]).
 
 % Top-Down Lists
 tdl(lgreet,[
@@ -64,6 +53,14 @@ sl(dknow,[
 sl(nopinion,[
   ["i", "have", "never", "given", "it", "much", "thought"],
   ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
+sl(question,[
+  ["how"],["where"],["what"],["why"],["when"],["can"],
+  ["do", "you"],["are", "you"]]).
+sl([question, greet],[
+  ["how", "are", "you"]]).
+sl([question, goodbye],[
+  ["are", "you", "sure"],
+  ["are", "you", "sure", "you", "do", "not", "have", "any", "other", "question"]]).
 
 % Sintax generators
 % Top-Down generator
@@ -73,7 +70,6 @@ topdowngen([X|BS], S) :-
   member(W, X), split_string(W, " ", "", W1),
   append(W1, S1, S),
   topdowngen(BS, S1).
-
 
 % Sentence list generator
 % True when S is a sentence in SL
@@ -90,16 +86,14 @@ semsin(right, S)     :- sl(right, TDL), slgen(TDL, S).
 semsin(wrong, S)     :- sl(wrong, TDL), slgen(TDL, S).
 semsin(approve, S)   :- sl(approve, TDL), slgen(TDL, S).
 semsin(reprove, S)   :- sl(reprove, TDL), slgen(TDL, S).
-
 semsin(lgreet, S)    :- tdl(lgreet, TDL), topdowngen(TDL, S).
+semsin(lgreet, S)    :- semsin(greet, S1), dl(lgreet, TDL),
+  topdowngen(TDL, S2), append(S1, S2, S).
 semsin(thank, S)     :- sl(thank, SL), slgen(SL, S).
 semsin(dknow, S)     :- sl(dknow, SL), slgen(SL, S).
 semsin(nopinion, S)  :- sl(nopinion, SL), slgen(SL, S).
-
-%semsin(opinion, S)   :- singen(opinion, S).
-%semsin(athank, S)    :- singen(athank, S).
-%semsin(know, S)      :- singen(know, S).
-%semsin(qgreet, S)    :- singen(qgreet, S).
-%semsin(qgoodbye, S)  :- singen(qgoodbye, S).
-
+semsin(question, S)  :- sl(question, SL), slgen(SL, S).
 semsin(repeat(X), X).
+
+semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
+semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
