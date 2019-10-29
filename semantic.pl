@@ -1,4 +1,3 @@
-% teste branch merge
 % Sugestion: remove q's semantics for the combination (question, X)
 %            remove a's semantics for the combination (answer, X)
 %            seperate semantics by input, output or both
@@ -16,25 +15,16 @@ semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
 
 % NSM is the normalized list of SM
-normalize(SM,SMS) :- rep(SM, SMS), syn(SM, SMS).
+normalize(SM,SMS) :- rep(SM, SMS).
 
 rep([],[]).
 rep([SM|SMS],[SM|NSM]) :- member(SM,SMS), delMember(SM,SMS,Y), rep(Y,NSM),!.
 rep([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), rep(SMN, NSM).
 
-syn([],[]).
-syn([SM|SMS],[SM|NSM]) :- member(SM,SMS), delMember(SM,SMS,Y), syn(Y,NSM),!.
-syn([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), syn(SMN, NSM).
-
-
 % Analise the score of answers
 analyze(AS, AAS) :- AS = AAS.
 
 % Auxiliary predicates
-
-delMembers(_, [], []) :- !.
-delMembers([X|XS], [Y|YS], Z)
-
 delMember(_, [], []) :- !.
 delMember(X, [X|Xs], Y) :- !, delMember(X, Xs, Y).
 delMember(X, [T|Xs], Y) :- !, delMember(X, Xs, Y2), append([T], Y2, Y).
