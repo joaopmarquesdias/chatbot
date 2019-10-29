@@ -13,6 +13,9 @@ semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
 % NSM is the list normalized list of SM
 normalize(SM, NSM) :- SM = NSM.
 
+% Analise the score of answers
+analyze(AS, AAS) :- AS = AAS.
+
 % Auxiliary predicates
 % list(L) is true when L is a list
 list([]).
