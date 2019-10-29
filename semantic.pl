@@ -1,3 +1,4 @@
+% teste branch merge
 % Sugestion: remove q's semantics for the combination (question, X)
 %            remove a's semantics for the combination (answer, X)
 %            seperate semantics by input, output or both
