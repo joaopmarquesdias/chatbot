@@ -1,124 +1,108 @@
-/*
-The main data are the relations (semantic, sintax), where
-  semantic is a defined value and
-  sintax is a set of phrases that share the semantic value defined
+% TODO: implement [know, X], [opinion, X] and [answer, X] semantics
 
-We can store this relations using the predicate
-->> semsin(semantic_value, [phrases]).
-
-We can store semantic values using
-->> sval(semantic_value).
-
-We can have semantic relations such as
-->> antonyms(V1, V2).
-->> synonyms(V1, V2).     useful to find keywords
-->> (maybe useful) meronym, holonym, hyponym, hyperonym
-
-Semantic values:
-  greet   | goodbye
-  qgreet  | qgoodbye    (question_greet, question_goodbye)
-  approve | reprove
-  thank   | ?
-  athank  | ?           (answer to thank)
-  know    | dknow       (know, don't know) :: must be divided into subtopics ex:. know_niilism
-  opinion | nopinion    (opinion, no opinion) :: must be divided into subtopics ex:. opinion_picasso
-  agree   | disagree
-  good    | bad         ex:. ("good", "great"), ("bad","terrible")
-  right   | wrong       ex:. "right", "wrong"
-
-  is(X, Y)              (X is Y) :: ex:. (we can use good) semsin(good, Y), is("That", Y) -> "That is great"
-  am(X)                 (i am X) :: ex:. semsin(good, X), am(X) -> "i am great"
-  are(X, Y)             (X are Y) :: ex:. semsin(wrong, Y), are("They", Y) -> "They are wrong"
-
-  repeat(X)             (X) :: this semantic value is whatever is in X
-
-Syntactic values:
-  Sentences with a well defined semantic value
-  ex:. semsin(greet, [["hello"],["it", "is", "nice", "to", "see", "you"]]).
-*/
-
-% Semantic Value
+% Semantic values
+% Primitive semantic values
+semval(i).
+semval(you).
 semval(greet).
 semval(goodbye).
-semval(qgreet).   % question_greet, ex: "how are you?"
-semval(qgoodbye). % question_goodbye, ex: "are you sure you don't have any other question?"
-semval(approve).  % ex: "i accept that"
-semval(reprove).  % ex: "i censore that"
-semval(thank).
-semval(athank).   % answer_thank, ex: "no problem!"
-semval(know).     % (must be divided into subtopics) ex: know_niilism
-semval(dknow).    % don't_know, ex: "i can't help you there"
-semval(opinion).  % (must be divided into subtopics) e: opinion_picasso
-semval(nopinion). % ex: "i don't have an opinion about that"
 semval(agree).
 semval(disagree).
 semval(good).
 semval(bad).
 semval(right).
 semval(wrong).
-semval(am(_)).
-semval(is(_,_)).
-semval(are(_,_)).
-semval(repeat(_)).
+semval(approve).
+semval(reprove).
+semval(lgreet).
+semval(thank).
+semval(dknow).
+semval(nopinion).
+semval(question).
 
-% Semantic relations
-antonyms(greet, goodbye).
-antonyms(qgreet, qgoodbye).
-antonyms(aprove, reprove).
-antonyms(know, dknow).
-antonyms(opinion, nopinion).
-antonyms(agree, disagree).
-antonyms(good, bad).
-antonyms(right, wrong).
+% Complex semantic values
+semval([question, greet]).
+semval([question, goodbye]).
+%semval([know, X]).
+%semval([opinion, X]).
+%semval([answer, X]).
 
-% Sintax generator
-singen(greet, S)    :- member(S, [["hello"]]).
-singen(goodbye, S)  :- member(S, [["goodbye"]]).
-singen(qgreet, S)   :- member(S, [["how", "are", "you?"]]).
-singen(qgoodbye, S) :- member(S, [["are", "you", "sure", "you", "don't", "have", "any", "other", "question?"]]).
-singen(approve, S)  :- member(S, [["i", "accept", "that"]]).
-singen(reprove, S)  :- member(S, [["i", "censore", "that"]]).
-singen(thank, S)    :- member(S, [["i", "really", "apreciate", "it"]]).
-singen(athank, S)   :- member(S, [["no", "problem"], ["my", "pleasure"]]).
-singen(know, S)     :- member(S, [["i", "know", "that"]]).
-singen(dknow, S)    :- member(S, [["i", "can't", "help", "you", "there"]]).
-singen(opinion, S)  :- member(S, [["i", "think", "that", "..."]]).
-singen(nopinion, S) :- member(S, [["i've", "never", "given", "it", "much", "thought"]]).
-singen(agree, S)    :- member(S, [["i", "agree"], ["exactly!"]]).
-singen(disagree, S) :- member(S, [["i", "am", "not", "sure", "about", "that"]]).
-singen(good, S)     :- member(S, [["good"], ["great"]]).
-% we can use synonyms(good, X), to define semsin(good, [X])
-singen(bad, S)      :- member(S, [["bad"], ["terrible"]]).
-% we can use synonyms
-singen(right, S)    :- member(S, [["right"]]).
-% we can use synonyms
-singen(wrong, S)    :- member(S, [["wrong"]]).
-% we can use synonyms
-singen(am(X), ["i", "am", X]).
-singen(is(X,Y), [X, "is", Y]).    % reduce is/are to xyz(X, Y, Z)? is(X,Y) = xyz(X, "is", Y).
-singen(are(X,Y), [X, "are", Y]).  % are(X,Y) = xyz(X, "are", Y).
-singen(repeat(X), [X]).
+% Relative semantic value
+rsemval(repeat(_)).
+
+% Top-Down Lists
+tdl(lgreet,[
+  ["it is good", "it is nice", "i am pleased"],
+  ["to"],
+  ["meet", "see"],
+  ["you"]]).
+
+% Sentence Lists
+sl(i,[["i"]]).
+sl(you,[["you"]]).
+sl(greet,[["hello"], ["hi"], ["hey"]]).
+sl(goodbye, [["goodbye"],["bye"]]).
+sl(agree, [["agree"],["acknowledge"],["recognize"],["concur"]]).
+sl(disagree, [["disagree"],["differ"]]).
+sl(good, [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
+sl(bad, [["bad"],["awful"],["dreadful"],["terrible"]]).
+sl(right, [["right"],["true"],["legitimate"]]).
+sl(wrong, [["wrong"],["false"],["inaccurate"],["mistaken"]]).
+sl(approve, [["approve"],["accept"],["respect"]]).
+sl(reprove, [["reprove"],["censure"],["condemn"]]).
+sl(thank,[
+  ["i", "really", "apreciate", "it"],
+  ["thank", "you"],["thanks"]]).
+sl(dknow,[
+  ["i", "can't", "help", "you", "there"],
+  ["i", "do", "not", "know", "that"]]).
+sl(nopinion,[
+  ["i", "have", "never", "given", "it", "much", "thought"],
+  ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
+sl(question,[
+  ["how"],["where"],["what"],["why"],["when"],["can"],
+  ["do", "you"],["are", "you"]]).
+sl([question, greet],[
+  ["how", "are", "you"]]).
+sl([question, goodbye],[
+  ["are", "you", "sure"],
+  ["are", "you", "sure", "you", "do", "not", "have", "any", "other", "question"]]).
+
+% Sintax generators
+% Top-Down generator
+% True when S is a possible combination of words in TDL
+topdowngen([],[]).
+topdowngen([X|BS], S) :-
+  member(W, X), split_string(W, " ", "", W1),
+  append(W1, S1, S),
+  topdowngen(BS, S1).
+
+% Sentence list generator
+% True when S is a sentence in SL
+slgen(SL, S) :- member(S, SL).
 
 % Semantic-Sintax relations
-semsin(greet, S)     :- singen(greet, S).
-semsin(goodbye, S)   :- singen(goodbye, S).
-semsin(qgreet, S)    :- singen(qgreet, S).
-semsin(qgoodbye, S)  :- singen(qgoodbye, S).
-semsin(approve, S)   :- singen(approve, S).
-semsin(reprove, S)   :- singen(reprove, S).
-semsin(thank, S)     :- singen(thank, S).
-semsin(athank, S)    :- singen(athank, S).
-semsin(know, S)      :- singen(know, S).
-semsin(dknow, S)     :- singen(dknow, S).
-semsin(opinion, S)   :- singen(opinion, S).
-semsin(nopinion, S)  :- singen(nopinion, S).
-semsin(agree, S)     :- singen(agree, S).
-semsin(disagree, S)  :- singen(disagree, S).
-semsin(good, S)      :- singen(good, S).
-semsin(bad, S)       :- singen(bad, S).
-semsin(right, S)     :- singen(right, S).
-semsin(wrong, S)     :- singen(wrong, S).
-semsin(am(X), S)     :- singen(am(X), S).
-semsin(is(X,Y), S)   :- singen(is(X,Y), S).
-semsin(are(X,Y), S)  :- singen(are(X,Y), S).
-semsin(repeat(X), S) :- singen(repeat(X), S).
+semsin(i, S)         :- sl(i, TDL), slgen(TDL, S).
+semsin(you, S)       :- sl(you, TDL), slgen(TDL, S).
+semsin(greet, S)     :- sl(greet, TDL), slgen(TDL, S).
+semsin(goodbye, S)   :- sl(goodbye, TDL), slgen(TDL, S).
+semsin(agree, S)     :- sl(agree, TDL), slgen(TDL, S).
+semsin(disagree, S)  :- sl(disagree, TDL), slgen(TDL, S).
+semsin(good, S)      :- sl(good, TDL), slgen(TDL, S).
+semsin(bad, S)       :- sl(bad, TDL), slgen(TDL, S).
+semsin(right, S)     :- sl(right, TDL), slgen(TDL, S).
+semsin(wrong, S)     :- sl(wrong, TDL), slgen(TDL, S).
+semsin(approve, S)   :- sl(approve, TDL), slgen(TDL, S).
+semsin(reprove, S)   :- sl(reprove, TDL), slgen(TDL, S).
+semsin(lgreet, S)    :- tdl(lgreet, TDL), topdowngen(TDL, S).
+semsin(lgreet, S)    :- semsin(greet, S1), tdl(lgreet, TDL),
+  topdowngen(TDL, S2), append(S1, S2, S).
+semsin(thank, S)     :- sl(thank, SL), slgen(SL, S).
+semsin(dknow, S)     :- sl(dknow, SL), slgen(SL, S).
+semsin(nopinion, S)  :- sl(nopinion, SL), slgen(SL, S).
+semsin(question, S)  :- sl(question, SL), slgen(SL, S).
+semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
+semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
+
+% Relative Semantic-Sintax relations
+rsemsin(repeat(X), X).
