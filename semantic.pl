@@ -27,6 +27,9 @@ syn([SM|SMS],[SM|NSM]) :- member(SM,SMS), delMember(SM,SMS,Y), syn(Y,NSM),!.
 syn([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), syn(SMN, NSM).
 
 
+% Analise the score of answers
+analyze(AS, AAS) :- AS = AAS.
+
 % Auxiliary predicates
 
 delMembers(_, [], []) :- !.
