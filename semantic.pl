@@ -1,3 +1,4 @@
+% teste branch merge
 % Sugestion: remove q's semantics for the combination (question, X)
 %            remove a's semantics for the combination (answer, X)
 %            seperate semantics by input, output or both
@@ -21,10 +22,25 @@ semantic(S, right)     :- sublist([right], S).
 semantic(S, wrong)     :- sublist([wrong], S).
 semantic(S, repeat(X)) :- sublist([repeat, X], S).
 
-% NSM is the list normalized list of SM
-normalize(SM, NSM) :- SM = NSM.
+% NSM is the normalized list of SM
+normalize(SM,SMS) :- rep(SM, SMS), syn(SM, SMS).
+
+rep([],[]).
+rep([SM|SMS],[SM|NSM]) :- member(SM,SMS), delMember(SM,SMS,Y), rep(Y,NSM),!.
+rep([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), rep(SMN, NSM).
+
+syn([],[]).
+syn([SM|SMS],[SM|NSM]) :- member(SM,SMS), delMember(SM,SMS,Y), syn(Y,NSM),!.
+syn([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), syn(SMN, NSM).
+
 
 % Auxiliary predicates
+delMembers(_, [], []) :- !.
+delMembers([X|XS], [Y|YS], Z)
+
+delMember(_, [], []) :- !.
+delMember(X, [X|Xs], Y) :- !, delMember(X, Xs, Y).
+delMember(X, [T|Xs], Y) :- !, delMember(X, Xs, Y2), append([T], Y2, Y).
 
 % list(L) is true when L is a list
 list([]).
