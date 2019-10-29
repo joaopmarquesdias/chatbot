@@ -6,8 +6,9 @@ semantics([],[]).
 % specific unification
 semantics(["i", "am", X|WS], [greet, repeat(X)|SM]) :- semantics(WS, SM), !.
 % generic semantic unification
-semantics([W|WS], [S|SM]) :- semsin(S, [W]), semantics(WS, SM), !.
+semantics([W|WS], [S|SM]) :- semsin(S, [W]), not(S = repeat(_)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
+semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
 
 % NSM is the list normalized list of SM
 normalize(SM, NSM) :- SM = NSM.
