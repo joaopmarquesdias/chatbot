@@ -1,5 +1,4 @@
-% TODO: implement [know, X], [opinion, X] and [answer, X] semantics
-
+% TODO: add knolage base and opinion base (ex: picasso, niilism, fernando pessoa)...
 % Semantic values
 % Primitive semantic values
 semval(i).
@@ -17,6 +16,7 @@ semval(reprove).
 semval(lgreet).
 semval(thank).
 semval(lthank).
+semval(know).
 semval(dknow).
 semval(nopinion).
 semval(question).
@@ -53,6 +53,7 @@ sl(approve, [["approve"],["accept"],["respect"]]).
 sl(reprove, [["reprove"],["censure"],["condemn"]]).
 sl(thank,[["thank", "you"],["thanks"]]).
 sl(lthank,[["i", "really", "apreciate", "it"]]).
+sl(know,[["know"],["realize"],["notice"],["recognize"]]).
 sl(dknow,[
   ["i", "can't", "help", "you", "there"],
   ["i", "do", "not", "know", "that"]]).
@@ -91,30 +92,9 @@ scgen([],[]).
 scgen([X|SC], S) :- scgen(SC, S1), append(X, S1, S).
 
 % Semantic-Sintax relations
-semsin(i, S)                   :- sl(i, TDL), slgen(TDL, S).
-semsin(you, S)                 :- sl(you, TDL), slgen(TDL, S).
-semsin(greet, S)               :- sl(greet, TDL), slgen(TDL, S).
-semsin(goodbye, S)             :- sl(goodbye, TDL), slgen(TDL, S).
-semsin(agree, S)               :- sl(agree, TDL), slgen(TDL, S).
-semsin(disagree, S)            :- sl(disagree, TDL), slgen(TDL, S).
-semsin(good, S)                :- sl(good, TDL), slgen(TDL, S).
-semsin(bad, S)                 :- sl(bad, TDL), slgen(TDL, S).
-semsin(right, S)               :- sl(right, TDL), slgen(TDL, S).
-semsin(wrong, S)               :- sl(wrong, TDL), slgen(TDL, S).
-semsin(approve, S)             :- sl(approve, TDL), slgen(TDL, S).
-semsin(reprove, S)             :- sl(reprove, TDL), slgen(TDL, S).
-semsin(lgreet, S)              :- tdl(lgreet, TDL), topdowngen(TDL, S).
-semsin(lgreet, S)              :- semsin(greet, S1), tdl(lgreet, TDL),
-  topdowngen(TDL, S2), append(S1, S2, S).
-semsin(thank, S)               :- sl(thank, SL), slgen(SL, S).
-semsin(lthank, S)              :- sl(lthank, SL), slgen(SL, S).
-semsin(dknow, S)               :- sl(dknow, SL), slgen(SL, S).
-semsin(nopinion, S)            :- sl(nopinion, SL), slgen(SL, S).
-semsin(question, S)            :- sl(question, SL), slgen(SL, S).
-semsin([question, greet], S)   :- sl([question, greet], SL), slgen(SL, S).
-semsin([question, goodbye], S) :- sl([question, goodbye], SL), slgen(SL, S).
-semsin([answer, greet], S)     :- sc([answer, greet], SC), scgen(SC, S).
-
+semsin(S, P) :- sl(S, SL), slgen(SL, P).
+semsin(S, P) :- tdl(S, TSL), topdowngen(TSL, P).
+semsin(S, P) :- sc(S, SC), scgen(SC, P).
 
 % Relative Semantic-Sintax relations
 semsin(repeat(X), [X]).
