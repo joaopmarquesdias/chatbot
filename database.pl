@@ -92,9 +92,9 @@ scgen([],[]).
 scgen([X|SC], S) :- scgen(SC, S1), append(X, S1, S).
 
 % Semantic-Sintax relations
-semsin(S, P) :- sl(S, SL), slgen(SL, P).
-semsin(S, P) :- tdl(S, TSL), topdowngen(TSL, P).
-semsin(S, P) :- sc(S, SC), scgen(SC, P).
+semsin(S, P) :- tdl(S, TSL), topdowngen(TSL, P), !.
+semsin(S, P) :- sl(S, SL), slgen(SL, P), !.
+semsin(S, P) :- sc(S, SC), scgen(SC, P), !.
 
 % Relative Semantic-Sintax relations
 semsin(repeat(X), [X]).

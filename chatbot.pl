@@ -31,6 +31,9 @@ bestanswer(S, A) :- answers(S, [A|_]).
 chat(E) :-
   write("\n"),
   read_sentence(S, E),
+  write("debug ->> "),
+  print_sentence(S),
+  write("\n"),
   semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want end
   bestanswer(S, A),
   write("Bot: "),

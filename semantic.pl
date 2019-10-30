@@ -12,6 +12,7 @@ semantics(["good", "evening"|WS], [greet|SM])                :- semantics(WS, SM
 semantics(["i", "am", X|WS], [greet, repeat(X)|SM])          :- semantics(WS, SM), !.
 semantics(["my", "name", "is", X|WS], [greet, repeat(X)|SM]) :- semantics(WS, SM), !.
 semantics(["do","you"|WS], [question|SM])     :- semantics(WS, SM), !.
+semantics(["can","you"|WS], [question|SM])     :- semantics(WS, SM), !.
 % generic semantic unification
 semantics([W|WS], [S|SM]) :- semsin(S, [W]), not(S = repeat(_)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
@@ -31,7 +32,6 @@ rmrep([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), rmrep(SMN, NSM).
 combine([],[]).
 combine([question, know],[dknow]):- !.
 combine([question, you|SMR],[[answer, greet]|SMC]) :- combine(SMR,SMC), !.
-combine([question|SMR],[[answer, greet]|SMC]) :- combine(SMR,SMC), !.
 combine([X|SMR],[X|SMC]) :- combine(SMR,SMC), !.
 
 /* ANALISE */
