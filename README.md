@@ -9,26 +9,23 @@ Brief description of the algorithm
 7. [A]   is the output sentence
 
 # DOCUMENTATION
-**database.pl**
+## database.pl
+
 semval(X)
 > True when X is a semantic value
 
 semsin(S, P)
 > True when P is a syntactic phrase with semantic S
 
-The predicates that "store" syntactic objects are
-'''
-tdl (Top-Down list)
-sl  (Sentence list)
-sc  (Sentence combination)
-'''
+The predicates that "store" syntactical objects are
+- tdl (Top-Down list)
+- sl  (Sentence list)
+- sc  (Sentence combination)
 
 The predicates that generate sentences are
-'''
-topdowngen
-slgen
-scgen
-'''
+- topdowngen
+- slgen
+- scgen
 
-**semantic.pl**
+## semantic.pl
 (...)
