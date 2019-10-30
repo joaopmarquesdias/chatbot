@@ -98,3 +98,12 @@ semsin(S, P) :- sc(S, SC), scgen(SC, P), !.
 
 % Relative Semantic-Sintax relations
 semsin(repeat(X), [X]).
+
+/* OTHER SEMANTICS USEFUL FOR THE PREDICATE "semantics" in semantic.pl */
+% sepecific sentences list
+ssl([greet], [["good", "morning"], ["good", "afternoon"],["good", "evening"]]).
+ssl([greet, repeat(X)],[["i", "am", X], ["my", "name", "is", X]]).
+ssl([question], [["do","you"], ["can","you"]]).
+
+% ssemsin(SS, P), True when P as the semantics of list SS
+ssemsin(SS, P) :- ssl(SS, SSL), slgen(SSL, P).

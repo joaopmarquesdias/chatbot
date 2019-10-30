@@ -1,23 +1,18 @@
-/* SEMANTICS */
-% TODO: create a list of specific unifications [su(Patter, Semantic)]
-%       so we can just say
-%       semantics([X,Y,Z,W|WS], [S|SM]) :- member(MM, su), unify(X,Y,Z,W, MM)...
-
+/* SINTAX-SEMANTIC ANALYSIS */
 % SM is a list of all semantic values in S
 semantics([],[]).
 % specific unification
-semantics(["good", "morning"|WS], [greet|SM])                :- semantics(WS, SM), !.
-semantics(["good", "afternoon"|WS], [greet|SM])              :- semantics(WS, SM), !.
-semantics(["good", "evening"|WS], [greet|SM])                :- semantics(WS, SM), !.
-semantics(["i", "am", X|WS], [greet, repeat(X)|SM])          :- semantics(WS, SM), !.
-semantics(["my", "name", "is", X|WS], [greet, repeat(X)|SM]) :- semantics(WS, SM), !.
-semantics(["do","you"|WS], [question|SM])     :- semantics(WS, SM), !.
-semantics(["can","you"|WS], [question|SM])     :- semantics(WS, SM), !.
+% True when there is a production P (prefix of S),
+% with semantics SS that appends to Sm
+semantics(S, SM) :-
+  headsublist(P, TS, S), ssemsin(SS, P),
+  semantics(TS, SM1), append(SS, SM1, SM), !.
 % generic semantic unification
 semantics([W|WS], [S|SM]) :- semsin(S, [W]), not(S = repeat(_)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
 semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
 
+/* SEMANTIC ANALYSIS */
 /* NORMALIZE */
 % NSM is the normalized list of SM
 normalize([],[dknow]).
@@ -34,11 +29,13 @@ combine([question, know],[dknow]):- !.
 combine([question, you|SMR],[[answer, greet]|SMC]) :- combine(SMR,SMC), !.
 combine([X|SMR],[X|SMC]) :- combine(SMR,SMC), !.
 
-/* ANALISE */
+/* ? ANALYSIS */
+/* ANALYSE */
 % True when AAS is a list of answers with scores
 analyze([],[]).
 analyze([A|AS], [ans(A,0)|AAS]) :- analyze(AS,AAS).
 
+/* SINTAX GENERATION */
 /* PRODUCTIONS */
 % True when PS is the list of all productions of SM
 productions(SM, PS) :- findall(P, production(SM, P), PS).
@@ -48,7 +45,6 @@ production([],[]).
 production([S|SM], P) :- semsin(S, P1), production(SM, P2), append(P1,P2,P).
 
 /* AUXILIARY PREDICATES */
-
 % delMember(X, XS, Y), True when Y is the list XS without the element X
 delMember(_, [], []) :- !.
 delMember(X, [X|Xs], Y) :- !, delMember(X, Xs, Y).
@@ -59,6 +55,10 @@ list([]).
 list([_|T]) :- list(T).
 
 % sublist(SL, L), True when SL is a sublist of L
-sublist([],L)          :- list(L).
+sublist([],L) :- list(L).
 sublist([X|TX],[X|TY]) :- sublist(TX,TY).
-sublist(X,[_|TY])      :- X = [_|_], sublist(X,TY).
+sublist(X,[_|TY]) :- X = [_|_], sublist(X,TY).
+
+% headsublist(SL, L), True when SL ++ TL is L,
+% this means when SL is a head sublist of L
+headsublist(HL, TL, L) :- append(HL, TL, L).
