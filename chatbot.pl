@@ -6,6 +6,7 @@
 
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
+% TODO: make sure all predicates work if S is a list of terms insted of strings
 answers(S, AAS) :-
   semantics(S, SM),
   normalize(SM, NSM),

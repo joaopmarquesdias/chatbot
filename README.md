@@ -8,12 +8,27 @@ Brief description of the algorithm
 6. [A]   is the answer with the best score from [AAS]
 7. [A]   is the output sentence
 
-                           ***predicados de database.pl***
+# DOCUMENTATION
+**database.pl**
+semval(X)
+> True when X is a semantic value
 
-semval(X) - é verdade quando X é um valor semantico
-antonyms(X, Y) - é verdade quando o valor semantico de X é contrario ao de Y
-***Ver a utilidade destes dois predicados***
-singen(SEM, SIN) - é verdade quando SIN é uma sintaxe que respeita o valor semantico de SEM
-semsin(SEM, SIN) - é verdade quando SIN é uma sintaxe que respeita o valor semantico de SEM
+semsin(S, P)
+> True when P is a syntactic phrase with semantic S
 
-                          ***predicados de semantic.pl***
+The predicates that "store" syntactic objects are
+'''
+tdl (Top-Down list)
+sl  (Sentence list)
+sc  (Sentence combination)
+'''
+
+The predicates that generate sentences are
+'''
+topdowngen
+slgen
+scgen
+'''
+
+**semantic.pl**
+(...)
