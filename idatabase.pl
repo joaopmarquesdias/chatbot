@@ -1,7 +1,9 @@
 /* input database */
 
+% The structure repeate(X) as the same semantic value as X
+
 % input semantic values
-isemval([i]).
+isemval([iam, repeate(_)]).
 isemval([you]).
 isemval([greet]).
 isemval([goodbye]).
@@ -10,7 +12,7 @@ isemval([know]).
 %isemval([question, greet]).
 
 % input sentence list
-isl([i],[["i"]]).
+isl([iam, repeate(X)],[["i","am",X],["my","name","is",X]]).
 isl([you],[["you"]]).
 isl([greet],[["hello"], ["hi"], ["hey"]]).
 isl([goodbye], [["goodbye"],["bye"]]).

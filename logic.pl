@@ -6,7 +6,8 @@ semantics(S, SM) :- map(isemsin, S, SM).
 % NSM is the normalized list, based on relations (rdatabase) of SM
 normalize(SM,NSM) :-
   remove_repetitions(SM, SMR),
-  symmetries(SMR, NSM).
+  symmetries(SMR, SMS),
+  remove_repetitions(SMS, NSM).
 
 % True when L2 is L1 without repeated elements
 remove_repetitions([],[]).

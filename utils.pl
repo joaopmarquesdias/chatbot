@@ -1,5 +1,5 @@
 % M is the mapping of Goal to L (maps nothing when Goal fails)
-% Single direction Goal(L) -> M 
+% Single direction Goal(L) -> M
 map(_, [],[]).
 map(Goal, L, M) :-
   headsublist(X, T, L),
