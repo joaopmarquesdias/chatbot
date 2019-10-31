@@ -1,6 +1,5 @@
 :- ['database.pl'].
-:- ['semantic.pl'].
-:- ['relations.pl'].
+:- ['logic.pl'].
 
 /* PREDICATES */
 
