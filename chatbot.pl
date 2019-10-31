@@ -6,8 +6,15 @@
 
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
-% TODO: make sure all predicates work if S is a list of terms insted of strings
-answers(S, AAS) :-
+%   True when words W are strings
+answers([W|S], AAS) :- string(W), !,
+  answers_internal([W|S], AAS).
+%   True when words W are atoms
+answers([W|S], AAS) :- not(string(W)), !,
+  atoml_sentence([W|S], IS), answers_internal(IS, AAS).
+
+% S as the internal representation of sentence
+answers_internal(S, AAS) :-
   semantics(S, SM),
   normalize(SM, NSM),
   productions(NSM, AS),
@@ -32,9 +39,6 @@ bestanswer(S, A) :- answers(S, [A|_]).
 chat(E) :-
   write("\n"),
   read_sentence(S, E),
-  write("debug ->> "),
-  print_sentence(S),
-  write("\n"),
   semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want end
   bestanswer(S, A),
   write("Bot: "),
@@ -49,6 +53,11 @@ chat(E) :-
 %     frequency of words used, etc.
 
 /* AUXILIARY IO PREDICATES */
+
+% True when S is the list of strings from atoms AS
+atoml_sentence([],[]).
+atoml_sentence([A|AS],[W|S]) :- atom_string(A, W), atoml_sentence(AS,S).
+
 read_sentence(S, E) :-
   read_string(user_input, "\n", "\r", E, S1),
   split_string(S1, " ", "", S).
@@ -62,4 +71,4 @@ print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
 print_answer(ans(S,_)) :- print_sentence(S).
 
 print_answers([]).
-print_answers([A|AS]) :- print_answer(A), print_answers(AS).
+print_answers([A|AS]) :- print_answer(A), write('\n'), print_answers(AS).
