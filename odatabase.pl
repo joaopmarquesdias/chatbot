@@ -30,6 +30,6 @@ oscgen([],[]).
 oscgen([X|SC], S) :- oscgen(SC, S1), append(X, S1, S).
 
 % input semsin relations
-osemsin(S, P) :- osl(S, SL), oslgen(SL, P).
-osemsin(S, P) :- osc(S, SL), oscgen(SL, P).
-osemsin([repeate(X)], [X]).
+osemsin(P, S) :- osl(S, SL), oslgen(SL, P).
+osemsin(P, S) :- osc(S, SL), oscgen(SL, P).
+osemsin([X], [repeate(X)]).

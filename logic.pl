@@ -27,7 +27,5 @@ analyze([A|AS], [ans(A,0)|AAS]) :- analyze(AS,AAS).
 % SEMANTIC -> SINTAX GENERATION
 % True when PS is the list of all productions of SM
 productions(SM, PS) :- findall(P, production(SM, P), PS).
-
 % True when P is a semantic production of SM
-production([],[]).
-production([S|SM], P) :- osemsin(S, P1), production(SM, P2), append(P1,P2,P).
+production(SM, P) :- map(osemsin, SM, P).
