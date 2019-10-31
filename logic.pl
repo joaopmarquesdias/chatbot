@@ -4,10 +4,12 @@ semantics(S, SM) :- map(isemsin, S, SM).
 
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
+normalize([],[dknow]).
 normalize(SM,NSM) :-
   remove_repetitions(SM, SMR),
-  symmetries(SMR, SMS),
-  remove_repetitions(SMS, NSM).
+  symmetries(SMR, NSM),
+  not(NSM = []), !. % make sure NSM is not empty
+normalize(_,[dknow]).
 
 % True when L2 is L1 without repeated elements
 remove_repetitions([],[]).
