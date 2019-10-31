@@ -1,21 +1,14 @@
 /* SINTAX-SEMANTIC ANALYSIS */
-% SM is a list of all semantic values in S
+% True when SM is a list of all semantic values (idatabase) in S
 semantics([],[]).
-% specific unification
-% True when there is a production P (prefix of S),
-% with semantics SS that appends to Sm
 semantics(S, SM) :-
-  headsublist(P, TS, S), ssemsin(SS, P),
+  headsublist(P, TS, S), isemsin(SS, P),
   semantics(TS, SM1), append(SS, SM1, SM), !.
-% generic semantic unification
-semantics([W|WS], [S|SM]) :- semsin(S, [W]), not(S = repeat(_)), semantics(WS, SM), !.
-semantics([W|WS], SM)     :- not(semsin(_, W)), semantics(WS, SM), !.
-semantics([W|WS], SM)     :- semsin(S, W), S = repeat(_), semantics(WS, SM), !.
+semantics([_|S], SM) :- semantics(S,SM).
 
 /* SEMANTIC ANALYSIS */
 /* NORMALIZE */
-% NSM is the normalized list of SM
-normalize([],[dknow]).
+% NSM is the normalized list, based on relations (rdatabase) of SM
 normalize(SM,NSM) :- rmrep(SM, SMR), combine(SMR, NSM).
 
 % rmrep(SM, SMR) true when l2 is l1 without repeating elements
@@ -25,9 +18,10 @@ rmrep([SM|SMN],[SM|NSM]) :- not(member(SM,SMN)), rmrep(SMN, NSM).
 
 % combine(SMR, SMC) is true when SMC is SMR with combined semantics
 combine([],[]).
-combine([question, know],[dknow]):- !.
-combine([question, you|SMR],[[answer, greet]|SMC]) :- combine(SMR,SMC), !.
-combine([X|SMR],[X|SMC]) :- combine(SMR,SMC), !.
+combine(SM, SMC) :-
+  headsublist(X, T, SM), sym(X, Y),
+  combine(T,SMC1), append(Y, SMC1, SMC), !.
+combine([_|SM], SMC) :- combine(SM, SMC).
 
 /* ? ANALYSIS */
 /* ANALYSE */
@@ -42,7 +36,7 @@ productions(SM, PS) :- findall(P, production(SM, P), PS).
 
 % True when P is a semantic production of SM
 production([],[]).
-production([S|SM], P) :- semsin(S, P1), production(SM, P2), append(P1,P2,P).
+production([S|SM], P) :- osemsin(S, P1), production(SM, P2), append(P1,P2,P).
 
 /* AUXILIARY PREDICATES */
 % delMember(X, XS, Y), True when Y is the list XS without the element X

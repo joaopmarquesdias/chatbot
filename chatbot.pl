@@ -1,5 +1,8 @@
 :- ['database.pl'].
 :- ['logic.pl'].
+:- ['idatabase.pl'].
+:- ['odatabase.pl'].
+:- ['rdatabase.pl'].
 
 /* PREDICATES */
 

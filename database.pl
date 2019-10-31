@@ -1,10 +1,8 @@
+/*
 % TODO: add knolage base and opinion base (ex: picasso, niilism, fernando pessoa)...
 % Semantic values
+
 % Primitive semantic values
-semval(i).
-semval(you).
-semval(greet).
-semval(goodbye).
 semval(agree).
 semval(disagree).
 semval(good).
@@ -16,10 +14,6 @@ semval(reprove).
 semval(lgreet).
 semval(thank).
 semval(lthank).
-semval(know).
-semval(dknow).
-semval(nopinion).
-semval(question).
 
 % Complex semantic values
 semval([question, greet]).
@@ -39,10 +33,7 @@ tdl(lgreet,[
   ["you"]]).
 
 % Sentence Lists
-sl(i,[["i"]]).
-sl(you,[["you"]]).
-sl(greet,[["hello"], ["hi"], ["hey"]]).
-sl(goodbye, [["goodbye"],["bye"]]).
+
 sl(agree, [["agree"],["acknowledge"],["recognize"],["concur"]]).
 sl(disagree, [["disagree"],["differ"]]).
 sl(good, [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
@@ -53,18 +44,7 @@ sl(approve, [["approve"],["accept"],["respect"]]).
 sl(reprove, [["reprove"],["censure"],["condemn"]]).
 sl(thank,[["thank", "you"],["thanks"]]).
 sl(lthank,[["i", "really", "apreciate", "it"]]).
-sl(know,[["know"],["realize"],["notice"],["recognize"]]).
-sl(dknow,[
-  ["i", "can't", "help", "you", "there"],
-  ["i", "do", "not", "know", "that"]]).
-sl(nopinion,[
-  ["i", "have", "never", "given", "it", "much", "thought"],
-  ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
-sl(question,[
-  ["how"],["where"],["what"],["why"],["when"],["can"],
-  ["do", "you"],["are", "you"]]).
-sl([question, greet],[
-  ["how", "are", "you"]]).
+
 sl([question, goodbye],[
   ["are", "you", "sure"],
   ["are", "you", "sure", "you", "do", "not", "have", "any", "other", "question"]]).
@@ -99,11 +79,13 @@ semsin(S, P) :- sc(S, SC), scgen(SC, P).
 % Relative Semantic-Sintax relations
 semsin(repeat(X), [X]).
 
-/* OTHER SEMANTICS USEFUL FOR THE PREDICATE "semantics" in semantic.pl */
+ OTHER SEMANTICS USEFUL FOR THE PREDICATE "semantics" in semantic.pl
 % sepecific sentences list
+
 ssl([greet], [["good", "morning"], ["good", "afternoon"],["good", "evening"]]).
 ssl([greet, repeat(X)],[["i", "am", X], ["my", "name", "is", X]]).
 ssl([question], [["do","you"], ["can","you"]]).
 
 % ssemsin(SS, P), True when P as the semantics of list SS
 ssemsin(SS, P) :- ssl(SS, SSL), slgen(SSL, P).
+*/
