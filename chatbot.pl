@@ -3,6 +3,7 @@
 :- ['idatabase.pl'].
 :- ['odatabase.pl'].
 :- ['rdatabase.pl'].
+:- ['utils.pl'].
 
 /* PREDICATES */
 
@@ -53,24 +54,3 @@ chat(E) :-
 %     length  of  the  conversation;
 %     average number of words in each intervention;
 %     frequency of words used, etc.
-
-/* AUXILIARY IO PREDICATES */
-
-% True when S is the list of strings from atoms AS
-atoml_sentence([],[]).
-atoml_sentence([A|AS],[W|S]) :- atom_string(A, W), atoml_sentence(AS,S).
-
-read_sentence(S, E) :-
-  read_string(user_input, "\n", "\r", E, S1),
-  split_string(S1, " ", "", S).
-
-print_sentence([]).
-print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).
-
-print_sentences([]).
-print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
-
-print_answer(ans(S,_)) :- print_sentence(S).
-
-print_answers([]).
-print_answers([A|AS]) :- print_answer(A), write('\n'), print_answers(AS).
