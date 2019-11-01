@@ -1,15 +1,18 @@
 /* output database */
 
-% TODO: dependências good, thank
 % TODO: defenir mais relações...
 
 % output semantic values
+osemval([good]).
+osemval([thnak]).
 osemval([greet]).
 osemval([dknow]).
 osemval([nopinion]).
 osemval([answer, greet]).
 
 % output sentance list
+osl([good], [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
+osl([thank],[["thank", "you"],["thanks"]]).
 osl([greet],[["hello"], ["hi"], ["hey"]]).
 osl([dknow],[
   ["i", "can't", "help", "you", "there"],
@@ -20,7 +23,7 @@ osl([nopinion],[
 
 % output sentence combination
 osc([answer,greet],[["i", "am"],X,Y,["for", "asking"]]) :-
-  osemsin(good, X), osemsin(thank, Y).
+  osemsin(X, [good]), osemsin(Y,[thank]).
 
 % output sentence list generator
 oslgen(SL, S) :- member(S, SL).

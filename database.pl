@@ -5,7 +5,7 @@
 % Primitive semantic values
 semval(agree).
 semval(disagree).
-semval(good).
+
 semval(bad).
 semval(right).
 semval(wrong).
@@ -36,13 +36,13 @@ tdl(lgreet,[
 
 sl(agree, [["agree"],["acknowledge"],["recognize"],["concur"]]).
 sl(disagree, [["disagree"],["differ"]]).
-sl(good, [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
+
 sl(bad, [["bad"],["awful"],["dreadful"],["terrible"]]).
 sl(right, [["right"],["true"],["legitimate"]]).
 sl(wrong, [["wrong"],["false"],["inaccurate"],["mistaken"]]).
 sl(approve, [["approve"],["accept"],["respect"]]).
 sl(reprove, [["reprove"],["censure"],["condemn"]]).
-sl(thank,[["thank", "you"],["thanks"]]).
+
 sl(lthank,[["i", "really", "apreciate", "it"]]).
 
 sl([question, goodbye],[
