@@ -20,7 +20,7 @@ isl([goodbye], [["goodbye"],["bye"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["know"],["realize"],["notice"],["recognize"]]).
-isl([picasso],[["Picasso"]]).
+isl([picasso],[["Picasso"],["picasso"]]).
 
 % input sentence list generator
 islgen(SL, S) :- member(S, SL).
