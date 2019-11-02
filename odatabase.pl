@@ -9,6 +9,7 @@ osemval([greet]).
 osemval([dknow]).
 osemval([nopinion]).
 osemval([answer, greet]).
+osemval([picasso]).
 
 % output sentance list
 osl([good], [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
@@ -20,7 +21,13 @@ osl([dknow],[
 osl([nopinion],[
   ["i", "have", "never", "given", "it", "much", "thought"],
   ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
-
+  osl([picasso],[["Picasso", "full", "name", "was", "Pablo", "Ruiz", "Picasso"],
+                 ["Picasso","was","born","in", "1881", "and", "died", "in", "1973"],
+                 ["He", "is", "know", "has", "the", "co-founder", "of", "cubism"]]).
+  /*osl([picasso],[]).
+  osl([picasso],[]).
+  osl([picasso],[]).
+  osl([picasso],[]).*/
 % output sentence combination
 osc([answer,greet],[["i", "am"],X,Y,["for", "asking"]]) :-
   osemsin(X, [good]), osemsin(Y,[thank]).

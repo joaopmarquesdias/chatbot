@@ -42,7 +42,7 @@ bestanswer(S, A) :- answers(S, [A|_]).
 chat(E) :-
   write("\n"),
   read_sentence(S, E),
-  semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want end
+  semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want to end
   bestanswer(S, A),
   write("Bot: "),
   print_answer(A),

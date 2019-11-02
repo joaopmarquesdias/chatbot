@@ -9,6 +9,7 @@ isemval([greet]).
 isemval([goodbye]).
 isemval([question]).
 isemval([know]).
+isemval([picasso]).
 %isemval([question, greet]).
 
 % input sentence list
@@ -19,6 +20,7 @@ isl([goodbye], [["goodbye"],["bye"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["know"],["realize"],["notice"],["recognize"]]).
+isl([picasso],[["Picasso"]]).
 
 % input sentence list generator
 islgen(SL, S) :- member(S, SL).
