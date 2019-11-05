@@ -41,14 +41,14 @@ bestanswer(S, A) :- answers(S, [A|_]).
 
 % VERY IMPORTANT BUG!!!
 % QUANDO SE INSERE UMA FRASE DESCONHECIA EX:. "ABC" O "bye" deixa de funcionar!!!!!
-chat(E) :-
+chat(_) :-
   write("\n"),
-  read_sentence(S, E),
+  read_sentence(S, _),
   semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want to end
   bestanswer(S, A),
   write("Bot: "),
   print_answer(A),
-  chat(E).
+  chat(_).
 
 % Predicate 6 : stats(C)
 %   C is a conversation.

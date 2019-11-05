@@ -4,12 +4,13 @@ semantics(S, SM) :- map(isemsin, S, SM).
 
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
-normalize([],[dknow]). % if no semantic could be extracted
-normalize(SM,NSM) :-
+normalize(SM,NSM) :- normalize_aux(SM, NSM), not(NSM = []), !.
+normalize(_,[dknow]).
+
+normalize_aux(SM,NSM) :-
   remove_repetitions(SM, SMR),
-  symmetries(SMR, NSM),
-  not(NSM = []), !.   % make sure NSM is not empty
-normalize(_,[dknow]). % if no semantic could be normalized
+  symmetries(SMR, SMS),
+  remove_repetitions(SMS, NSM).
 
 % True when L2 is L1 without repeated elements
 remove_repetitions([],[]).
@@ -30,4 +31,5 @@ analyze([A|AS], [ans(A,0)|AAS]) :- analyze(AS,AAS).
 % True when PS is the list of all productions of SM
 productions(SM, PS) :- findall(P, production(SM, P), PS).
 % True when P is a semantic production of SM
-production(SM, P) :- map(osemsin, SM, P).
+production([],[]).
+production([S|SM], P) :- osemsin(P1, [S]), production(SM, P2), append(P1,P2,P).
