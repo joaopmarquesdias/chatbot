@@ -25,12 +25,8 @@ semval([answer, greet]).
 % Relative semantic value
 semval(repeat(_)).
 
-% Top-Down Lists
-tdl(lgreet,[
-  ["it is good", "it is nice", "i am pleased"],
-  ["to"],
-  ["meet", "see"],
-  ["you"]]).
+
+
 
 % Sentence Lists
 
@@ -54,13 +50,6 @@ sc([answer, greet],[["i", "am"],X,Y,["for", "asking"]]) :-
   semsin(good, X), semsin(thank, Y).
 
 % Sintax generators
-% Top-Down generator
-% True when S is a possible combination of words in TDL
-topdowngen([],[]).
-topdowngen([X|BS], S) :-
-  member(W, X), split_string(W, " ", "", W1),
-  topdowngen(BS, S1),
-  append(W1, S1, S).
 
 % Sentence list generator
 % True when S is a sentence in SL

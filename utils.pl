@@ -2,7 +2,7 @@
 % Single direction Goal(L) -> M
 map(_, [],[]).
 map(Goal, L, M) :-
-  headsublist(X, T, L),
+  headsublist(X, T, L), not(X = []),
   call(Goal, Y, X),
   map(Goal, T, MT),
   append(Y, MT, M), !.
