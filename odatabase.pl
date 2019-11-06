@@ -3,9 +3,7 @@
 % TODO: defenir mais relações...
 
 painters([
-  "Pablo Picasso, Vincent Van Gogh, Henri Matisse, Claude Monet,
-   Kazimir Malevich, Mark Rothko, Jackson Pollock, Wassily Kandinsky,
-   Willem de Kooning, Piet Mondrian, Andy Warhol"]).
+  "Pablo Picasso, Vincent Van Gogh, Henri Matisse, Claude Monet, Kazimir Malevich, Mark Rothko, Jackson Pollock, Wassily Kandinsky, Willem de Kooning, Piet Mondrian, Andy Warhol"]).
 
 %musicians(_).
 
@@ -53,14 +51,24 @@ osl([nopinion],[
 osl([know_themes],[
   ["I", "can", "help", "you", "with", "painters", "musicians", "and", "writers"]]).
 % Artists
+% Impressionism +
+osl([know_monet],[
+  ["Oscar-Claude", "Monet", "was", "born", "on", "14", "November", "1840",
+  "in", "France", "and", "died", "on", "5", "December", "1926", "at", "age", "86"]]).
 % Post-impressionism +
 osl([know_van_gogh],[
   ["Vincent", "Willem", "van", "Gogh", "was", "born", "on", "30", "March", "1853",
   "in", "the", "Netherlands", "and", "died", "on", "29", "July", "1890",
-  "in", "France", "at", "aged", "37"]]).
+  "at", "age", "37"]]).
 osl([know_matisse],[
   ["Henri", "Émile Benoît", "Matisse", "was", "born", "on", "31", "December", "1869",
-  "in", "France", "and", "died", "on", "3", "November", "1954", "at", "aged", "84"]]).
+  "in", "France", "and", "died", "on", "3", "November", "1954", "at", "age", "84"]]).
+% Expressionism +
+osl([know_kandinsky],[
+  ["Wassily", "Wassilyevich", "Kandinsky", "was", "born", "on",
+  "16", "December", "1866", "in", "the", "Russian", "Empire",
+  "and", "died", "on", "13", "December", "1944", "in", "France",
+  "at", "age", "77"]]).
 % Cubism +
 osl([know_picasso],[
   ["Picasso", "full", "name", "was",
@@ -69,14 +77,37 @@ osl([know_picasso],[
   "de", "la", "Santísima", "Trinidad", "Ruiz", "y", "Picasso"],
  ["Picasso","was","born","in", "1881", "and", "died", "in", "1973"],
  ["He", "is", "know", "has", "the", "co-founder", "of", "cubism"]]).
-osl([know_monet],[["empty"]]).
-osl([know_malevich],[["empty"]]).
-osl([know_rothko],[["empty"]]).
-osl([know_pollock],[["empty"]]).
-osl([know_kandinsky],[["empty"]]).
-osl([know_kooning],[["empty"]]).
-osl([know_mondrian],[["empty"]]).
-osl([know_warhol],[["empty"]]).
+% Suprematism +
+osl([know_malevich],[
+  ["Kazimir", "Severinovich", "Malevich", "was", "born", "on",
+  "23", "February", "1879", "in", "the", "Russian", "Empire",
+  "and", "died", "on", "15", "May", "1935", "in", "the", "Soviet", "Union",
+  "at", "age", "56"]]).
+% Abstract expressionism +
+osl([know_rothko],[
+  ["Markus", "Yakovlevich", "Rothkowitz", "was", "born", "on",
+  "September,", "25", "1903", "in", "the", "Russian", "Empire",
+  "and", "died", "on", "February,", "25", "1970", "in", "the", "U.S",
+  "at", "age", "66"]]).
+osl([know_pollock],[
+  ["Paul", "Jackson", "Pollock", "was", "born", "on",
+  "January,", "28", "1912", "in", "the", "U.S",
+  "and", "died", "on", "August,", "11", "1956", "at", "age", "44"]]).
+osl([know_kooning],[
+  ["Willem", "de", "Kooning", "was", "born", "on",
+  "April,", "24", "1904", "in", "the", "Netherlands",
+  "and", "died", "on", "March,", "19", "1997", "in", "the", "U.S",
+  "at", "age", "92"]]).
+osl([know_mondrian],[
+  ["Piet", "Cornelis", "Mondriaan", "was", "born", "on",
+  "March,", "7", "1872", "in", "the", "Netherlands",
+  "and", "died", "on", "February,", "1", "1944", "in", "the", "U.S",
+  "at", "age", "71"]]).
+% Pop art
+osl([know_warhol],[
+  ["Andrew", "Warhola", "was", "born", "on",
+  "August,", "6", "1928", "in", "the", "U.S",
+  "and", "died", "on", "February,", "22", "1987", "at", "age", "58"]]).
 
 % outupt Top-Down Lists
 % "Small talk"
@@ -92,7 +123,7 @@ osc([answer_greet],[["i", "am"],X,Y,["for", "asking"]]) :-
   osemsin(X, [good]), osemsin(Y,[thank]).
 % Sepecific topics
 osc([know_painters],[
-  ["i", "know", "things", "about"], X,
+  ["I", "know", "things", "about"], X,
   ["wich","one","do","you","what","to","know","about?"]])
   :- painters(X).
 

@@ -3,12 +3,16 @@
 % The structure repeate(X) as the same semantic value as X
 
 % input semantic values
+% "Small talk"
 isemval([iam, repeate(_)]).
 isemval([you]).
 isemval([greet]).
 isemval([goodbye]).
 isemval([question]).
 isemval([know]).
+% Sepecific topics
+isemval([themes]).
+isemval([painters]).
 % Artists
 isemval([picasso]).
 isemval([van_gogh]).
@@ -22,10 +26,8 @@ isemval([kooning]).
 isemval([mondrian]).
 isemval([warhol]).
 
-isemval([themes]).
-isemval([painters]).
-
 % input sentence list
+% "Small talk"
 isl([iam, repeate(X)],[["i","am",X],["my","name","is",X]]).
 isl([you],[["you"]]).
 isl([greet],[["hello"], ["hi"], ["hey"]]).
@@ -33,6 +35,9 @@ isl([goodbye], [["goodbye"],["bye"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["know"],["realize"],["notice"],["recognize"]]).
+% Sepecific topics
+isl([themes],[["themes"]]).
+isl([painters],[["painters"]]).
 % Artists
 isl([picasso],[["Picasso"],["picasso"]]).
 isl([van_gogh],[["Van", "Gogh"],["van", "gogh"]]).
@@ -45,9 +50,6 @@ isl([kandinsky],[["Kandinsky"],["kandinsky"]]).
 isl([kooning],[["Kooning"],["kooning"]]).
 isl([mondrian],[["Mondrian"],["mondrian"]]).
 isl([warhol],[["Warhol"],["warhol"]]).
-
-isl([themes],[["themes"]]).
-isl([painters],[["painters"]]).
 
 % input sentence list generator
 islgen(SL, S) :- member(S, SL).
