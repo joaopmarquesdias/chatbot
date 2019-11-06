@@ -1,9 +1,16 @@
 /* output database */
 
-% TODO: defenir mais relações...
-
-painters([
-  "Pablo Picasso, Vincent Van Gogh, Henri Matisse, Claude Monet, Kazimir Malevich, Mark Rothko, Jackson Pollock, Wassily Kandinsky, Willem de Kooning, Piet Mondrian, Andy Warhol"]).
+painters("Pablo Picasso").
+painters("Vincent Van Gogh").
+painters("Henri Matisse").
+painters("Claude Monet").
+painters("Kazimir Malevich").
+painters("Mark Rothko").
+painters("Jackson Pollock").
+painters("Wassily Kandinsky").
+painters("Willem de Kooning").
+painters("Piet Mondrian").
+painters("Andy Warhol").
 
 %musicians(_).
 
@@ -123,9 +130,9 @@ osc([answer_greet],[["i", "am"],X,Y,["for", "asking"]]) :-
   osemsin(X, [good]), osemsin(Y,[thank]).
 % Sepecific topics
 osc([know_painters],[
-  ["I", "know", "things", "about"], X,
+  ["I", "know", "things", "about"], ES,
   ["wich","one","do","you","what","to","know","about?"]])
-  :- painters(X).
+  :- findall(P, painters(P), PS), enumerate(PS, ES).
 
 % outupt Top-Down generator
 % True when S is a possible combination of words in TDL

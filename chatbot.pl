@@ -40,14 +40,19 @@ bestanswer(S, A) :- answers(S, [A|_]).
 
 % VERY IMPORTANT BUG!!!
 % QUANDO SE INSERE UMA FRASE DESCONHECIA EX:. "ABC" O "bye" deixa de funcionar!!!!!
-chat(_) :-
+chat(h([S|Q],[ANS|A])) :-
   write("\n"),
   read_sentence(S, _),
-  semantics(S, SM), not(member(goodbye, SM)), % change to check if they really want to end
-  bestanswer(S, A),
-  write("Bot: "),
-  print_answer(A),
-  chat(_).
+  semantics(S, SM),
+  (not(member(goodbye, SM)) ->  % when true
+    bestanswer(S, ANS),
+    write("Bot: "),
+    print_answer(ANS),
+    chat(h(Q,A))
+    ;                           % when false
+    ANS = ["end"],
+    Q = [], A = []).
+
 
 % Predicate 6 : stats(C)
 %   C is a conversation.
