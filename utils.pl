@@ -30,6 +30,12 @@ headsublist(HL, TL, L) :- append(HL, TL, L).
 atoml_sentence([],[]).
 atoml_sentence([A|AS],[W|S]) :- atom_string(A, W), atoml_sentence(AS,S).
 
+% enumerate(AS,WS). True when WS is the sintactical enumeration of AS
+enumerate([],[]).
+enumerate([A],[A]).
+enumerate([A1, A2],[A1, "and", A2]).
+enumerate([A|AS], [W|WS]) :- string_concat(A, ",", W), enumerate(AS, WS).
+
 read_sentence(S, E) :-
   read_string(user_input, "\n", "\r", E, S1),
   split_string(S1, " ", "", S).
