@@ -8,8 +8,8 @@
 sym([answer_greet],[question,you]) :- !.
 sym([greet,repeate(X)],[iam,repeate(X)]) :- !.
 % Sepecific topics
-sym([know_themes],[themes, know]) :- !.
 sym([know_themes],[themes]) :- !.
+sym([know_movements],[movements]) :- !.
 sym([know_painters],[painters]) :- !.
 % Artists
 sym([know_picasso],[know, picasso]) :- !.

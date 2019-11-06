@@ -38,8 +38,6 @@ bestanswer(S, A) :- answers(S, [A|_]).
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
 
-% VERY IMPORTANT BUG!!!
-% QUANDO SE INSERE UMA FRASE DESCONHECIA EX:. "ABC" O "bye" deixa de funcionar!!!!!
 chat(h([S|Q],[ANS|A])) :-
   write("\n"),
   read_sentence(S, _),
