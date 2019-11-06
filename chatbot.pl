@@ -1,4 +1,3 @@
-:- ['database.pl'].
 :- ['logic.pl'].
 :- ['idatabase.pl'].
 :- ['odatabase.pl'].
