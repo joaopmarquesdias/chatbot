@@ -1,3 +1,7 @@
+#TODO
+-This bot is a online assistant of a museum of modern art
+-Add modernist artist to database 
+
 # chatbot
 Brief description of the algorithm
 1. [SI]  is the input sentence
