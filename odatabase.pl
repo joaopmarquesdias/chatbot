@@ -12,6 +12,26 @@ painters("Willem de Kooning").
 painters("Piet Mondrian").
 painters("Andy Warhol").
 
+movement("Pablo Picasso", "Cubism").
+movement("Pablo Picasso", "Surrealism").
+movement("Vincent Van Gogh", "Post-Impressionism").
+movement("Henri Matisse", "Post-Impressionism").
+movement("Henri Matisse", "Fauvism").
+movement("Henri Matisse", "Modernism").
+movement("Claude Monet", "Impressionism").
+movement("Kazimir Malevich", "Suprematism").
+movement("Mark Rothko", "Abstract expressionism").
+movement("Mark Rothko", "Color Field").
+movement("Jackson Pollock", "Abstract expressionism").
+movement("Wassily Kandinsky", "Expressionism").
+movement("Wassily Kandinsky", "Abstract art").
+movement("Willem de Kooning", "Abstract expressionism").
+movement("Piet Mondrian", "De Stijl").
+movement("Piet Mondrian", "Abstract art").
+movement("Andy Warhol", "Pop art").
+
+movements(AMS) :- findall(M, movement(_,M), MS), remove_repetitions(MS, AMS).
+
 %musicians(_).
 
 %writters(_).
@@ -28,6 +48,7 @@ osemval([answer_greet]).
 % Specific topics
 osemval([know_themes]).
 osemval([know_painters]).
+osemval([know_movements]).
 % Artists
 osemval([know_picasso]).
 osemval([know_van_gogh]).
@@ -114,7 +135,9 @@ osl([know_mondrian],[
 osl([know_warhol],[
   ["Andrew", "Warhola", "was", "born", "on",
   "August,", "6", "1928", "in", "the", "U.S",
-  "and", "died", "on", "February,", "22", "1987", "at", "age", "58"]]).
+  "and", "died", "on", "February,", "22", "1987", "at", "age", "58"],
+  ["Andy", "Warhol", "was", "a", "leading", "figure", "in", "the", "visual",
+  "art", "movement", "known", "as", "pop", "art"]]).
 
 % outupt Top-Down Lists
 % "Small talk"
@@ -133,6 +156,10 @@ osc([know_painters],[
   ["I", "know", "things", "about"], ES,
   ["wich","one","do","you","what","to","know","about?"]])
   :- findall(P, painters(P), PS), enumerate(PS, ES).
+osc([know_movements],[
+  ["The", "painters", "I", "know", "followed", "this", "art", "movements:"],
+  AMS, ["are", "you", "interested", "in", "any", "of", "them?"]])
+  :- movements(MS), enumerate(MS, AMS).
 
 % outupt Top-Down generator
 % True when S is a possible combination of words in TDL
