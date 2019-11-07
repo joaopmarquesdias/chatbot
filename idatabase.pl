@@ -14,6 +14,7 @@ isemval([know]).
 isemval([themes]).
 isemval([movements]).
 isemval([painters]).
+isemval([more]).
 % Artists
 isemval([picasso]).
 isemval([van_gogh]).
@@ -40,6 +41,7 @@ isl([know],[["know"],["realize"],["notice"],["recognize"]]).
 isl([themes],[["themes"]]).
 isl([painters],[["painters"]]).
 isl([movements],[["movements"]]).
+isl([more],[["more"]]).
 % Artists
 isl([picasso],[["Picasso"],["picasso"]]).
 isl([van_gogh],[["Van", "Gogh"],["van", "gogh"]]).
