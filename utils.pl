@@ -40,12 +40,15 @@ read_sentence(S, E) :-
   read_string(user_input, "\n", "\r", E, S1),
   split_string(S1, " ", "", S).
 
-% TODO: FIX print_history
-print_history(h([],[])).
-print_history(h([S|Q],[ans(ANS,_)|A])) :-
+print_history(H) :-
+  nl, write("<history>"), nl, nl,
+  print_history_aux(H).
+
+print_history_aux(h([],[])).
+print_history_aux(h([S|Q],[ans(ANS,_)|A])) :-
   write("Human: "), print_sentence(S), write("\n"),
   write("Bot: "), print_sentence(ANS), write("\n"),
-  print_history(h(Q,A)).
+  print_history_aux(h(Q,A)).
 
 print_sentence([]).
 print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).

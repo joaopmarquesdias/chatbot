@@ -51,7 +51,7 @@ chat(h([S|Q],[ANS|A])) :-
     print_answer(ANS), nl,
     chat(h(Q,A))
   ;
-    ANS = ["Are you sure you do not have any other question?"],
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
     controlflow(h(Q,A))
   ).
 
@@ -59,12 +59,12 @@ controlflow(h([S|Q],[ANS|A])) :-
   write("Bot: Are you sure you do not have any other question?"), nl,
   read_sentence(S, _),
   (member("yes", S) ->
-    write("Bot: Goodbye"),
-    ANS = ["Goodbye"],
+    write("Bot: Goodbye"), nl,
+    ANS = ans(["Goodbye"],1),
     Q = [], A = []
   ;
     write("Bot: What else do you want to know about?"), nl,
-    ANS = ["Are you sure you do not have any other question?"],
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
     chat(h(Q,A))
   ).
 
