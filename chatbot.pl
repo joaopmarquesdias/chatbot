@@ -23,9 +23,13 @@ answers_internal(S, AAS) :-
   analyze(AS, AAS).
 
 % Predicate 2 : bestanswer(S, A)
-%   A is the answer to S with highest score
-% Not implemented
-bestanswer(S, A) :- answers(S, [A|_]).
+% A is the answer to S with highest score
+bestanswer(S, A) :- answers(S, AS), max_score(AS, A).
+
+max_score([], M, M).
+max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
+max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
+max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).
 
 % Predicate 3 : runifanswer(S, A)
 %   A is a random answer to S

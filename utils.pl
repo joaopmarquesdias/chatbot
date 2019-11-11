@@ -42,9 +42,9 @@ read_sentence(S, E) :-
 
 % TODO: FIX print_history
 print_history(h([],[])).
-print_history(h([S|Q],[ANS|A])) :-
+print_history(h([S|Q],[ans(ANS,_)|A])) :-
   write("Human: "), print_sentence(S), write("\n"),
-  write("Bot: "), print_sentence(["Bot"]), write("\n"),
+  write("Bot: "), print_sentence(ANS), write("\n"),
   print_history(h(Q,A)).
 
 print_sentence([]).

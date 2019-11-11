@@ -25,7 +25,7 @@ symmetries(SM, SMS) :- map(sym, SM, SMS).
 % SINTAX ANALYSIS
 % True when AAS is a list of answers with scores
 analyze([],[]).
-analyze([A|AS], [ans(A,0)|AAS]) :- analyze(AS,AAS).
+analyze([A|AS], [ans(A,S)|AAS]) :- length(A, L), S is 1 - (1/L), analyze(AS,AAS).
 
 % SEMANTIC -> SINTAX GENERATION
 % True when PS is the list of all productions of SM
