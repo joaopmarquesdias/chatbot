@@ -23,9 +23,13 @@ answers_internal(S, AAS) :-
   analyze(AS, AAS).
 
 % Predicate 2 : bestanswer(S, A)
-%   A is the answer to S with highest score
-% Not implemented
-bestanswer(S, A) :- answers(S, [A|_]).
+% A is the answer to S with highest score
+bestanswer(S, A) :- answers(S, AS), max_score(AS, A).
+
+max_score([], M, M).
+max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
+max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
+max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).
 
 % Predicate 3 : runifanswer(S, A)
 %   A is a random answer to S
@@ -47,7 +51,7 @@ chat(h([S|Q],[ANS|A])) :-
     print_answer(ANS), nl,
     chat(h(Q,A))
   ;
-    ANS = ["Are you sure you do not have any other question?"],
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
     controlflow(h(Q,A))
   ).
 
@@ -55,12 +59,12 @@ controlflow(h([S|Q],[ANS|A])) :-
   write("Bot: Are you sure you do not have any other question?"), nl,
   read_sentence(S, _),
   (member("yes", S) ->
-    write("Bot: Goodbye"),
-    ANS = ["Goodbye"],
+    write("Bot: Goodbye"), nl,
+    ANS = ans(["Goodbye"],1),
     Q = [], A = []
   ;
     write("Bot: What else do you want to know about?"), nl,
-    ANS = ["Are you sure you do not have any other question?"],
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
     chat(h(Q,A))
   ).
 
