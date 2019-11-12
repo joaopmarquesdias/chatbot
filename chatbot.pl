@@ -40,29 +40,39 @@ rpropanswer(S, A) :- answers(S, AS), expand_all(AS, EAS), random_member(A, EAS).
 %   before closing, the bot should check if that ending is really wanted
 chat(h([S|Q],[ANS|A])) :-
   read_sentence(S),
-  semantics(S, SM),
-  (not(member(goodbye, SM)) ->
-    bestanswer(S, ANS),
+  semantics(S,SM),
+  (not(member(goodbye,SM)), not(member(more,SM)) ->
+    bestanswer(S,ANS),
     write("Bot: "),
     print_answer(ANS), nl,
     chat(h(Q,A))
+  ; member(goodbye,SM) ->
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 0),
+    controlflow_goodbye(h(Q,A))
   ;
-    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
-    controlflow(h(Q,A))
+    answers(S,ANSWERS), rmv_rep_history(ANSWERS,A,REMOVED), max_score(REMOVED,ANS),
+    write("Bot: "),
+    print_answer(ANS), nl,
+    chat(h(Q,A))
   ).
 
-controlflow(h([S|Q],[ANS|A])) :-
+
+controlflow_goodbye(h([S|Q],[ANS|A])) :-
   write("Bot: Are you sure you do not have any other question?"), nl,
   read_sentence(S),
   (member("yes", S) ->
     write("Bot: Goodbye"), nl,
-    ANS = ans(["Goodbye"], 1),
+    ANS = ans(["Goodbye"], 0),
     Q = [], A = []
   ;
     write("Bot: What else do you want to know about?"), nl,
-    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 1),
+    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 0),
     chat(h(Q,A))
   ).
+
+  rmv_rep_history([],_,[]).
+  rmv_rep_history([ANS|ANSWERS],A,REMOVED) :- member(ANS,A), rmv_rep_history(ANSWERS,A,REMOVED), !.
+  rmv_rep_history([ANS|ANSWERS],A,[ANS|REMOVED]) :- rmv_rep_history(ANSWERS,A,REMOVED).
 
 % Predicate 6 : stats(C)
 %   C is a conversation.
