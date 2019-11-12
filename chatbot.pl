@@ -70,9 +70,10 @@ controlflow_goodbye(h([S|Q],[ANS|A])) :-
     chat(h(Q,A))
   ).
 
-  rmv_rep_history([],_,[]).
-  rmv_rep_history([ANS|ANSWERS],A,REMOVED) :- member(ANS,A), rmv_rep_history(ANSWERS,A,REMOVED), !.
-  rmv_rep_history([ANS|ANSWERS],A,[ANS|REMOVED]) :- rmv_rep_history(ANSWERS,A,REMOVED).
+rmv_rep_history(A,[],A) :- !.
+rmv_rep_history([],_,[]).
+rmv_rep_history([ANS|ANSWERS],A,REMOVED) :- member(ANS,A), rmv_rep_history(ANSWERS,A,REMOVED), !.
+rmv_rep_history([ANS|ANSWERS],A,[ANS|REMOVED]) :- rmv_rep_history(ANSWERS,A,REMOVED).
 
 % Predicate 6 : stats(C)
 %   C is a conversation.
