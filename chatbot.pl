@@ -26,24 +26,20 @@ answers_internal(S, AAS) :-
 % A is the answer to S with highest score
 bestanswer(S, A) :- answers(S, AS), max_score(AS, A).
 
-max_score([], M, M).
-max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
-max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
-max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).
-
 % Predicate 3 : runifanswer(S, A)
 %   A is a random answer to S
 runifanswer(S, A) :- answers(S, AS), random_member(A, AS).
 
 % Predicate 4 : rpropanswer(S, A)
 %   A is a random answer to S taking in to account scores
+rpropanswer(S, A) :- answers(S, AS), expand_all(AS, EAS), random_member(A, EAS).
 
 % Predicate 5 : chat(X)
 %   produces an interactive conversation
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
 chat(h([S|Q],[ANS|A])) :-
-  read_sentence(S, _),
+  read_sentence(S),
   semantics(S, SM),
   (not(member(goodbye, SM)) ->
     bestanswer(S, ANS),
@@ -57,7 +53,7 @@ chat(h([S|Q],[ANS|A])) :-
 
 controlflow(h([S|Q],[ANS|A])) :-
   write("Bot: Are you sure you do not have any other question?"), nl,
-  read_sentence(S, _),
+  read_sentence(S),
   (member("yes", S) ->
     write("Bot: Goodbye"), nl,
     ANS = ans(["Goodbye"], 1),
