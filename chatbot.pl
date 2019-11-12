@@ -33,15 +33,15 @@ max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).
 
 % Predicate 3 : runifanswer(S, A)
 %   A is a random answer to S
+runifanswer(S, A) :- answers(S, AS), random_member(A, AS).
 
-% Predicate 4 : rpropanswe(S, A)
+% Predicate 4 : rpropanswer(S, A)
 %   A is a random answer to S taking in to account scores
 
 % Predicate 5 : chat(X)
 %   produces an interactive conversation
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
-
 chat(h([S|Q],[ANS|A])) :-
   read_sentence(S, _),
   semantics(S, SM),
@@ -60,7 +60,7 @@ controlflow(h([S|Q],[ANS|A])) :-
   read_sentence(S, _),
   (member("yes", S) ->
     write("Bot: Goodbye"), nl,
-    ANS = ans(["Goodbye"],1),
+    ANS = ans(["Goodbye"], 1),
     Q = [], A = []
   ;
     write("Bot: What else do you want to know about?"), nl,
