@@ -36,8 +36,8 @@ enumerate([A],[A]).
 enumerate([A1, A2],[A1, "and", A2]).
 enumerate([A|AS], [W|WS]) :- string_concat(A, ",", W), enumerate(AS, WS).
 
-read_sentence(S, E) :-
-  read_string(user_input, "\n", "\r", E, S1),
+read_sentence(S) :-
+  read_string(user_input, "\n", "\r", _, S1),
   split_string(S1, " ", "", S).
 
 print_history(H) :-
