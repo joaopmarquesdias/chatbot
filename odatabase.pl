@@ -49,7 +49,6 @@ osemval([answer_greet]).
 osemval([know_themes]).
 osemval([know_painters]).
 osemval([know_movements]).
-osemval([more]).
 % Artists
 osemval([know_picasso]).
 osemval([know_van_gogh]).
@@ -183,7 +182,6 @@ osemsin(P, [greet]) :-
   osl([sgreet], SL), oslgen(SL, P1),
   otdl([lgreet], TDL), otdgen(TDL, P2),
   append(P1,P2,P).
-%osemsin(P, [more])  :- ...
 % defined relations
 osemsin(P, S)       :- osl(S, SL), oslgen(SL, P).
 osemsin(P, S)       :- osc(S, SL), oscgen(SL, P).
