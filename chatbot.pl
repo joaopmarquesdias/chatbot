@@ -43,7 +43,7 @@ runifanswer(S, A) :- answers(S, AS), random_member(A, AS).
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
 chat(h([S|Q],[ANS|A])) :-
-  read_sentence(S,_),
+  read_sentence(S),
   semantics(S,SM),
   (not(member(goodbye,SM)), not(member(more,SM)) ->
     bestanswer(S,ANS),
@@ -63,7 +63,7 @@ chat(h([S|Q],[ANS|A])) :-
 
 controlflow_goodbye(h([S|Q],[ANS|A])) :-
   write("Bot: Are you sure you do not have any other question?"), nl,
-  read_sentence(S, _),
+  read_sentence(S),
   (member("yes", S) ->
     write("Bot: Goodbye"), nl,
     ANS = ans(["Goodbye"], 0),
