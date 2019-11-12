@@ -36,6 +36,20 @@ enumerate([A],[A]).
 enumerate([A1, A2],[A1, "and", A2]).
 enumerate([A|AS], [W|WS]) :- string_concat(A, ",", W), enumerate(AS, WS).
 
+% True when M is the answer with max score
+max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).
+max_score([], M, M).
+max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
+max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
+
+% True when AS AS1 is the expanded list of answers based on score
+expand_all([],[]).
+expand_all([A|AS], AS1) :- expand(A,AS3), expand_all(AS, AS2), append(AS3,AS2,AS1).
+expand(ans(A,Score), AS) :- expand_aux(A, Score, AS).
+
+expand_aux(A, N,[A]) :- N < 0.1.
+expand_aux(A, N,[A|AS]) :- N >= 0.1, N2 is N - 0.1, expand_aux(A,N2,AS).
+
 read_sentence(S) :-
   read_string(user_input, "\n", "\r", _, S1),
   split_string(S1, " ", "", S).
