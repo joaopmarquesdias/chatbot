@@ -41,19 +41,14 @@ rpropanswer(S, A) :- answers(S, AS), expand_all(AS, EAS), random_member(A, EAS).
 chat(h([S|Q],[ANS|A])) :-
   read_sentence(S),
   semantics(S,SM),
-  (not(member(goodbye,SM)), not(member(more,SM)) ->
+  (not(member(goodbye,SM)) ->
     bestanswer(S,ANS),
     write("Bot: "),
     print_answer(ANS), nl,
     chat(h(Q,A))
-  ; member(goodbye,SM) ->
+  ;
     ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 0),
     controlflow_goodbye(h(Q,A))
-  ;
-    answers(S,ANSWERS), rmv_rep_history(ANSWERS,A,REMOVED), max_score(REMOVED,ANS),
-    write("Bot: "),
-    print_answer(ANS), nl,
-    chat(h(Q,A))
   ).
 
 
