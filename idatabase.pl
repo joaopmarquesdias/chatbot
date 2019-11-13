@@ -8,6 +8,8 @@ isemval([iam, repeate(_)]).
 isemval([you]).
 isemval([greet]).
 isemval([goodbye]).
+isemval([yes]).
+isemval([no]).
 isemval([question]).
 isemval([know]).
 % Sepecific topics
@@ -33,12 +35,14 @@ isemval([warhol]).
 isl([iam, repeate(X)],[["i","am",X],["my","name","is",X]]).
 isl([you],[["you"]]).
 isl([greet],[["hello"], ["hi"], ["hey"]]).
-isl([goodbye], [["goodbye"],["bye"]]).
+isl([goodbye], [["Goodbye"],["Bye"],["goodbye"],["bye"]]).
+isl([yes], [["yes"],["Yes"],["y"],["Y"]]).
+isl([no], [["no"],["No"],["n"],["N"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["know"],["realize"],["notice"],["recognize"]]).
 % Sepecific topics
-isl([themes],[["themes"]]).
+isl([themes],[["themes"],["things"]]).
 isl([painters],[["painters"]]).
 isl([movements],[["movements"]]).
 isl([more],[["more"]]).

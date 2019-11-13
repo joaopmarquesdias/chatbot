@@ -45,6 +45,9 @@ osemval([greet]).
 osemval([dknow]).
 osemval([nopinion]).
 osemval([answer_greet]).
+osemval([ask_end]).
+osemval([else_end]).
+osemval([is_end]).
 % Specific topics
 osemval([know_themes]).
 osemval([know_painters]).
@@ -75,6 +78,12 @@ osl([dknow],[
 osl([nopinion],[
   ["i", "have", "never", "given", "it", "much", "thought"],
   ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
+osl([ask_end],[
+  ["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"]]).
+osl([else_end],[
+  ["What", "else", "do", "you", "want", "to", "know", "about?"]]).
+osl([is_end],[
+  ["Goodbye"],["Bye"],["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"]]).
 % Sepecific topics
 osl([know_themes],[
   ["I", "can", "help", "you", "with", "painters", "musicians", "and", "writers"]]).

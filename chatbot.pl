@@ -56,17 +56,17 @@ continue(S,A) :-
 
 ask_quit(S,A) :-
   semantics(S,SM), member(goodbye,SM),
-  A = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"],0),
+  osemsin(P,[ask_end]), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 is_quit(S,A) :-
-  member("yes",S),
-  A = ans(["Goodbye!"],0),
+  semantics(S,SM), member(yes,SM),
+  osemsin(P,[is_end]), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 not_quit(S,A) :-
-  not(member("yes",S)),
-  A = ans(["What", "else", "do", "you", "want", "to", "know", "about?"],0),
+  semantics(S,SM), not(member(yes,SM)),
+  osemsin(P,[else_end]), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 rmv_rep_history(A,[],A) :- !.
