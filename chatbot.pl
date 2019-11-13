@@ -38,32 +38,36 @@ rpropanswer(S, A) :- answers(S, AS), expand_all(AS, EAS), random_member(A, EAS).
 %   produces an interactive conversation
 %   it ends when the user types “bye” or something similar
 %   before closing, the bot should check if that ending is really wanted
-chat(h([S|Q],[ANS|A])) :-
-  read_sentence(S),
-  semantics(S,SM),
-  (not(member(goodbye,SM)) ->
-    bestanswer(S,ANS),
-    write("Bot: "),
-    print_answer(ANS), nl,
-    chat(h(Q,A))
-  ;
-    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 0),
-    controlflow_goodbye(h(Q,A))
-  ).
 
+% h(QS,AS) is the chat history
+% QS is the list of questions and AS is the list of answers
+chat(h([S|QS],[A|AS])) :- read_sentence(S), interact(h([S|QS],[A|AS])).
 
-controlflow_goodbye(h([S|Q],[ANS|A])) :-
-  write("Bot: Are you sure you do not have any other question?"), nl,
-  read_sentence(S),
-  (member("yes", S) ->
-    write("Bot: Goodbye"), nl,
-    ANS = ans(["Goodbye"], 0),
-    Q = [], A = []
-  ;
-    write("Bot: What else do you want to know about?"), nl,
-    ANS = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"], 0),
-    chat(h(Q,A))
-  ).
+interact(h([S|QS],[A|AS])) :-
+  continue(S,A), !, chat(h(QS,AS)).
+interact(h([S1,S2|QS],[A1,A2|AS])) :-
+  ask_quit(S1,A1), !, read_sentence(S2),
+  (is_quit(S2,A2), QS = [], AS = [];
+   not_quit(S2,A2), chat(h(QS,AS))).
+
+continue(S,A) :-
+  semantics(S,SM), not(member(goodbye,SM)), bestanswer(S,A),
+  write("Bot: "), print_answer(A), nl.
+
+ask_quit(S,A) :-
+  semantics(S,SM), member(goodbye,SM),
+  A = ans(["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"],0),
+  write("Bot: "), print_answer(A), nl.
+
+is_quit(S,A) :-
+  member("yes",S),
+  A = ans(["Goodbye!"],0),
+  write("Bot: "), print_answer(A), nl.
+
+not_quit(S,A) :-
+  not(member("yes",S)),
+  A = ans(["What", "else", "do", "you", "want", "to", "know", "about?"],0),
+  write("Bot: "), print_answer(A), nl.
 
 rmv_rep_history(A,[],A) :- !.
 rmv_rep_history([],_,[]).
