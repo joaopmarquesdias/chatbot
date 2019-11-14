@@ -51,7 +51,7 @@ interact(h([S1,S2|QS],[A1,A2|AS])) :-
    not_quit(S2,A2), chat(h(QS,AS))).
 
 continue(S,A) :-
-  semantics(S,SM), not(member(goodbye,SM)), bestanswer(S,A),
+  semantics(S,SM), not(member(goodbye,SM)), runifanswer(S, A),
   write("Bot: "), print_answer(A), nl.
 
 ask_quit(S,A) :-
@@ -69,10 +69,23 @@ not_quit(S,A) :-
   osemsin(P,[else_end]), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
-rmv_rep_history(A,[],A) :- !.
-rmv_rep_history([],_,[]).
-rmv_rep_history([ANS|ANSWERS],A,REMOVED) :- member(ANS,A), rmv_rep_history(ANSWERS,A,REMOVED), !.
-rmv_rep_history([ANS|ANSWERS],A,[ANS|REMOVED]) :- rmv_rep_history(ANSWERS,A,REMOVED).
+/*
+list_difference([],_,[]).
+list_difference([X|L1],L2,[X|D]) :-
+  not(member(X,L2)), !,
+  list_difference(L1,L2,D).
+list_difference([_|L1],L2,D) :- !, list_difference(L1,L2,D).
+
+remove_open_end([],[]).
+remove_open_end([X|T],[X|L]) :- not(var(X)), !, remove_open_end(T,L).
+remove_open_end(_,L) :- list(L).
+
+more(h([S1,S2|_],[A|AS])) :-
+  semantics(S1,SM), member(more,SM),
+  answers(S2,AS1), remove_open_end(AS,AS2),
+  list_difference(AS1,AS2,AS3), max_score(AS3, A),
+  write("Bot: "), print_answer(A), nl.
+*/
 
 % Predicate 6 : stats(C)
 %   C is a conversation.
