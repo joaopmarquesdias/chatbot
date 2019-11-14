@@ -43,7 +43,6 @@ osemval([good]).
 osemval([thank]).
 osemval([greet]).
 osemval([dknow]).
-osemval([nopinion]).
 osemval([answer_greet]).
 osemval([ask_end]).
 osemval([else_end]).
@@ -75,9 +74,6 @@ osl([sgreet],[["hello"], ["hi"], ["hey"]]).
 osl([dknow],[
   ["i", "can't", "help", "you", "there"],
   ["i", "do", "not", "know", "that"]]).
-osl([nopinion],[
-  ["i", "have", "never", "given", "it", "much", "thought"],
-  ["i", "do", "not", "have", "an", "opinion", "about", "that"]]).
 osl([ask_end],[
   ["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"]]).
 osl([else_end],[
