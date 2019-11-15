@@ -93,3 +93,34 @@ more(h([S1,S2|_],[A|AS])) :-
 %     length  of  the  conversation;
 %     average number of words in each intervention;
 %     frequency of words used, etc.
+
+stats(C) :- append(C,L), lengthconversation(L), averagewords(C), mostfreqwords(L).
+
+lengthconversation(L) :-
+  length(L, Len), write("Length of the conversation is: "), write(Len), nl.
+
+averagewords(C) :-
+  countwords(C,Count), sum_list(Count, Sum), length(Count, Len),
+  write("Average number os words in each intervention is: "),
+  Number is Sum/Len, write(Number).
+
+countwords([],[]).
+countwords([X|Xs],[C|Cs]) :-
+  length(X,C), countwords(Xs,Cs),!.
+countwords([X],[C]) :-
+  length(X,C).
+
+mostfreqwords(L) :-
+  sort(L, L1), countlist(L1, L).
+
+countlist([X], L) :- count(X,L,Y), write("Word "), write(X),
+write(" appears "), write(Y), write(" times"), nl, !.
+countlist([X|Xs], L) :-
+  count(X,L,Y), write("Word "), write(X),
+  write(" appears "), write(Y), write(" times"), nl, countlist(Xs,L).
+
+count(_,[],0).
+count(X,[X|Xs],Y):-
+  count(X,Xs,Z), Y is 1+Z,!.
+count(X,[_|Xs],Z):-
+  count(X,Xs,Z).

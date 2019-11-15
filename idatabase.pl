@@ -16,6 +16,8 @@ isemval([know]).
 isemval([themes]).
 isemval([movements]).
 isemval([painters]).
+isemval([styles]).
+isemval([musicians]).
 isemval([more]).
 % Artists
 isemval([picasso]).
@@ -29,6 +31,20 @@ isemval([kandinsky]).
 isemval([kooning]).
 isemval([mondrian]).
 isemval([warhol]).
+%Musicians
+isemval([pink_floyd]).
+isemval([the_beatles]).
+isemval([nirvana]).
+isemval([queen]).
+isemval([led_zepplin]).
+isemval([ramones]).
+isemval([michael_jackson]).
+isemval([ray_charles]).
+isemval([bob_dylan]).
+isemval([metallica]).
+isemval([megadeth]).
+isemval([black_sabbath]).
+
 
 % input sentence list
 % "Small talk"
@@ -45,6 +61,8 @@ isl([know],[["know"],["realize"],["notice"],["recognize"]]).
 isl([themes],[["themes"],["things"]]).
 isl([painters],[["painters"]]).
 isl([movements],[["movements"]]).
+isl([musicians],[["musicians"]]).
+isl([styles],[["styles"]]).
 isl([more],[["more"]]).
 % Artists
 isl([picasso],[["Picasso"],["picasso"]]).
@@ -58,6 +76,19 @@ isl([kandinsky],[["Kandinsky"],["kandinsky"]]).
 isl([kooning],[["Kooning"],["kooning"]]).
 isl([mondrian],[["Mondrian"],["mondrian"]]).
 isl([warhol],[["Warhol"],["warhol"]]).
+%Musicians
+isl([pink_floyd],[["Pink", "Floyd"],["pink","floyd"]]).
+isl([the_beatles],[["Beatles"],["beatles"]]).
+isl([nirvana],[["Nirvana"],["nirvana"]]).
+isl([queen],[["Queen"],["queen"]]).
+isl([led_zepplin],[["Led", "Zepplin"],["led","zepplin"]]).
+isl([ramones],[["Ramones"],["ramones"]]).
+isl([michael_jackson],[["Michael","Jackson"],["michael","jackson"]]).
+isl([ray_charles],[["Ray", "Charles"],["ray","charles"]]).
+isl([bob_dylan],[["Bob","Dylan"],["bob", "dylan"]]).
+isl([metallica],[["Metallica"],["metallica"]]).
+isl([megadeth],[["Megadeth"],["megadeth"]]).
+isl([black_sabbath],[["Black","Sabbath"],["black", "sabbath"]]).
 
 % input sentence list generator
 islgen(SL, S) :- member(S, SL).

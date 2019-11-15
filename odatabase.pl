@@ -32,7 +32,33 @@ movement("Andy Warhol", "Pop art").
 
 movements(AMS) :- findall(M, movement(_,M), MS), remove_repetitions(MS, AMS).
 
-%musicians(_).
+musicians("Pink Floyd").
+musicians("The Beatles").
+musicians("Nirvana").
+musicians("Queen").
+musicians("Led Zepplin").
+musicians("Ramones").
+musicians("Michael Jackson").
+musicians("Ray Charles").
+musicians("Bob Dylan").
+musicians("Metallica").
+musicians("Megadeth").
+musicians("Black Sabbath").
+
+style("Pink Floyd", "Rock").
+style("The Beatles", "Rock").
+style("Nirvana", "Rock").
+style("Queen", "Rock").
+style("Led Zepplin", "Rock").
+style("Ramones", "Rock").
+style("Michael Jackson", "Pop").
+style("Ray Charles", "Jazz").
+style("Bob Dylan", "Folk").
+style("Metallica", "Heavy Metal").
+style("Megadeth", "Heavy Metal").
+style("Black Sabbath", "Heavy Metal").
+
+styles(AMS) :- findall(M, style(_,M), MS), remove_repetitions(MS, AMS).
 
 %writters(_).
 
@@ -51,6 +77,9 @@ osemval([is_end]).
 osemval([know_themes]).
 osemval([know_painters]).
 osemval([know_movements]).
+osemval([know_musicians]).
+osemval([know_styles]).
+
 % Artists
 osemval([know_picasso]).
 osemval([know_van_gogh]).
@@ -63,6 +92,19 @@ osemval([know_kandinsky]).
 osemval([know_kooning]).
 osemval([know_mondrian]).
 osemval([know_warhol]).
+% Musicians
+osemval([know_pink_floyd]).
+osemval([know_the_beatles]).
+osemval([know_nirvana]).
+osemval([know_queen]).
+osemval([know_led_zepplin]).
+osemval([know_ramones]).
+osemval([know_michael_jackson]).
+osemval([know_ray_charles]).
+osemval([know_bob_dylan]).
+osemval([know_metallica]).
+osemval([know_megadeth]).
+osemval([know_black_sabbath]).
 
 % Sintax generators
 
@@ -83,6 +125,7 @@ osl([is_end],[
 % Sepecific topics
 osl([know_themes],[
   ["I", "can", "help", "you", "with", "painters", "musicians", "and", "writers"]]).
+
 % Artists
 % Impressionism +
 osl([know_monet],[
@@ -144,6 +187,53 @@ osl([know_warhol],[
   ["Andy", "Warhol", "was", "a", "leading", "figure", "in", "the", "visual",
   "art", "movement", "known", "as", "pop", "art"]]).
 
+  %Musicians
+  osl([know_pink_floyd],[
+  ["Pink", "Floyd", "were", "an", "English", "rock", "band", "formed", "in", "London", "in", "1965"]
+  ]).
+  osl([know_the_beatles],[
+  ["The", "Beatles", "were", "an", "English", "rock", "band", "formed", "in", "Liverpool", "1960"]
+  ]).
+  osl([know_nirvana],[
+  ["Nirvana", "was", "an", "American", "rock", "band", "formed", "in", "Aberdeen", "in", "1987"]
+  ]).
+  osl([know_queen],[
+  ["Queen", "are", "a", "British", "rock", "band", "formed", "in", "London", "in", "1970"]
+  ]).
+  osl([know_led_zepplin],[
+  ["Led", "Zeppelin", "were", "an", "English", "rock", "band", "formed", "in", "1968"]
+  ]).
+  osl([know_ramones],[
+  ["The", "Ramones", "were", "an", "American", "punk", "rock",
+  "band", "that","formed", "in", "the", "New", "York", "City",
+  "neighborhood", "of", "Forest", "Hills,", "Queens", "in", "1974"]
+  ]).
+  osl([know_michael_jackson],[
+  ["Michael", "Joseph", "Jackson", "was", "an",
+  "American", "singer,", "songwriter,", "and", "dancer"]
+  ]).
+  osl([know_ray_charles],[
+  ["Ray", "Charles", "Robinson", "was", "an", "American",
+  "singer,", "songwriter,", "musician,", "and", "composer"]
+  ]).
+  osl([know_bob_dylan],[
+  ["Bob", "Dylan", "is", "an", "American", "singer-songwriter,", "author,", "and",
+  "visual", "artist", "who", "has", "been", "a", "major", "figure", "in", "popular",
+  "culture", "for", "more", "than", "fifty", "years"]
+  ]).
+  osl([know_metallica],[
+  ["Metallica", "is", "an", "American", "heavy", "metal",
+  "band", "formed", "in", "1981", "in", "Los", "Angeles"]
+  ]).
+  osl([know_megadeth],[
+  ["Megadeth", "is", "an", "American", "heavy",
+  "metal", "band", "from", "Los", "Angeles,", "California"]
+  ]).
+  osl([know_black_sabbath],[
+  ["Black", "Sabbath", "were", "an", "English", "rock",
+  "band", "formed", "in", "in", "Birmingham", "in", "1968"]
+  ]).
+
 % outupt Top-Down Lists
 % "Small talk"
 otdl([lgreet],[
@@ -165,6 +255,14 @@ osc([know_movements],[
   ["The", "painters", "I", "know", "followed", "this", "art", "movements:"],
   AMS, ["are", "you", "interested", "in", "any", "of", "them?"]])
   :- movements(MS), enumerate(MS, AMS).
+%em falta
+osc([know_musicians],[["I", "know", "things", "about"], ES,
+  ["wich","one","do","you","what","to","know","about?"]])
+  :- findall(P, musicians(P), PS), enumerate(PS, ES).
+osc([know_styles],[
+  ["The", "musicians", "I", "know", "followed", "this", "styles:"],
+  AMS, ["are", "you", "interested", "in", "any", "of", "them?"]])
+  :- styles(MS), enumerate(MS, AMS).
 
 % outupt Top-Down generator
 % True when S is a possible combination of words in TDL
