@@ -51,5 +51,19 @@ sym([know_bob_dylan],[know, bob_dylan]) :- !.
 sym([know_metallica],[know, metallica]) :- !.
 sym([know_megadeth],[know, megadeth]) :- !.
 sym([know_black_sabbath],[know, black_sabbath]) :- !.
+
+sym([know_pink_floyd],[pink_floyd]) :- !.
+sym([know_the_beatles],[the_beatles]) :- !.
+sym([know_nirvana],[nirvana]) :- !.
+sym([know_queen],[queen]) :- !.
+sym([know_led_zepplin],[led_zepplin]) :- !.
+sym([know_ramones],[ramones]) :- !.
+sym([know_michael_jackson],[michael_jackson]) :- !.
+sym([know_ray_charles],[ray_charles]) :- !.
+sym([know_bob_dylan],[bob_dylan]) :- !.
+sym([know_metallica],[metallica]) :- !.
+sym([know_megadeth],[megadeth]) :- !.
+sym([know_black_sabbath],[black_sabbath]) :- !.
+
 % Id
 sym(X,X) :- osemval(X), isemval(X), !.
