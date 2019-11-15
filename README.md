@@ -1,35 +1,27 @@
-#TODO
--This bot is a online assistant of a museum of modern art
--Add modernist artist to database 
+This bot's purpose is to help the user in matters related to both music and painting and it has knowledge about some painters and musicians.
 
-# chatbot
-Brief description of the algorithm
-1. [SI]  is the input sentence
-2. [SM]  is the list of base semantics in [SI]              % analyze patterns, keywords and combinations of them
-3. [NSM] is the normalized list of [SM]                     % analyze semantic combinations, patterns, reduce, replace...
-4. [AS]  is the list of all possible answers based on [NSM] % use semsin and append
-5. [AAS] is the list of analyzed answers of [AS]            % we give them scores, based on repetition, length...
-6. [A]   is the answer with the best score from [AAS]
-7. [A]   is the output sentence
 
-# DOCUMENTATION
-## database.pl
 
-semval(X)
-> True when X is a semantic value
 
-semsin(S, P)
-> True when P is a syntactic phrase with semantic S
 
-The predicates that "store" syntactical objects are
-- tdl (Top-Down list)
-- sl  (Sentence list)
-- sc  (Sentence combination)
 
-The predicates that generate sentences are
-- topdowngen
-- slgen
-- scgen
 
-## semantic.pl
-(...)
+Predicate 5 : chat(X)
+Chat(X) is the predicate that starts a interactive conversation with the bot.
+Once started, the bot will answer the questions that the user gives him using
+the predicate runifanswer/2 that gives a random answer to the sentence from the database.
+Ex:
+chat(X).
+Hello my name is joão
+Bot: hello it is nice to meet you joão
+
+Predicate 6 : stats(H)
+The argument H is a conversation in the form of the history created by de chat/1.
+The history is in the form h([sentence|Sentences],[ans(Answer,Score)|Ans]).
+The stats prints details about the conversation such as :
+     number of interventions
+     total number of words in the conversation
+     average number of words in each intervention
+     10 most frequently used words
+The best way to use stats/1 is to call chat(H), stats(H). in the
+command line and when the conversation ends the stats will be printed.
