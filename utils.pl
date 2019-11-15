@@ -1,6 +1,3 @@
-map(_,[],[]).
-map(Goal,[X|L],[Y|ML]) :- call(Goal, X, Y), map(Goal,L,ML).
-
 % M is the mapping of Goal to L (maps nothing when Goal fails)
 % Single direction Goal(L) -> M
 map_sublist(_, [],[]).
@@ -53,28 +50,36 @@ expand(ans(A,Score), AS) :- expand_aux(A, Score, AS).
 expand_aux(A, N,[A]) :- N < 0.1.
 expand_aux(A, N,[A|AS]) :- N >= 0.1, N2 is N - 0.1, expand_aux(A,N2,AS).
 
+%reads the user input and transforms it into a list with the form ["word"|words]
 read_sentence(S) :-
   read_string(user_input, "\n", "\r", _, S1),
   split_string(S1, " ", "", S).
 
+%prints the history of the chat
+%used for debugging only
 print_history(H) :-
   nl, write("<history>"), nl, nl,
   print_history_aux(H).
 
+%aux to print_history/1
 print_history_aux(h([],[])).
 print_history_aux(h([S|Q],[ans(ANS,_)|A])) :-
   write("Human: "), print_sentence(S), write("\n"),
   write("Bot: "), print_sentence(ANS), write("\n"),
   print_history_aux(h(Q,A)).
 
+%prints a list in the form of ["word"|words].
 print_sentence([]).
 print_sentence([W|S]) :- write(W), write(" "), print_sentence(S).
 
+%prints a list of list in the form of [["word"|words]|Sentences]
 print_sentences([]).
 print_sentences([S|SS]) :- print_sentence(S), write("\n"), print_sentences(SS).
 
+%prints an answer in the form of ans(Answer,Score)
 print_answer(ans(S,_)) :- print_sentence(S).
 
+%prints multiple answers in the form of ans(Answer,Score)
 print_answers([]).
 print_answers([A|AS]) :- print_answer(A), write('\n'), print_answers(AS).
 
@@ -100,35 +105,53 @@ atoml_sentence_list([X],[C]) :-
 atoml_sentence_list([X|Xs],[C|Cs]) :-
   atoml_sentence(X,C), atoml_sentence_list(Xs,Cs).
 
-%Counts
+%Counts interventions in the normalized list of the history
 numberinterventions(C) :-
   length(C,Len), write("There were "), write(Len),
   write(" interventions in this conversation"), nl.
 
-
-
+%Counts the number of words in the conversation from the normalized history
 lengthconversation(L) :-
   length(L, Len), write("Total number of words in the conversation is: "), write(Len), nl.
 
+%calculates the average words per iteration
 averagewords(C) :-
   countwords(C,Count), sum_list(Count, Sum), length(Count, Len),
   write("Average number os words in each intervention is: "),
   Number is Sum/Len, write(Number), nl.
 
+%counts the words in each intervention
 countwords([],[]).
 countwords([X|Xs],[C|Cs]) :-
   length(X,C), countwords(Xs,Cs),!.
 countwords([X],[C]) :-
   length(X,C).
 
+%discovers the frequency of each word in the conversation and prints the top 5
 mostfreqwords(L) :-
   sort(L, L1), countlist(L1, L, O), sortfreq(O, S), printtop5(S).
 
+%counts the number of times that every word appears in the conversation
+countlist([X],L,[(X,Y)]) :-
+  count(X,L,Y), !.
+countlist([X|Xs], L, [(X,Y)|I]) :-
+  count(X,L,Y), countlist(Xs,L,I),!.
+
+%aux to countlist/3. count the number of times a word appears in the conversation
+count(_,[],0).
+count(X,[X|Xs],Y):-
+  count(X,Xs,Z), Y is 1+Z,!.
+count(X,[_|Xs],Z):-
+  count(X,Xs,Z).
+
+%sorts the list of words using the frequency of each as parameter to the comparation
 sortfreq([],[]) :- !.
 sortfreq([X],[X]) :- !.
 sortfreq([X|Xs],[M|S]) :-
   max([X|Xs],M), delMember(M,[X|Xs],X1), sortfreq(X1,S).
 
+%aux to sortfreq/2. discovers the max of the remaing
+%list using the frequency as parameter to the comparation
 max([(S,X)|Xs], M):-
   max(Xs, (S,X), M),!.
 max([], M, M).
@@ -137,24 +160,11 @@ max([(S,X)|Xs], (_, PM), M):-
 max([(_,X)|Xs], (S1, PM), M):-
   X =< PM, max(Xs, (S1, PM), M),!.
 
-countlist([X], L,[(X,Y)]) :-
-  count(X,L,Y), !.
-countlist([X|Xs], L, [(X,Y)|I]) :-
-  count(X,L,Y), countlist(Xs,L,I),!.
-
-count(_,[],0).
-count(X,[X|Xs],Y):-
-  count(X,Xs,Z), Y is 1+Z,!.
-count(X,[_|Xs],Z):-
-  count(X,Xs,Z).
-
+%prints the top5 most frequent words
 printtop5(S) :-
-  length(S,Len),
-  (Len =< 5
-  -> write("Top "), write(Len), write(" words in the conversation:"), nl, printtop(S,Len)
-  ;  write("Top 5 words in the conversation:"), nl, printtop(S,5)
-  ).
+  write("Top 5 most frequent words in the conversation:"), nl, printtop(S,5).
 
+%aux to printtop5/1. prints one word of the top 5
 printtop([(W,N)|S],X) :-
   (X =:= 1
   -> write(W), write(" appears "),
