@@ -173,3 +173,15 @@ printtop([(W,N)|S],X) :-
   write("-> \""), write(W), write("\""),
   write(" appears "), write(N), writeln(" time(s)."), !,
   Y is X-1, printtop(S,Y).
+
+% true when N is the sum of all scores of AS
+sum([],0).
+sum([ans(_,S)|T],N):-
+  sum(T,NT), N is S + NT.
+
+% true when A is the answer whose distribution is N, X is the accumulator
+answer_score(N,X,[ans(_,S)|AS],A) :-
+  Y is S + X, Y < N, !,
+  answer_score(N, Y, AS, A).
+answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
+  Y is S + X, Y >= N.
