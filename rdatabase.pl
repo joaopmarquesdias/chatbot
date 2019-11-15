@@ -1,7 +1,5 @@
 /* relations database */
 
-%TODO: relations by member(X,S)!
-
 % semantic symmetries
 % sym(Y,X)    X -> Y
 % "Small talk"

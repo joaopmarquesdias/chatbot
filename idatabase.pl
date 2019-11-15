@@ -65,7 +65,6 @@ isl([painters],[["painters"]]).
 isl([movements],[["movements"]]).
 isl([musicians],[["musicians"]]).
 isl([styles],[["styles"]]).
-isl([more],[["more"]]).
 % Artists
 isl([picasso],[["Picasso"],["picasso"]]).
 isl([van_gogh],[["Van", "Gogh"],["van", "gogh"]]).

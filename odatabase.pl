@@ -114,8 +114,8 @@ osl([good], [["good"],["great"],["superb"],["excellent"],["marvelous"]]).
 osl([thank],[["thank", "you"],["thanks"]]).
 osl([sgreet],[["hello"], ["hi"], ["hey"]]).
 osl([dknow],[
-  ["i", "can't", "help", "you", "there"],
-  ["i", "do", "not", "know", "that"]]).
+  ["I", "can't", "help", "you", "there."],
+  ["I", "do", "not", "know", "that."]]).
 osl([ask_end],[
   ["Are", "you", "sure", "you", "do", "not", "have", "any", "other", "question?"]]).
 osl([else_end],[
@@ -124,7 +124,7 @@ osl([is_end],[
   ["Goodbye"],["Bye"],["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"]]).
 % Sepecific topics
 osl([know_themes],[
-  ["I", "can", "help", "you", "with", "painters", "and", "musicians"]]).
+  ["I", "can", "help", "you", "with", "painters", "and", "musicians."]]).
 
 % Artists
 % Impressionism +
@@ -140,7 +140,7 @@ osl([know_monet],[
 osl([know_van_gogh],[
   ["Vincent", "Willem", "van", "Gogh", "was", "born", "on", "March", "30", "1853",
   "in", "the", "Netherlands", "and", "died", "on", "July", "29", "1890", "in",
-  "France", "at", "age", "37"],
+  "France", "at", "age", "37."],
   ["Van", "Gogh", "was", "a", "Dutch", "post-impressionist", "painter", "who",
   "is", "among", "the", "most", "famous", "and", "influential", "figures",
   "in", "the", "history", "of", "Western", "art."],
@@ -148,55 +148,85 @@ osl([know_van_gogh],[
   "artworks,", "including", "around", "860", "oil", "paintings,", "most", "of",
   "which", "date", "from", "the", "last", "two", "years", "of", "his", "life."]]).
 osl([know_matisse],[
-  ["Henri", "Émile Benoît", "Matisse", "was", "born", "on", "31", "December", "1869",
-  "in", "France", "and", "died", "on", "3", "November", "1954", "at", "age", "84"]]).
+  ["Henri", "Émile Benoît", "Matisse", "was", "born", "on", "December", "31", "1869",
+  "in", "France", "and", "died", "on", "November", "3", "1954", "at", "age", "84."],
+  ["Matisse", "was", "a", "French", "artist,", "known", "for", "both", "his",
+  "use", "of", "colour", "and", "his", "fluid", "and", "original", "draughtsmanship."],
+  ["Matisse", "is", "commonly", "regarded,", "along", "with", "Pablo", "Picasso,",
+   "as", "one", "of", "the", "artists", "who", "best", "helped", "to", "define",
+   "the", "revolutionary", "developments", "in", "the", "visual", "arts."]]).
 % Expressionism +
 osl([know_kandinsky],[
   ["Wassily", "Wassilyevich", "Kandinsky", "was", "born", "on",
-  "16", "December", "1866", "in", "the", "Russian", "Empire",
-  "and", "died", "on", "13", "December", "1944", "in", "France",
-  "at", "age", "77"]]).
+  "December", "16", "1866", "in", "the", "Russian", "Empire",
+  "and", "died", "on", "December", "13", "1944", "in", "France",
+  "at", "age", "77."]]).
 % Cubism +
 osl([know_picasso],[
   ["Picasso", "full", "name", "was",
   "Pablo", "Diego", "José", "Francisco", "de", "Paula", "Juan",
   "Nepomuceno", "María", "de", "los", "Remedios", "Cipriano",
-  "de", "la", "Santísima", "Trinidad", "Ruiz", "y", "Picasso"],
- ["Picasso","was","born","in", "1881", "and", "died", "in", "1973"],
- ["He", "is", "know", "has", "the", "co-founder", "of", "cubism"]]).
+  "de", "la", "Santísima", "Trinidad", "Ruiz", "y", "Picasso."],
+ ["Picasso","was","born","in", "1881", "and", "died", "in", "1973."],
+ ["Picasso", "is", "know", "has", "the", "co-founder", "of", "cubism."]]).
 % Suprematism +
 osl([know_malevich],[
-  ["Kazimir", "Severinovich", "Malevich", "was", "born", "on",
-  "23", "February", "1879", "in", "the", "Russian", "Empire",
-  "and", "died", "on", "15", "May", "1935", "in", "the", "Soviet", "Union",
-  "at", "age", "56"]]).
+  ["Kazimir", "Severinovich", "Malevich", "was", "born", "on", "February", "23",
+  "1879", "in", "the", "Russian", "Empire","and", "died", "on", "May", "15",
+  "1935", "in", "the", "Soviet", "Union", "at", "age", "56"],
+  ["Kandinsky", "is", "generally", "credited", "as", "the", "pioneer", "of",
+  "abstract", "art."],
+  ["Kandinsky", "began", "painting", "studies", "(", "life-drawing,", "sketching",
+  "and", "anatomy", ")", "at", "the", "age", "of", "30."]]).
 % Abstract expressionism +
 osl([know_rothko],[
   ["Markus", "Yakovlevich", "Rothkowitz", "was", "born", "on",
   "September,", "25", "1903", "in", "the", "Russian", "Empire",
   "and", "died", "on", "February,", "25", "1970", "in", "the", "U.S",
-  "at", "age", "66"]]).
+  "at", "age", "66"],
+  ["Although", "Rothko", "himself", "refused", "to", "adhere", "to", "any", "art",
+  "movement,", "he", "is", "generally", "identified", "as", "an", "abstract",
+  "expressionist."],
+  ["Rothko's", "move", "to", "New", "York", "landed", "him", "in", "a",
+  "fertile", "artistic", "atmosphere."]]).
 osl([know_pollock],[
   ["Paul", "Jackson", "Pollock", "was", "born", "on",
   "January,", "28", "1912", "in", "the", "U.S",
-  "and", "died", "on", "August,", "11", "1956", "at", "age", "44"]]).
+  "and", "died", "on", "August,", "11", "1956", "at", "age", "44"],
+  ["He", "was", "widely", "noticed", "for", "his", "technique", "of", "pouring",
+  "or", "splashing", "liquid", "household", "paint", "onto", "a", "horizontal",
+  "surface."],
+  ["This", "extreme", "form", "of", "abstraction", "divided", "the", "critics:",
+  "some", "praised", "the", "immediacy", "and", "fluency", "of", "the", "creation,",
+  "while", "others", "derided", "the", "random", "effects."]]).
 osl([know_kooning],[
   ["Willem", "de", "Kooning", "was", "born", "on",
   "April,", "24", "1904", "in", "the", "Netherlands",
   "and", "died", "on", "March,", "19", "1997", "in", "the", "U.S",
-  "at", "age", "92"]]).
+  "at", "age", "92."],
+  ["Kooning", "was", "a", "Dutch-American", "abstract", "expressionist", "artist."],
+  ["In", "the", "years", "after", "World", "War", "II,", "de", "Kooning",
+  "painted", "in", "a", "style", "that", "came", "to", "be", "referred",
+  "to", "as", "abstract", "expressionism", "or", "action", "painting."]]).
 osl([know_mondrian],[
   ["Piet", "Cornelis", "Mondriaan", "was", "born", "on",
   "March,", "7", "1872", "in", "the", "Netherlands",
   "and", "died", "on", "February,", "1", "1944", "in", "the", "U.S",
-  "at", "age", "71"]]).
+  "at", "age", "71."],
+  ["Mondrian", "was", "a", "Dutch", "painter", "and", "theoretician", "who",
+  "is", "regarded","as", "one", "of", "the", "greatest", "artists", "of", "the",
+  "20th", "century."],
+  ["Mondrian's", "art", "was", "highly", "utopian", "and", "was", "concerned",
+  "with", "a", "search", "for", "universal", "values", "and", "aesthetics."]]).
 % Pop art
 osl([know_warhol],[
   ["Andrew", "Warhola", "was", "born", "on",
   "August,", "6", "1928", "in", "the", "U.S",
-  "and", "died", "on", "February,", "22", "1987", "at", "age", "58"],
+  "and", "died", "on", "February,", "22", "1987", "at", "age", "58."],
   ["Andy", "Warhol", "was", "a", "leading", "figure", "in", "the", "visual",
-  "art", "movement", "known", "as", "pop", "art"]]).
+  "art", "movement", "known", "as", "pop", "art."],
+  ["His", "works", "explore", "the", "relationship", "between", "artistic",
+  "expression,", "advertising,", "and", "celebrity", "culture."]]).
 
 % Musicians
 osl([know_pink_floyd],[
