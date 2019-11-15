@@ -47,7 +47,7 @@ interact(h([S|QS],[A|AS])) :-
   continue(S,A), !, chat(h(QS,AS)).
 interact(h([S1,S2|QS],[A1,A2|AS])) :-
   ask_quit(S1,A1), !, read_sentence(S2),
-  (is_quit(S2,A2), QS = [], AS = [];
+  (is_quit(S2,A2), !, QS = [], AS = [];
    not_quit(S2,A2), chat(h(QS,AS))).
 
 continue(S,A) :-
