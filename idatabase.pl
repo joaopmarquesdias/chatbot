@@ -57,7 +57,7 @@ isl([yes], [["yes"],["Yes"],["y"],["Y"]]).
 isl([no], [["no"],["No"],["n"],["N"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
-isl([know],[["know"],["realize"],["notice"],["recognize"]]).
+isl([know],[["Know"],["know"],["realize"],["notice"],["recognize"]]).
 isl([are],[["are"]]).
 % Sepecific topics
 isl([themes],[["themes"]]).

@@ -124,18 +124,29 @@ osl([is_end],[
   ["Goodbye"],["Bye"],["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"]]).
 % Sepecific topics
 osl([know_themes],[
-  ["I", "can", "help", "you", "with", "painters", "musicians", "and", "writers"]]).
+  ["I", "can", "help", "you", "with", "painters", "and", "musicians"]]).
 
 % Artists
 % Impressionism +
 osl([know_monet],[
-  ["Oscar-Claude", "Monet", "was", "born", "on", "14", "November", "1840",
-  "in", "France", "and", "died", "on", "5", "December", "1926", "at", "age", "86"]]).
+  ["Oscar-Claude", "Monet", "was", "born", "on", "November", "14", "1840",
+  "in", "France", "and", "died", "on", "December", "5", "1926", "at", "age", "86."],
+  ["Monet", "was", "a", "founder", "of", "French", "Impressionist", "painting."],
+  ["Monet's", "ambition", "of", "documenting", "the", "French", "countryside",
+  "led", "him", "to", "adopt", "a", "method", "of", "painting", "the", "same",
+  "scene", "many", "times", "in", "order", "to", "capture", "the", "changing",
+  "of", "light", "and", "the", "passing", "of", "the", "seasons."]]).
 % Post-impressionism +
 osl([know_van_gogh],[
-  ["Vincent", "Willem", "van", "Gogh", "was", "born", "on", "30", "March", "1853",
-  "in", "the", "Netherlands", "and", "died", "on", "29", "July", "1890",
-  "at", "age", "37"]]).
+  ["Vincent", "Willem", "van", "Gogh", "was", "born", "on", "March", "30", "1853",
+  "in", "the", "Netherlands", "and", "died", "on", "July", "29", "1890", "in",
+  "France", "at", "age", "37"],
+  ["Van", "Gogh", "was", "a", "Dutch", "post-impressionist", "painter", "who",
+  "is", "among", "the", "most", "famous", "and", "influential", "figures",
+  "in", "the", "history", "of", "Western", "art."],
+  ["In", "just", "over", "a", "decade", "Van", "Gogh", "created", "about", "2,100",
+  "artworks,", "including", "around", "860", "oil", "paintings,", "most", "of",
+  "which", "date", "from", "the", "last", "two", "years", "of", "his", "life."]]).
 osl([know_matisse],[
   ["Henri", "Émile Benoît", "Matisse", "was", "born", "on", "31", "December", "1869",
   "in", "France", "and", "died", "on", "3", "November", "1954", "at", "age", "84"]]).
@@ -187,54 +198,54 @@ osl([know_warhol],[
   ["Andy", "Warhol", "was", "a", "leading", "figure", "in", "the", "visual",
   "art", "movement", "known", "as", "pop", "art"]]).
 
-  %Musicians
-  osl([know_pink_floyd],[
+% Musicians
+osl([know_pink_floyd],[
   ["Pink", "Floyd", "were", "an", "English", "rock", "band", "formed", "in", "London", "in", "1965"]
   ]).
-  osl([know_the_beatles],[
+osl([know_the_beatles],[
   ["The", "Beatles", "were", "an", "English", "rock", "band", "formed", "in", "Liverpool", "1960"]
   ]).
-  osl([know_nirvana],[
+osl([know_nirvana],[
   ["Nirvana", "was", "an", "American", "rock", "band", "formed", "in", "Aberdeen", "in", "1987"]
   ]).
-  osl([know_queen],[
+osl([know_queen],[
   ["Queen", "are", "a", "British", "rock", "band", "formed", "in", "London", "in", "1970"]
   ]).
-  osl([know_led_zepplin],[
+osl([know_led_zepplin],[
   ["Led", "Zeppelin", "were", "an", "English", "rock", "band", "formed", "in", "1968"]
   ]).
-  osl([know_ramones],[
+osl([know_ramones],[
   ["The", "Ramones", "were", "an", "American", "punk", "rock",
   "band", "that","formed", "in", "the", "New", "York", "City",
   "neighborhood", "of", "Forest", "Hills,", "Queens", "in", "1974"]
   ]).
-  osl([know_michael_jackson],[
+osl([know_michael_jackson],[
   ["Michael", "Joseph", "Jackson", "was", "an",
   "American", "singer,", "songwriter,", "and", "dancer"]
   ]).
-  osl([know_ray_charles],[
+osl([know_ray_charles],[
   ["Ray", "Charles", "Robinson", "was", "an", "American",
   "singer,", "songwriter,", "musician,", "and", "composer"]
   ]).
-  osl([know_bob_dylan],[
+osl([know_bob_dylan],[
   ["Bob", "Dylan", "is", "an", "American", "singer-songwriter,", "author,", "and",
   "visual", "artist", "who", "has", "been", "a", "major", "figure", "in", "popular",
   "culture", "for", "more", "than", "fifty", "years"]
   ]).
-  osl([know_metallica],[
+osl([know_metallica],[
   ["Metallica", "is", "an", "American", "heavy", "metal",
   "band", "formed", "in", "1981", "in", "Los", "Angeles"]
   ]).
-  osl([know_megadeth],[
+osl([know_megadeth],[
   ["Megadeth", "is", "an", "American", "heavy",
   "metal", "band", "from", "Los", "Angeles,", "California"]
   ]).
-  osl([know_black_sabbath],[
+osl([know_black_sabbath],[
   ["Black", "Sabbath", "were", "an", "English", "rock",
   "band", "formed", "in", "in", "Birmingham", "in", "1968"]
   ]).
 
-% outupt Top-Down Lists
+%outupt Top-Down Lists
 % "Small talk"
 otdl([lgreet],[
   ["it is good", "it is nice", "i am pleased"],
@@ -253,15 +264,14 @@ osc([know_painters],[
   :- findall(P, painters(P), PS), enumerate(PS, ES).
 osc([know_movements],[
   ["The", "painters", "I", "know", "followed", "this", "art", "movements:"],
-  AMS, ["are", "you", "interested", "in", "any", "of", "them?"]])
+  AMS])
   :- movements(MS), enumerate(MS, AMS).
 %em falta
 osc([know_musicians],[["I", "know", "things", "about"], ES,
   ["wich","one","do","you","what","to","know","about?"]])
   :- findall(P, musicians(P), PS), enumerate(PS, ES).
 osc([know_styles],[
-  ["The", "musicians", "I", "know", "followed", "this", "styles:"],
-  AMS, ["are", "you", "interested", "in", "any", "of", "them?"]])
+  ["The", "musicians", "I", "know", "followed", "this", "styles:"], AMS])
   :- styles(MS), enumerate(MS, AMS).
 
 % outupt Top-Down generator

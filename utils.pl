@@ -1,12 +1,15 @@
+map(_,[],[]).
+map(Goal,[X|L],[Y|ML]) :- call(Goal, X, Y), map(Goal,L,ML).
+
 % M is the mapping of Goal to L (maps nothing when Goal fails)
 % Single direction Goal(L) -> M
-map(_, [],[]).
-map(Goal, L, M) :-
+map_sublist(_, [],[]).
+map_sublist(Goal, L, M) :-
   headsublist(X, T, L), not(X = []),
   call(Goal, Y, X),
-  map(Goal, T, MT),
+  map_sublist(Goal, T, MT),
   append(Y, MT, M), !.
-map(Goal, [_|T], M) :- map(Goal, T, M).
+map_sublist(Goal, [_|T], M) :- map_sublist(Goal, T, M).
 
 % delMember(X, XS, Y), True when Y is the list XS without the element X
 delMember(_, [], []) :- !.

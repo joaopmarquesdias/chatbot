@@ -1,6 +1,6 @@
 % SINTAX -> SEMANTIC
 % True when SM is a list of all semantic values (idatabase) in S
-semantics(S, SM) :- map(isemsin, S, SM).
+semantics(S, SM) :- map_sublist(isemsin, S, SM).
 
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
@@ -20,7 +20,7 @@ remove_repetitions([SM|SMN],[SM|NSM]) :-
   not(member(SM,SMN)), remove_repetitions(SMN, NSM).
 
 % True when SMS is the symmetry of SM
-symmetries(SM, SMS) :- map(sym, SM, SMS).
+symmetries(SM, SMS) :- map_sublist(sym, SM, SMS).
 
 % SINTAX ANALYSIS
 % True when AAS is a list of answers with scores
