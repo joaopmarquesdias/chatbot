@@ -94,20 +94,28 @@ more(h([S1,S2|_],[A|AS])) :-
 %     average number of words in each intervention;
 %     frequency of words used, etc.
 
-stats(H) :- nl, nl, normalizeH(H,C), append(C,L), !, numberinterventions(C), lengthconversation(L), averagewords(C), mostfreqwords(L), nl, nl.
+stats(H) :-
+  nl, nl, normalizeH(H,C), append(C,L), !, numberinterventions(C),
+  lengthconversation(L), averagewords(C), mostfreqwords(L), nl, nl.
 
 
-numberinterventions(C) :- length(C,Len), write("There were "), write(Len), write(" interventions in this conversation"), nl.
+numberinterventions(C) :-
+  length(C,Len), write("There were "), write(Len),
+  write(" interventions in this conversation"), nl.
 
-atoml_sentence_list([X],[C]) :- atoml_sentence(X,C), !.
-atoml_sentence_list([X|Xs],[C|Cs]) :- atoml_sentence(X,C), atoml_sentence_list(Xs,Cs).
+atoml_sentence_list([X],[C]) :-
+  atoml_sentence(X,C), !.
+atoml_sentence_list([X|Xs],[C|Cs]) :-
+  atoml_sentence(X,C), atoml_sentence_list(Xs,Cs).
 
-normalizeH(H,C) :- removetuple(H,H1), removeans(H1,H2), atoml_sentence_list(H2,C).
+normalizeH(H,C) :-
+  removetuple(H,H1), removeans(H1,H2), atoml_sentence_list(H2,C).
 
 removetuple(h(Q,A),[Q,A]).
 
 removeans([[Q],[ans(X,_)]],[Q,X]) :- !.
-removeans([[Q|Qs],[ans(X,_)|As]],[Q,X|Done]) :- removeans([Qs,As], Done).
+removeans([[Q|Qs],[ans(X,_)|As]],[Q,X|Done]) :-
+  removeans([Qs,As], Done).
 
 lengthconversation(L) :-
   length(L, Len), write("Total number of words in the conversation is: "), write(Len), nl.
@@ -128,12 +136,16 @@ mostfreqwords(L) :-
 
 sortfreq([],[]) :- !.
 sortfreq([X],[X]) :- !.
-sortfreq([X|Xs],[M|S]) :- max([X|Xs],M), delMember(M,[X|Xs],X1), sortfreq(X1,S).
+sortfreq([X|Xs],[M|S]) :-
+  max([X|Xs],M), delMember(M,[X|Xs],X1), sortfreq(X1,S).
 
-max([(S,X)|Xs], M):- max(Xs, (S,X), M),!.
+max([(S,X)|Xs], M):-
+  max(Xs, (S,X), M),!.
 max([], M, M).
-max([(S,X)|Xs], (_, PM), M):- X >  PM, max(Xs, (S, X), M),!.
-max([(_,X)|Xs], (S1, PM), M):- X =< PM, max(Xs, (S1, PM), M),!.
+max([(S,X)|Xs], (_, PM), M):-
+  X >  PM, max(Xs, (S, X), M),!.
+max([(_,X)|Xs], (S1, PM), M):-
+  X =< PM, max(Xs, (S1, PM), M),!.
 
 countlist([X], L,[(X,Y)]) :-
   count(X,L,Y), !.
@@ -146,7 +158,8 @@ count(X,[X|Xs],Y):-
 count(X,[_|Xs],Z):-
   count(X,Xs,Z).
 
-printtop5(S) :- length(S,Len),
+printtop5(S) :-
+  length(S,Len),
   (Len =< 5
   -> write("Top "), write(Len), write(" words in the conversation:"), nl, printtop(S,Len)
   ;  write("Top 5 words in the conversation:"), nl, printtop(S,5)
