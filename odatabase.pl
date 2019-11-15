@@ -160,7 +160,11 @@ osl([know_kandinsky],[
   ["Wassily", "Wassilyevich", "Kandinsky", "was", "born", "on",
   "December", "16", "1866", "in", "the", "Russian", "Empire",
   "and", "died", "on", "December", "13", "1944", "in", "France",
-  "at", "age", "77."]]).
+  "at", "age", "77."],
+  ["Kandinsky", "is", "generally", "credited", "as", "the", "pioneer", "of",
+  "abstract", "art."],
+  ["Kandinsky", "began", "painting", "studies", "(life-drawing,", "sketching",
+  "and", "anatomy)", "at", "the", "age", "of", "30."]]).
 % Cubism +
 osl([know_picasso],[
   ["Picasso", "full", "name", "was",
