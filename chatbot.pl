@@ -102,7 +102,7 @@ lengthconversation(L) :-
 averagewords(C) :-
   countwords(C,Count), sum_list(Count, Sum), length(Count, Len),
   write("Average number os words in each intervention is: "),
-  Number is Sum/Len, write(Number).
+  Number is Sum/Len, write(Number), nl.
 
 countwords([],[]).
 countwords([X|Xs],[C|Cs]) :-
@@ -111,16 +111,56 @@ countwords([X],[C]) :-
   length(X,C).
 
 mostfreqwords(L) :-
-  sort(L, L1), countlist(L1, L).
+  sort(L, L1), countlist(L1, L, O), sortfreq(O, S), printtop5(S).
 
-countlist([X], L) :- count(X,L,Y), write("Word "), write(X),
-write(" appears "), write(Y), write(" times"), nl, !.
-countlist([X|Xs], L) :-
-  count(X,L,Y), write("Word "), write(X),
-  write(" appears "), write(Y), write(" times"), nl, countlist(Xs,L).
+sortfreq([],[]) :- !.
+sortfreq([X],[X]) :- !.
+sortfreq([X|Xs],[M|S]) :- max([X|Xs],M), delMember(M,[X|Xs],X1), sortfreq(X1,S).
+
+max([(S,X)|Xs], M):- max(Xs, (S,X), M),!.
+max([], M, M).
+max([(S,X)|Xs], (_, PM), M):- X >  PM, max(Xs, (S, X), M),!.
+max([(_,X)|Xs], (S1, PM), M):- X =< PM, max(Xs, (S1, PM), M),!.
+
+countlist([X], L,[(X,Y)]) :-
+  count(X,L,Y), !.
+countlist([X|Xs], L, [(X,Y)|I]) :-
+  count(X,L,Y), countlist(Xs,L,I),!.
 
 count(_,[],0).
 count(X,[X|Xs],Y):-
   count(X,Xs,Z), Y is 1+Z,!.
 count(X,[_|Xs],Z):-
   count(X,Xs,Z).
+
+printtop5(S) :- length(S,Len),
+  (Len =< 5
+  -> write("Top "), write(Len), write(" words in the conversation:"), nl, printtop(S,Len)
+  ;  write("Top 5 words in the conversation:"), nl, printtop(S,5)
+  ).
+
+printtop([(W,N)|S],X) :-
+  (X =:= 1
+  -> write(W), write(" appears "),
+     write(N), write(" time(s)."), nl
+  ;  write(W), write(" appears "), write(N),
+     write(" time(s)."), nl, Y is X-1, printtop(S,Y)
+  ).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  %stop it
