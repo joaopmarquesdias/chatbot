@@ -1,35 +1,32 @@
-#TODO
--This bot is a online assistant of a museum of modern art
--Add modernist artist to database 
+Predicate 1: answers(S, AS)
+  The argument S is a sentence in the form of
+    [atom1, atom2|Atoms] or ["word1", "word2"|Words]
+  The argument AS is a list of all answers in the form
+    [ans(Phrase, Score), ...]
 
-# chatbot
-Brief description of the algorithm
-1. [SI]  is the input sentence
-2. [SM]  is the list of base semantics in [SI]              % analyze patterns, keywords and combinations of them
-3. [NSM] is the normalized list of [SM]                     % analyze semantic combinations, patterns, reduce, replace...
-4. [AS]  is the list of all possible answers based on [NSM] % use semsin and append
-5. [AAS] is the list of analyzed answers of [AS]            % we give them scores, based on repetition, length...
-6. [A]   is the answer with the best score from [AAS]
-7. [A]   is the output sentence
+example:
+  answers(["hello"],[ans(["hello"], 0), ans(["hi"], 0)|Answers).
 
-# DOCUMENTATION
-## database.pl
+% Predicate 2 : bestanswer(S, A)
+    The argument S is a sentence in the form of
+      [atom1, atom2|Atoms] or ["word1", "word2"|Words]
+    The argument A is the answer with the highest score
 
-semval(X)
-> True when X is a semantic value
+example:
+  bestanswer(["hello"],ans(["hello", "it", "is", "good", "to", "meet", "you"], 0.8571428571428572)).
 
-semsin(S, P)
-> True when P is a syntactic phrase with semantic S
+% Predicate 3 : runifanswer(S, A)
+  The argument S is a sentence in the form of
+    [atom1, atom2|Atoms] or ["word1", "word2"|Words]
+  The argument A is a random answer based on uniform distribution
 
-The predicates that "store" syntactical objects are
-- tdl (Top-Down list)
-- sl  (Sentence list)
-- sc  (Sentence combination)
+example:
+  runifanswer(["hello"],ans(["hello"], 0)).
 
-The predicates that generate sentences are
-- topdowngen
-- slgen
-- scgen
+% Predicate 4 : rpropanswer(S, A)
+  The argument S is a sentence in the form of
+    [atom1, atom2|Atoms] or ["word1", "word2"|Words]
+  The argument A is a random answer  taking into account the values of the scores
 
-## semantic.pl
-(...)
+example:
+  rpropanswer(["hello"],ans(["hi", "it", "is", "good", "to", "see", "you"], 0.8571428571428572)).
