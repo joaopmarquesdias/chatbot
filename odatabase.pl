@@ -229,7 +229,7 @@ osl([know_warhol],[
   "and", "died", "on", "February,", "22", "1987", "at", "age", "58."],
   ["Andy", "Warhol", "was", "a", "leading", "figure", "in", "the", "visual",
   "art", "movement", "known", "as", "pop", "art."],
-  ["His", "works", "explore", "the", "relationship", "between", "artistic",
+  ["Warhol", "works", "explore", "the", "relationship", "between", "artistic",
   "expression,", "advertising,", "and", "celebrity", "culture."]]).
 
 % Musicians
@@ -289,7 +289,7 @@ otdl([lgreet],[
 
 % output sentence combination
 % "Small talk"
-osc([answer_greet],[["i", "am"],X,Y,["for", "asking"]]) :-
+osc([answer_greet],[["I", "am"],X,Y,["for", "asking"]]) :-
   osemsin(X, [good]), osemsin(Y,[thank]).
 % Sepecific topics
 osc([know_painters],[
@@ -332,4 +332,4 @@ osemsin(P, [greet]) :-
 % defined relations
 osemsin(P, S)       :- osl(S, SL), oslgen(SL, P).
 osemsin(P, S)       :- osc(S, SL), oscgen(SL, P).
-osemsin([X], [repeate(X)]).
+osemsin([X, "\n"], [repeate(X)]).
