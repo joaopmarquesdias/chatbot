@@ -12,7 +12,7 @@ isemval([yes]).
 isemval([no]).
 isemval([question]).
 isemval([know]).
-isemval([answer_greet]).
+isemval([are]).
 % Sepecific topics
 isemval([themes]).
 isemval([movements]).
@@ -58,7 +58,7 @@ isl([no], [["no"],["No"],["n"],["N"]]).
 isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["know"],["realize"],["notice"],["recognize"]]).
-isl([answer_greet],[["How","are","you"]]).
+isl([are],[["are"]]).
 % Sepecific topics
 isl([themes],[["themes"]]).
 isl([painters],[["painters"]]).

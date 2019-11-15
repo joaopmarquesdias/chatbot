@@ -6,6 +6,7 @@
 % sym(Y,X)    X -> Y
 % "Small talk"
 sym([greet,repeate(X)],[iam,repeate(X)]) :- !.
+sym([answer_greet],[question,are,you]) :- !.
 % Sepecific topics
 sym([know_themes],[themes]) :- !.
 sym([know_movements],[movements]) :- !.
