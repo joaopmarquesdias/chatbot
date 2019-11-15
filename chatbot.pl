@@ -33,7 +33,7 @@ bestanswer(S, A) :-
 runifanswer(S, A) :-
   answers(S, AS),
   random_member(A, AS).
-  
+
 % Predicate 4 : rpropanswer(S, A)
 %   A is a random answer to S taking in to account scores
 rpropanswer(S, A) :-
@@ -95,5 +95,5 @@ not_quit(S,A) :-
 %     frequency of words used, etc.
 
 stats(H) :-
-  nl, nl, normalizeH(H,C), append(C,L), !, numberinterventions(C),
+  nl, writeln("Stats:"), nl, normalizeH(H,C), append(C,L), !, numberinterventions(C),
   lengthconversation(L), averagewords(C), mostfreqwords(L), nl, nl.

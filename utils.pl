@@ -162,13 +162,14 @@ max([(_,X)|Xs], (S1, PM), M):-
 
 %prints the top5 most frequent words
 printtop5(S) :-
-  write("Top 5 most frequent words in the conversation:"), nl, printtop(S,5).
+  write("Top 10 most frequent words in the conversation:"), nl, printtop(S,10).
 
-%aux to printtop5/1. prints one word of the top 5
+%aux to printtop10/1. prints one word of the top 5
+printtop([(W,N)|_],1) :-
+  write("-> \""), write(W), write("\""),
+  write(" appears "), write(N), writeln(" time(s)."), !.
+
 printtop([(W,N)|S],X) :-
-  (X =:= 1
-  -> write(W), write(" appears "),
-     write(N), write(" time(s)."), nl
-  ;  write(W), write(" appears "), write(N),
-     write(" time(s)."), nl, Y is X-1, printtop(S,Y)
-  ).
+  write("-> \""), write(W), write("\""),
+  write(" appears "), write(N), writeln(" time(s)."), !,
+  Y is X-1, printtop(S,Y).
