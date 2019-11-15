@@ -127,9 +127,9 @@ countwords([X|Xs],[C|Cs]) :-
 countwords([X],[C]) :-
   length(X,C).
 
-%discovers the frequency of each word in the conversation and prints the top 5
+%discovers the frequency of each word in the conversation and prints the top 10
 mostfreqwords(L) :-
-  sort(L, L1), countlist(L1, L, O), sortfreq(O, S), printtop5(S).
+  sort(L, L1), countlist(L1, L, O), sortfreq(O, S), printtop10(S).
 
 %counts the number of times that every word appears in the conversation
 countlist([X],L,[(X,Y)]) :-
@@ -160,11 +160,11 @@ max([(S,X)|Xs], (_, PM), M):-
 max([(_,X)|Xs], (S1, PM), M):-
   X =< PM, max(Xs, (S1, PM), M),!.
 
-%prints the top5 most frequent words
-printtop5(S) :-
+%prints the top10 most frequent words
+printtop10(S) :-
   write("Top 10 most frequent words in the conversation:"), nl, printtop(S,10).
 
-%aux to printtop10/1. prints one word of the top 5
+%aux to printtop10/1. prints one word of the top 10
 printtop([(W,N)|_],1) :-
   write("-> \""), write(W), write("\""),
   write(" appears "), write(N), writeln(" time(s)."), !.
