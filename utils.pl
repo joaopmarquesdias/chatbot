@@ -79,3 +79,86 @@ print_answers([]).
 print_answers([A|AS]) :- print_answer(A), write('\n'), print_answers(AS).
 
 % Predicates used in stats/1
+
+%normalizes de history of de chat from h(Qs,As) to [Q,A|QA]
+normalizeH(H,C) :-
+  removetuple(H,H1), removeans(H1,H2), atoml_sentence_list(H2,C).
+
+%aux to normalizeH/2. transforms the history from h(Qs,As) to [Q,A|QA]
+removetuple(h(Q,A),[Q,A]).
+
+%aux to normalizeH/2. transforms the history from [Q,A|QA] to [Q,An|QAn]
+%where A is in the form of ans(A,Score) and An in the form of A
+removeans([[Q],[ans(X,_)]],[Q,X]) :- !.
+removeans([[Q|Qs],[ans(X,_)|As]],[Q,X|Done]) :-
+  removeans([Qs,As], Done).
+
+%aux to normalizeH/2. transforms the list of interventions in wich the words are in the
+%form of "word" to a list of interventions in wich the words are in the form of words
+atoml_sentence_list([X],[C]) :-
+  atoml_sentence(X,C), !.
+atoml_sentence_list([X|Xs],[C|Cs]) :-
+  atoml_sentence(X,C), atoml_sentence_list(Xs,Cs).
+
+%Counts
+numberinterventions(C) :-
+  length(C,Len), write("There were "), write(Len),
+  write(" interventions in this conversation"), nl.
+
+
+
+lengthconversation(L) :-
+  length(L, Len), write("Total number of words in the conversation is: "), write(Len), nl.
+
+averagewords(C) :-
+  countwords(C,Count), sum_list(Count, Sum), length(Count, Len),
+  write("Average number os words in each intervention is: "),
+  Number is Sum/Len, write(Number), nl.
+
+countwords([],[]).
+countwords([X|Xs],[C|Cs]) :-
+  length(X,C), countwords(Xs,Cs),!.
+countwords([X],[C]) :-
+  length(X,C).
+
+mostfreqwords(L) :-
+  sort(L, L1), countlist(L1, L, O), sortfreq(O, S), printtop5(S).
+
+sortfreq([],[]) :- !.
+sortfreq([X],[X]) :- !.
+sortfreq([X|Xs],[M|S]) :-
+  max([X|Xs],M), delMember(M,[X|Xs],X1), sortfreq(X1,S).
+
+max([(S,X)|Xs], M):-
+  max(Xs, (S,X), M),!.
+max([], M, M).
+max([(S,X)|Xs], (_, PM), M):-
+  X >  PM, max(Xs, (S, X), M),!.
+max([(_,X)|Xs], (S1, PM), M):-
+  X =< PM, max(Xs, (S1, PM), M),!.
+
+countlist([X], L,[(X,Y)]) :-
+  count(X,L,Y), !.
+countlist([X|Xs], L, [(X,Y)|I]) :-
+  count(X,L,Y), countlist(Xs,L,I),!.
+
+count(_,[],0).
+count(X,[X|Xs],Y):-
+  count(X,Xs,Z), Y is 1+Z,!.
+count(X,[_|Xs],Z):-
+  count(X,Xs,Z).
+
+printtop5(S) :-
+  length(S,Len),
+  (Len =< 5
+  -> write("Top "), write(Len), write(" words in the conversation:"), nl, printtop(S,Len)
+  ;  write("Top 5 words in the conversation:"), nl, printtop(S,5)
+  ).
+
+printtop([(W,N)|S],X) :-
+  (X =:= 1
+  -> write(W), write(" appears "),
+     write(N), write(" time(s)."), nl
+  ;  write(W), write(" appears "), write(N),
+     write(" time(s)."), nl, Y is X-1, printtop(S,Y)
+  ).
