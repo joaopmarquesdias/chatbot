@@ -73,6 +73,7 @@ osemval([answer_greet]).
 osemval([ask_end]).
 osemval([else_end]).
 osemval([is_end]).
+osemval([meaning_life]).
 % Specific topics
 osemval([know_themes]).
 osemval([know_painters]).
@@ -125,7 +126,7 @@ osl([is_end],[
 % Sepecific topics
 osl([know_themes],[
   ["I", "can", "help", "you", "with", "painters", "and", "musicians."]]).
-
+osl([meaning_life],[["42"]]).
 % Artists
 % Impressionism +
 osl([know_monet],[
