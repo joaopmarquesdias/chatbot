@@ -77,12 +77,13 @@ not_quit(S,A) :-
   osemsin(P,[else_end]), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
-% Predicate 6 : stats(C)
-%   C is a conversation.
+% Predicate 6 : stats(H)
+%   H is a conversation.
 %   displays stats such as:
-%     length  of  the  conversation;
-%     average number of words in each intervention;
-%     frequency of words used, etc.
+%     number of interventions
+%     total number of words in the conversation
+%     average number of words in each intervention
+%     10 most frequently used words
 
 stats(H) :-
   nl, writeln("Stats:"), nl, normalizeH(H,C), append(C,L), !, numberinterventions(C),
