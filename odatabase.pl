@@ -268,7 +268,7 @@ osl([know_queen],[
   "rock", "and", "heavy", "metal."]
   ]).
 osl([know_led_zepplin],[
-  ["Led", "Zeppelin", "were", "an", "English", "rock", "band", "formed", "in", "1968"],
+  ["Led", "Zeppelin", "were", "an", "English", "rock", "band", "formed", "in", "1968."],
   ["The", "group", "consisted", "of", "vocalist", "Robert", "Plant,", "guitarist", "Jimmy",
   "Page,", "bassist/keyboardist", "John", "Paul", "Jones,", "and", "drummer", "John", "Bonham."],
   ["With", "their", "heavy,", "guitar-driven", "sound,", "Led", "Zeppelin", "are", "regularly",
@@ -277,7 +277,7 @@ osl([know_led_zepplin],[
 osl([know_ramones],[
   ["The", "Ramones", "were", "an", "American", "punk", "rock",
   "band", "that","formed", "in", "the", "New", "York", "City",
-  "neighborhood", "of", "Forest", "Hills,", "Queens", "in", "1974"],
+  "neighborhood", "of", "Forest", "Hills,", "Queens", "in", "1974."],
   ["Despite", "achieving", "only", "limited", "commercial", "success", "initially,", "the", "band",
   "was", "highly", "influential", "in", "the", "United", "States", "and", "the", "United", "Kingdom."],
   ["All", "of", "the", "band", "members", "adopted",
