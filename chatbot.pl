@@ -42,16 +42,6 @@ rpropanswer(S, A) :-
   random(0,N,X),
   answer_score(X,0,AS,A).
 
-sum([],0).
-sum([ans(_,S)|T],N):-
-  sum(T,NT), N is S + NT.
-
-answer_score(N,X,[ans(_,S)|AS],A) :-
-  Y is S + X, Y < N, !,
-  answer_score(N, Y, AS, A).
-answer_score(N,X,[ans(A,S)|_],A) :-
-  Y is S + X, Y >= N.
-
 % Predicate 5 : chat(X)
 %   produces an interactive conversation
 %   it ends when the user types “bye” or something similar
