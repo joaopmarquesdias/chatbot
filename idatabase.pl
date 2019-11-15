@@ -19,7 +19,7 @@ isemval([movements]).
 isemval([painters]).
 isemval([styles]).
 isemval([musicians]).
-isemval([more]).
+isemval([meaning_life]).
 % Artists
 isemval([picasso]).
 isemval([van_gogh]).
@@ -59,6 +59,7 @@ isl([question],[
   ["how"],["where"],["what"],["why"],["when"],["can"],["do", "you"]]).
 isl([know],[["Know"],["know"],["realize"],["notice"],["recognize"]]).
 isl([are],[["are"]]).
+isl([meaning_life],[["life"],["Life"]]).
 % Sepecific topics
 isl([themes],[["themes"]]).
 isl([painters],[["painters"]]).
