@@ -94,7 +94,7 @@ more(h([S1,S2|_],[A|AS])) :-
 %     average number of words in each intervention;
 %     frequency of words used, etc.
 
-stats(C) :- append(C,L), lengthconversation(L), averagewords(C), mostfreqwords(L).
+stats(C) :- map(atoml_sentence,C,C1), append(C1,L), !, lengthconversation(L), averagewords(C), mostfreqwords(L).
 
 lengthconversation(L) :-
   length(L, Len), write("Length of the conversation is: "), write(Len), nl.
