@@ -94,10 +94,23 @@ more(h([S1,S2|_],[A|AS])) :-
 %     average number of words in each intervention;
 %     frequency of words used, etc.
 
-stats(C) :- map(atoml_sentence,C,C1), append(C1,L), !, lengthconversation(L), averagewords(C), mostfreqwords(L).
+stats(H) :- nl, nl, normalizeH(H,C), append(C,L), !, numberinterventions(C), lengthconversation(L), averagewords(C), mostfreqwords(L), nl, nl.
+
+
+numberinterventions(C) :- length(C,Len), write("There were "), write(Len), write(" interventions in this conversation"), nl.
+
+atoml_sentence_list([X],[C]) :- atoml_sentence(X,C), !.
+atoml_sentence_list([X|Xs],[C|Cs]) :- atoml_sentence(X,C), atoml_sentence_list(Xs,Cs).
+
+normalizeH(H,C) :- removetuple(H,H1), removeans(H1,H2), atoml_sentence_list(H2,C).
+
+removetuple(h(Q,A),[Q,A]).
+
+removeans([[Q],[ans(X,_)]],[Q,X]) :- !.
+removeans([[Q|Qs],[ans(X,_)|As]],[Q,X|Done]) :- removeans([Qs,As], Done).
 
 lengthconversation(L) :-
-  length(L, Len), write("Length of the conversation is: "), write(Len), nl.
+  length(L, Len), write("Total number of words in the conversation is: "), write(Len), nl.
 
 averagewords(C) :-
   countwords(C,Count), sum_list(Count, Sum), length(Count, Len),
@@ -146,21 +159,3 @@ printtop([(W,N)|S],X) :-
   ;  write(W), write(" appears "), write(N),
      write(" time(s)."), nl, Y is X-1, printtop(S,Y)
   ).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  %stop it

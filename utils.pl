@@ -77,3 +77,5 @@ print_answer(ans(S,_)) :- print_sentence(S).
 
 print_answers([]).
 print_answers([A|AS]) :- print_answer(A), write('\n'), print_answers(AS).
+
+% Predicates used in stats/1
