@@ -209,25 +209,25 @@ osl([know_pink_floyd],[
   "and", "became", "a", "leading", "band", "of", "the", "progressive", "rock", "genre."]
   ]).
 osl([know_the_beatles],[
-  ["The", "Beatles", "were", "an", "English", "rock", "band", "formed", "in", "Liverpool", "1960"],
+  ["The", "Beatles", "were", "an", "English", "rock", "band", "formed", "in", "Liverpool", "1960."],
   ["With", "a", "line-up", "comprising", "John", "Lennon,",
   "Paul", "McCartney,", "George", "Harrison", "and", "Ringo", "Starr,",
   "they", "are", "generally", "regarded", "as", "the", "most", "influential", "band",
-  "of", "all", "time"],
+  "of", "all", "time."],
   ["Led", "by", "the", "band's", "primary", "songwriters,", "Lennon", "and", "McCartney,",
   "the", "Beatles", "built", "their", "reputation", "playing",
   "clubs", "in", "Liverpool", "and", "Hamburg", "over", "a", "three-year", "period",
   "from", "1960."]
   ]).
 osl([know_nirvana],[
-  ["Nirvana", "was", "an", "American", "rock", "band", "formed", "in", "Aberdeen", "in", "1987"],
+  ["Nirvana", "was", "an", "American", "rock", "band", "formed", "in", "Aberdeen", "in", "1987."],
   ["It", "was", "founded", "by", "lead", "singer", "and", "guitarist",
   "Kurt", "Cobain", "and", "bassist", "Krist", "Novoselic."],
   ["Nirvana", "went", "through", "a", "succession", "of", "drummers,", "the", "longest-lasting",
   "and", "best-known", "being", "Dave", "Grohl,", "who", "joined", "in", "1990."]
   ]).
 osl([know_queen],[
-  ["Queen", "are", "a", "British", "rock", "band", "formed", "in", "London", "in", "1970"],
+  ["Queen", "are", "a", "British", "rock", "band", "formed", "in", "London", "in", "1970."],
   ["Their", "classic", "line-up", "was", "Freddie", "Mercury,",
   "Brian", "May,", "Roger", "Taulor", "and", "John", "Deacon."],
   ["Their", "earliest", "works", "were", "influenced", "by", "progressive", "rock,", "hard",
@@ -247,11 +247,11 @@ osl([know_ramones],[
   ["Despite", "achieving", "only", "limited", "commercial", "success", "initially,", "the", "band",
   "was", "highly", "influential", "in", "the", "United", "States", "and", "the", "United", "Kingdom."],
   ["All", "of", "the", "band", "members", "adopted",
-  "pseudonyms", "ending", "with","the", "surname", "\"Ramone\""]
+  "pseudonyms", "ending", "with","the", "surname", "\"Ramone\"."]
   ]).
 osl([know_michael_jackson],[
   ["Michael", "Joseph", "Jackson", "was", "an",
-  "American", "singer,", "songwriter,", "and", "dancer"],
+  "American", "singer,", "songwriter,", "and", "dancer."],
   ["He", "is", "regarded", "as", "one", "of", "the", "most", "significant",
   "cultural", "figures", "of", "the", "20th", "century", "and", "one", "of",
   "the", "greatest", "entertainers."],
@@ -261,7 +261,7 @@ osl([know_michael_jackson],[
   ]).
 osl([know_ray_charles],[
   ["Ray", "Charles", "Robinson", "was", "an", "American",
-  "singer,", "songwriter,", "musician,", "and", "composer"],
+  "singer,", "songwriter,", "musician,", "and", "composer."],
   ["He", "was", "often", "referred", "to", "as", "\"The", "Genius\"."],
   ["Charles", "started", "losing", "his", "vision", "at", "the", "age", "of",
   "5,", "and", "by", "7", "he", "was", "blind."]
@@ -269,13 +269,13 @@ osl([know_ray_charles],[
 osl([know_bob_dylan],[
   ["Bob", "Dylan", "is", "an", "American", "singer-songwriter,", "author,", "and",
   "visual", "artist", "who", "has", "been", "a", "major", "figure", "in", "popular",
-  "culture", "for", "more", "than", "fifty", "years"],
+  "culture", "for", "more", "than", "fifty", "years."],
   ["Since", "1994,", "Dylan", "has", "published",
   "eight", "books", "of", "paintings", "and", "drawings."]
   ]).
 osl([know_metallica],[
   ["Metallica", "is", "an", "American", "heavy", "metal",
-  "band", "formed", "in", "1981", "in", "Los", "Angeles"],
+  "band", "formed", "in", "1981", "in", "Los", "Angeles."],
   ["The", "band's", "fast", "tempos,", "instrumentals", "and", "aggressive",
   "musicianship", "made", "them", "one", "of", "the", "founding", "\"big", "four\"", "bands", "of",
   "thrash", "metal,", "alongside", "Megadeth,", "Anthrax", "and", "Slayer."],
@@ -285,7 +285,7 @@ osl([know_metallica],[
   ]).
 osl([know_megadeth],[
   ["Megadeth", "is", "an", "American", "heavy",
-  "metal", "band", "from", "Los", "Angeles,", "California"],
+  "metal", "band", "from", "Los", "Angeles,", "California."],
   ["Along", "with", "Metallica,", "Anthrax,", "and", "Slayer,", "Megadeth", "is", "one",
   "one", "of", "the", "\"big", "four\"", "of", "American", "thrash", "metal."],
   ["In", "1985,", "Megadeth", "released", "its", "debut", "album,", "Killing", "Is",
