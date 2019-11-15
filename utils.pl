@@ -33,8 +33,8 @@ atoml_sentence([A|AS],[W|S]) :- atom_string(A, W), atoml_sentence(AS,S).
 % enumerate(AS,WS). True when WS is the sintactical enumeration of AS
 enumerate([],[]).
 enumerate([A],[A]).
-enumerate([A1, A2],[A1, "and", A2]).
-enumerate([A|AS], [W|WS]) :- string_concat(A, ",", W), enumerate(AS, WS).
+enumerate([A1, A2],[A1, "and", A2]) :- !.
+enumerate([A|AS], [W|WS]) :- string_concat(A, ",", W), !, enumerate(AS, WS).
 
 % True when M is the answer with max score
 max_score([ans(S,X)|Xs], M):- max_score(Xs, ans(S,X), M).

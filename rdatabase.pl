@@ -5,7 +5,6 @@
 % semantic symmetries
 % sym(Y,X)    X -> Y
 % "Small talk"
-sym([answer_greet],[question,you]) :- !.
 sym([greet,repeate(X)],[iam,repeate(X)]) :- !.
 % Sepecific topics
 sym([know_themes],[themes]) :- !.
@@ -25,6 +24,18 @@ sym([know_kandinsky],[know, kandinsky]) :- !.
 sym([know_kooning],[know, kooning]) :- !.
 sym([know_mondrian],[know, mondrian]) :- !.
 sym([know_warhol],[know, warhol]) :- !.
+
+sym([know_picasso],[picasso]) :- !.
+sym([know_van_gogh],[van_gogh]) :- !.
+sym([know_matisse],[matisse]) :- !.
+sym([know_monet],[monet]) :- !.
+sym([know_malevich],[malevich]) :- !.
+sym([know_rothko],[rothko]) :- !.
+sym([know_pollock],[pollock]) :- !.
+sym([know_kandinsky],[kandinsky]) :- !.
+sym([know_kooning],[kooning]) :- !.
+sym([know_mondrian],[mondrian]) :- !.
+sym([know_warhol],[warhol]) :- !.
 
 %Musicians
 sym([know_pink_floyd],[know, pink_floyd]) :- !.
