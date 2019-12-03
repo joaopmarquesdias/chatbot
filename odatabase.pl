@@ -390,4 +390,4 @@ osemsin(P, [greet]) :-
 % defined relations
 osemsin(P, S)       :- osl(S, SL), oslgen(SL, P).
 osemsin(P, S)       :- osc(S, SL), oscgen(SL, P).
-osemsin([X, "\n"], [repeate(X)]).
+osemsin([X], [repeate(X)]).
