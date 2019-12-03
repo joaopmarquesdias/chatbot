@@ -3,14 +3,14 @@
 % semantic symmetries
 % sym(Y,X)    X -> Y
 % "Small talk"
-sym([greet,repeate(X)],[iam,repeate(X)]) :- !.
-sym([answer_greet],[question,are,you]) :- !.
+sym(greet(X),iam(X)) :- !.
+sym(answer_greet,questionareyou) :- !.
 % Sepecific topics
-sym([know_themes],[themes]) :- !.
-sym([know_movements],[movements]) :- !.
-sym([know_painters],[painters]) :- !.
-sym([know_styles],[styles]) :- !.
-sym([know_musicians],[musicians]) :- !.
+sym(know_themes,themes) :- !.
+sym(know_movements,movements) :- !.
+sym(know_painters,painters) :- !.
+sym(know_styles,styles) :- !.
+sym(know_musicians,musicians) :- !.
 % Artists
 sym([know_picasso],[know, picasso]) :- !.
 sym([know_van_gogh],[know, van_gogh]) :- !.
