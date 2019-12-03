@@ -3,6 +3,7 @@
 :- ['odatabase.pl'].
 :- ['rdatabase.pl'].
 :- ['utils.pl'].
+:- ['outputDGC.pl'].
 
 /* PREDICATES */
 
