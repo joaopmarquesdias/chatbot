@@ -1,6 +1,8 @@
-% SINTAX -> SEMANTIC
-% True when SM is a list of all semantic values (idatabase) in S
-semantics(S, SM) :- map_sublist(isemsin, S, SM).
+/* True when SM is a list of all semantic values (idatabase) in P
+    bottom-up approach */
+semantics([], []).
+semantics(P, [S|SM]) :- isem(S, P, PT), !, semantics(PT,SM).
+semantics([_|WS], SM) :- semantics(WS, SM).
 
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
