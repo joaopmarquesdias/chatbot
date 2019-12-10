@@ -1,5 +1,5 @@
-/* True when SM is a list of all semantic values (idatabase) in P
-    bottom-up approach */
+%  True when SM is a list of all semantic values (idatabase) in P
+%  (bottom-up approach)
 semantics([], []).
 semantics(P, [S|SM]) :- isem(S, P, PT), !, semantics(PT,SM).
 semantics([_|WS], SM) :- semantics(WS, SM).
@@ -7,7 +7,7 @@ semantics([_|WS], SM) :- semantics(WS, SM).
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
 normalize(SM,NSM) :- normalize_aux(SM, NSM), not(NSM = []), !.
-normalize(_,[dknow]).
+normalize(_, dont_know).
 
 normalize_aux(SM,NSM) :-
   remove_repetitions(SM, SMR),
@@ -34,4 +34,4 @@ analyze([A|AS], [ans(A,S)|AAS]) :- length(A, L), S is 1 - (1/L), analyze(AS,AAS)
 productions(SM, PS) :- findall(P, production(SM, P), PS).
 % True when P is a semantic production of SM
 production([],[]).
-production([S|SM], P) :- osemsin(P1, [S]), production(SM, P2), append(P1,P2,P).
+production([S|SM], P) :- osem(S, P1, []), production(SM, P2), append(P1,P2,P).

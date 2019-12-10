@@ -65,56 +65,56 @@ styles(AMS) :- findall(M, style(_,M), MS), remove_repetitions(MS, AMS).
 % Semantic values
 
 % "Small talk"
-osemval([good]).
-osemval([thank]).
-osemval([greet]).
-osemval([dknow]).
-osemval([answer_greet]).
-osemval([ask_end]).
-osemval([else_end]).
-osemval([is_end]).
-osemval([meaning_life]).
+osemval(good).
+osemval(thank).
+osemval(greet).
+osemval(dont_know).
+osemval(answer_greet).
+osemval(ask_end).
+osemval(else_end).
+osemval(is_end).
+osemval(meaning_life).
 % Specific topics
-osemval([know_themes]).
-osemval([know_painters]).
-osemval([know_movements]).
-osemval([know_musicians]).
-osemval([know_styles]).
-
+osemval(know_themes).
+osemval(know_painters).
+osemval(know_movements).
+osemval(know_musicians).
+osemval(know_styles).
 % Artists
-osemval([know_picasso]).
-osemval([know_van_gogh]).
-osemval([know_matisse]).
-osemval([know_monet]).
-osemval([know_malevich]).
-osemval([know_rothko]).
-osemval([know_pollock]).
-osemval([know_kandinsky]).
-osemval([know_kooning]).
-osemval([know_mondrian]).
-osemval([know_warhol]).
+osemval(know_picasso).
+osemval(know_van_gogh).
+osemval(know_matisse).
+osemval(know_monet).
+osemval(know_malevich).
+osemval(know_rothko).
+osemval(know_pollock).
+osemval(know_kandinsky).
+osemval(know_kooning).
+osemval(know_mondrian).
+osemval(know_warhol).
 % Musicians
-osemval([know_pink_floyd]).
-osemval([know_the_beatles]).
-osemval([know_nirvana]).
-osemval([know_queen]).
-osemval([know_led_zepplin]).
-osemval([know_ramones]).
-osemval([know_michael_jackson]).
-osemval([know_ray_charles]).
-osemval([know_bob_dylan]).
-osemval([know_metallica]).
-osemval([know_megadeth]).
-osemval([know_black_sabbath]).
-
+osemval(know_pink_floyd).
+osemval(know_the_beatles).
+osemval(know_nirvana).
+osemval(know_queen).
+osemval(know_led_zepplin).
+osemval(know_ramones).
+osemval(know_michael_jackson).
+osemval(know_ray_charles).
+osemval(know_bob_dylan).
+osemval(know_metallica).
+osemval(know_megadeth).
+osemval(know_black_sabbath).
 % Sintax grammars
 % "Small talk"
 osem(good) --> ["good"]; ["great"]; ["superb"]; ["excellent"]; ["marvelous"].
 osem(thank) --> ["thank", "you"]; ["thanks"].
 osem(short_greet) --> ["hello"]; ["hi"]; ["hey"].
-osem(long_greet) --> sem(long_greet0), ["to"], sem(long_greet1), ["you"].
+osem(long_greet) --> osem(long_greet0), ["to"], osem(long_greet1), ["you"].
 osem(long_greet0) --> ["it", "is", "good"]; ["it is nice"]; ["i am pleased"].
 osem(long_greet1) --> ["meet"]; ["see"].
+osem(greet) --> osem(short_greet); osem(long_greet).
+osem(answer_greet) --> ["I", "am"], osem(good), osem(thank), ["for", "asking"].
 osem(dont_know) -->
   ["I", "can't", "help", "you", "there."];
   ["I", "do", "not", "know", "that."].
@@ -129,6 +129,23 @@ osem(is_end) -->
 % Sepecific topics
 osem(know_themes) -->
   ["I", "can", "help", "you", "with", "painters", "and", "musicians."].
+osem(know_painters, S, []) :-
+  findall(P, painters(P), PS), enumerate(PS, ES),
+  append([["I", "know", "things", "about"],ES,
+    ["wich","one","do","you","what","to","know","about?"]],S).
+osem(know_movements, S, []) :-
+  movements(MS), enumerate(MS, AMS),
+  append(
+    [["The", "painters", "I", "know", "followed", "this", "art", "movements:"],
+    AMS], S).
+osem(know_musicians, S, []) :-
+  findall(P, musicians(P), PS), enumerate(PS, ES),
+  append([["I", "know", "things", "about"], ES,
+    ["wich","one","do","you","what","to","know","about?"]], S).
+osem(know_styles, S, []) :-
+  styles(MS), enumerate(MS, AMS),
+  append([["The", "musicians", "I", "know", "followed", "this", "styles:"],
+    AMS],S).
 osem(meaning_life) --> ["42"].
 % Artists
 osem(know_monet) -->
@@ -341,3 +358,29 @@ osem(know_black_sabbath) -->
   ["The", "band", "helped", "define", "the", "genre", "with",
   "releases", "such", "as", "Black", "Sabbath", "(1970),", "Paranoid",
   "(1970),", "and", "Master", "of", "Reality", "(1971)."].
+
+% outupt Top-Down generator
+% True when S is a possible combination of words in TDL
+otdgen([],[]).
+otdgen([X|BS], S) :-
+  member(W, X), split_string(W, " ", "", W1),
+  otdgen(BS, S1),
+  append(W1, S1, S).
+% output sentence list generator
+oslgen(SL, S) :- member(S, SL).
+% output sentence combination generator
+oscgen([],[]).
+oscgen([X|SC], S) :- oscgen(SC, S1), append(X, S1, S).
+
+% output semantic-sintax relations
+% combined relations
+osemsin(P, [greet]) :- osl([sgreet], SL), oslgen(SL, P).
+osemsin(P, [greet]) :- otdl([lgreet], TDL), otdgen(TDL, P).
+osemsin(P, [greet]) :-
+  osl([sgreet], SL), oslgen(SL, P1),
+  otdl([lgreet], TDL), otdgen(TDL, P2),
+  append(P1,P2,P).
+% defined relations
+osemsin(P, S)       :- osl(S, SL), oslgen(SL, P).
+osemsin(P, S)       :- osc(S, SL), oscgen(SL, P).
+osemsin([X], [repeate(X)]).

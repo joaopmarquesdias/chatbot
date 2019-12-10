@@ -4,13 +4,13 @@
 % sym(Y,X)    X -> Y
 % "Small talk"
 sym(greet(X),iam(X)) :- !.
-sym(answer_greet,questionareyou) :- !.
+sym([answer_greet],[question, are, you]) :- !.
 % Sepecific topics
-sym(know_themes,themes) :- !.
-sym(know_movements,movements) :- !.
-sym(know_painters,painters) :- !.
-sym(know_styles,styles) :- !.
-sym(know_musicians,musicians) :- !.
+sym([know_themes],[themes]) :- !.
+sym([know_movements],[movements]) :- !.
+sym([know_painters],[painters]) :- !.
+sym([know_styles],[styles]) :- !.
+sym([know_musicians],[musicians]) :- !.
 % Artists
 sym([know_picasso],[know, picasso]) :- !.
 sym([know_van_gogh],[know, van_gogh]) :- !.
@@ -64,4 +64,4 @@ sym([know_megadeth],[megadeth]) :- !.
 sym([know_black_sabbath],[black_sabbath]) :- !.
 
 % Id
-sym(X,X) :- osemval(X), isemval(X), !.
+sym([X],[X]) :- osemval(X), isemval(X), !.
