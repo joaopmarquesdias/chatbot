@@ -358,29 +358,4 @@ osem(know_black_sabbath) -->
   ["The", "band", "helped", "define", "the", "genre", "with",
   "releases", "such", "as", "Black", "Sabbath", "(1970),", "Paranoid",
   "(1970),", "and", "Master", "of", "Reality", "(1971)."].
-
-% outupt Top-Down generator
-% True when S is a possible combination of words in TDL
-otdgen([],[]).
-otdgen([X|BS], S) :-
-  member(W, X), split_string(W, " ", "", W1),
-  otdgen(BS, S1),
-  append(W1, S1, S).
-% output sentence list generator
-oslgen(SL, S) :- member(S, SL).
-% output sentence combination generator
-oscgen([],[]).
-oscgen([X|SC], S) :- oscgen(SC, S1), append(X, S1, S).
-
-% output semantic-sintax relations
-% combined relations
-osemsin(P, [greet]) :- osl([sgreet], SL), oslgen(SL, P).
-osemsin(P, [greet]) :- otdl([lgreet], TDL), otdgen(TDL, P).
-osemsin(P, [greet]) :-
-  osl([sgreet], SL), oslgen(SL, P1),
-  otdl([lgreet], TDL), otdgen(TDL, P2),
-  append(P1,P2,P).
-% defined relations
-osemsin(P, S)       :- osl(S, SL), oslgen(SL, P).
-osemsin(P, S)       :- osc(S, SL), oscgen(SL, P).
-osemsin([X], [repeate(X)]).
+osem(repeate(X), [X], []).

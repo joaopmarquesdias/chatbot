@@ -3,7 +3,6 @@
 :- ['odatabase.pl'].
 :- ['rdatabase.pl'].
 :- ['utils.pl'].
-:- ['outputDGC.pl'].
 
 /* PREDICATES */
 
@@ -65,17 +64,17 @@ continue(S,A) :-
 
 ask_quit(S,A) :-
   semantics(S,SM), member(goodbye,SM),
-  osemsin(P,[ask_end]), analyze([P],[A]),
+  osem(ask_end, P, []), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 is_quit(S,A) :-
   semantics(S,SM), member(yes,SM),
-  osemsin(P,[is_end]), analyze([P],[A]),
+  osem(is_end, P, []), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 not_quit(S,A) :-
   semantics(S,SM), not(member(yes,SM)),
-  osemsin(P,[else_end]), analyze([P],[A]),
+  osem(else_end, P, []), analyze([P],[A]),
   write("Bot: "), print_answer(A), nl.
 
 % Predicate 6 : stats(H)

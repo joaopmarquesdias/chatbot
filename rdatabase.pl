@@ -3,7 +3,7 @@
 % semantic symmetries
 % sym(Y,X)    X -> Y
 % "Small talk"
-sym(greet(X),iam(X)) :- !.
+sym([greet, repeate(X)],[iam(X)]) :- !.
 sym([answer_greet],[question, are, you]) :- !.
 % Sepecific topics
 sym([know_themes],[themes]) :- !.
