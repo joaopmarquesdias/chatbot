@@ -49,48 +49,47 @@ isemval(black_sabbath).
 
 % input sentence list
 % "Small talk"
-sem(iam(X)) --> ["i","am",X]; ["my","name","is",X].
-sem(you) --> ["you"].
-sem(greet) --> ["hello"]; ["hi"]; ["hey"].
-sem(goodbye) --> ["Goodbye"]; ["Bye"]; ["goodbye"]; ["bye"].
-sem(yes) --> ["yes"]; ["Yes"]; ["y"]; ["Y"].
-sem(no) --> ["no"]; ["No"]; ["n"]; ["N"].
-sem(question) -->
+isem(iam(X)) --> ["i","am",X]; ["my","name","is",X].
+isem(you) --> ["you"].
+isem(greet) --> ["hello"]; ["hi"]; ["hey"].
+isem(goodbye) --> ["Goodbye"]; ["Bye"]; ["goodbye"]; ["bye"].
+isem(yes) --> ["yes"]; ["Yes"]; ["y"]; ["Y"].
+isem(no) --> ["no"]; ["No"]; ["n"]; ["N"].
+isem(question) -->
   ["how"]; ["where"]; ["what"]; ["why"]; ["when"]; ["can"]; ["do", "you"].
-sem(know) --> ["Know"]; ["know"]; ["realize"]; ["notice"]; ["recognize"].
-sem(are) --> ["are"].
-sem(meaning_life) --> ["life"]; ["Life"].
+isem(know) --> ["Know"]; ["know"]; ["realize"]; ["notice"]; ["recognize"].
+isem(are) --> ["are"].
+isem(meaning_life) --> ["life"]; ["Life"].
 % Sepecific topics
-sem(themes) --> ["themes"].
-sem(painters) --> ["painters"].
-sem(movements) --> ["movements"].
-sem(musicians) --> ["musicians"].
-sem(styles) --> ["styles"].
+isem(themes) --> ["themes"].
+isem(painters) --> ["painters"].
+isem(movements) --> ["movements"].
+isem(musicians) --> ["musicians"].
+isem(styles) --> ["styles"].
 % Artists
-sem(picasso) --> ["Picasso"]; ["picasso"].
-sem(van_gogh) --> ["Van", "Gogh"]; ["van", "gogh"].
-sem(matisse) --> ["Matisse"]; ["matisse"].
-sem(monet) --> ["Monet"]; ["monet"].
-sem(malevich) --> ["Malevich"]; ["malevich"].
-sem(rothko) --> ["Rothko"]; ["rothko"].
-sem(pollock) --> ["Pollock"]; ["pollock"].
-sem(kandinsky) --> ["Kandinsky"]; ["kandinsky"].
-sem(mondrian) --> ["Mondrian"]; ["mondrian"].
-sem(warhol) --> ["Warhol"]; ["warhol"].
+isem(picasso) --> ["Picasso"]; ["picasso"].
+isem(van_gogh) --> ["Van", "Gogh"]; ["van", "gogh"].
+isem(matisse) --> ["Matisse"]; ["matisse"].
+isem(monet) --> ["Monet"]; ["monet"].
+isem(malevich) --> ["Malevich"]; ["malevich"].
+isem(rothko) --> ["Rothko"]; ["rothko"].
+isem(pollock) --> ["Pollock"]; ["pollock"].
+isem(kandinsky) --> ["Kandinsky"]; ["kandinsky"].
+isem(mondrian) --> ["Mondrian"]; ["mondrian"].
+isem(warhol) --> ["Warhol"]; ["warhol"].
 %Musicians
-
-sem(pink_floyd) --> ["Pink", "Floyd"]; ["pink","floyd"].
-sem(the_beatles)--> ["Beatles"]; ["beatles"].
-sem(nirvana) --> ["Nirvana"]; ["nirvana"].
-sem(queen) --> ["Queen"]; ["queen"].
-sem(led_zepplin) --> ["Led", "Zepplin"]; ["led","zepplin"].
-sem(ramones) --> ["Ramones"]; ["ramones"].
-sem(michael_jackson) --> ["Michael","Jackson"]; ["michael","jackson"].
-sem(ray_charles) --> ["Ray", "Charles"]; ["ray","charles"].
-sem(bob_dylan) --> ["Bob","Dylan"]; ["bob", "dylan"].
-sem(metallica) --> ["Metallica"]; ["metallica"].
-sem(megadeth) --> ["Megadeth"]; ["megadeth"].
-sem(black_sabbath) --> ["Black","Sabbath"]; ["black", "sabbath"].
+isem(pink_floyd) --> ["Pink", "Floyd"]; ["pink","floyd"].
+isem(the_beatles)--> ["Beatles"]; ["beatles"].
+isem(nirvana) --> ["Nirvana"]; ["nirvana"].
+isem(queen) --> ["Queen"]; ["queen"].
+isem(led_zepplin) --> ["Led", "Zepplin"]; ["led","zepplin"].
+isem(ramones) --> ["Ramones"]; ["ramones"].
+isem(michael_jackson) --> ["Michael","Jackson"]; ["michael","jackson"].
+isem(ray_charles) --> ["Ray", "Charles"]; ["ray","charles"].
+isem(bob_dylan) --> ["Bob","Dylan"]; ["bob", "dylan"].
+isem(metallica) --> ["Metallica"]; ["metallica"].
+isem(megadeth) --> ["Megadeth"]; ["megadeth"].
+isem(black_sabbath) --> ["Black","Sabbath"]; ["black", "sabbath"].
 
 % input sentence list generator
 islgen(SL, S) :- member(S, SL).
