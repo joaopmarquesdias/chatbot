@@ -1,5 +1,7 @@
-%  True when SM is a list of all semantic values (idatabase) in P
-%  (bottom-up approach)
+
+/* True when SM is a list of all semantic values (idatabase) in the sentence P
+    bottom-up approach */
+
 semantics([], []).
 semantics(P, [S|SM]) :- isem(S, P, PT), !, semantics(PT,SM).
 semantics([_|WS], SM) :- semantics(WS, SM).
