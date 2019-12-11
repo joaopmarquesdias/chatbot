@@ -185,12 +185,3 @@ answer_score(N,X,[ans(_,S)|AS],A) :-
   answer_score(N, Y, AS, A).
 answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
   Y is S + X, Y >= N.
-
-% Assignment 2 predicates
-listofpred([know_picasso,know_van,know_matisse,know_monet,know_malevich,
-  know_rothko,know_pollock,know_kandinsky,know_kooning,know_mondrian,
-  know_warhol,know_pink_floyd,know_the_beatles,know_nirvana,know_queen,
-  know_led_zepplin,know_ramones,know_michael_jackson,know_ray_charles,
-  know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath,know_themes,
-  know_painters,know_movements,know_musicians,know_styles,good,thank,greet,
-  answer_greet,ask_end,else_end,is_end,meaning_life,dont_know]).

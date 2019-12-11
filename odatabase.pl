@@ -113,7 +113,8 @@ osem(short_greet) --> ["hello"]; ["hi"]; ["hey"].
 osem(long_greet) --> osem(long_greet0), ["to"], osem(long_greet1), ["you"].
 osem(long_greet0) --> ["it", "is", "good"]; ["it is nice"]; ["i am pleased"].
 osem(long_greet1) --> ["meet"]; ["see"].
-osem(greet) --> osem(short_greet); osem(long_greet).
+osem(greet) --> osem(short_greet).
+osem(greet) --> osem(short_greet), osem(long_greet).
 osem(answer_greet) --> ["I", "am"], osem(good), osem(thank), ["for", "asking"].
 osem(dont_know) -->
   ["I", "can't", "help", "you", "there."];
