@@ -4,8 +4,6 @@
 :- ['rdatabase.pl'].
 :- ['utils.pl'].
 
-/* PREDICATES */
-
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
 %   True when words W are strings
@@ -89,24 +87,13 @@ stats(H) :-
   nl, writeln("Stats:"), nl, normalizeH(H,C), append(C,L), !, numberinterventions(C),
   lengthconversation(L), averagewords(C), mostfreqwords(L), nl, nl.
 
-  %   Assignment 2 predicates
+% Assignment 2 predicates
 
-  % Predicate 1: sentence_type(S,SM)
-  %   SM is the semantic of sentence S
-
+% Predicate 1: sentence_type(S,SM)
+%   SM is the semantic of sentence S
 sentence_type(S,SM) :-
   semantics(S,ISM), symmetries(ISM,OSM), listofpred(X), pred(OSM,X,SM).
 
 pred(OSM,[X|_],X) :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
-
-
-
-listofpred([know_picasso,know_van,know_matisse,know_monet,know_malevich,
-know_rothko,know_pollock,know_kandinsky,know_kooning,know_mondrian,
-know_warhol,know_pink_floyd,know_the_beatles,know_nirvana,know_queen,
-know_led_zepplin,know_ramones,know_michael_jackson,know_ray_charles,
-know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath,know_themes,
-know_painters,know_movements,know_musicians,know_styles,good,thank,greet,
-answer_greet,ask_end,else_end,is_end,meaning_life,dont_know]).
