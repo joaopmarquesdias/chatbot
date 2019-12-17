@@ -92,8 +92,11 @@ stats(H) :-
 % Predicate 1: sentence_type(S,SM)
 %   SM is the semantic of sentence S
 sentence_type(S,SM) :-
-  semantics(S,ISM), symmetries(ISM,OSM), listofpred(X), pred(OSM,X,SM).
+  semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
 pred(OSM,[X|_],X) :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
+
+
+%Predicate 2:
