@@ -84,3 +84,20 @@ hsemtrans(question_you,themes,1).
 hsemtrans(question_you,picasso,0.5).
 hsemtrans(themes,picasso,1).
 hsemtrans(X,X,1).
+
+listofpred([themes,painters,movements,musicians,styles,
+  picasso,van_gogh,matisse,monet,malevich,rothko,pollock,
+  kandinsky,kooning,mondrian,warhol,led_zepplin,
+  pink_floyd,the_beatles,nirvana,queen,ramones,
+  michael_jackson,ray_charles,bob_dylan,metallica,
+  megadeth,black_sabbath,question_are_you,good,
+  thank,greet,meaning_life,dont_know]).
+
+
+  normsem([],[]).
+  normsem([question,are,you|ISMS],[question_are_you|NSMS]) :-
+    !, normsem(ISMS,NSMS).
+  normsem([know|ISMS],NSMS) :-
+    !, normsem(ISMS,NSMS).
+    normsem([ISM|ISMS],[ISM|NSMS]) :-
+    !, normsem(ISMS,NSMS).
