@@ -70,3 +70,17 @@ listofpred([know_picasso,know_van,know_matisse,know_monet,know_malevich,
   know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath,know_themes,
   know_painters,know_movements,know_musicians,know_styles,good,thank,greet,
   answer_greet,ask_end,else_end,is_end,meaning_life,dont_know]).
+
+% heuristic semantic transition
+% TODO: implement generic classes,
+% ex: hsemtrans(small_talk,medium_talk,1)
+% hsemtrans(small_talk,painters_talk,0.25)
+% hsemtrans(painters,small_talk,0.0)
+
+hsemtrans(greet,question_you,1).
+hsemtrans(greet,themes,0.5).
+hsemtrans(greet,picasso,0.25).
+hsemtrans(question_you,themes,1).
+hsemtrans(question_you,picasso,0.5).
+hsemtrans(themes,picasso,1).
+hsemtrans(X,X,1).

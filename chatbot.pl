@@ -4,6 +4,8 @@
 :- ['rdatabase.pl'].
 :- ['utils.pl'].
 
+% Assignment 1 predicates
+
 % Predicate 1 : answers(S, AS)
 %   AS is the list of all answers to the sentence S
 %   True when words W are strings
@@ -97,3 +99,8 @@ sentence_type(S,SM) :-
 pred(OSM,[X|_],X) :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
+
+% semtrans TODO: (implement using semantic classes)
+semtrans(greet,question_you,1).
+semtrans(question_you,themes,1).
+semtrans(themes,picasso,1).
