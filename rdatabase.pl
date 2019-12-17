@@ -63,6 +63,28 @@ sym([know_black_sabbath],[black_sabbath]) :- !.
 sym([X],[X]) :- osemval(X), isemval(X), !.
 
 % Assignment 2
+listofpred([know_picasso,know_van,know_matisse,know_monet,know_malevich,
+  know_rothko,know_pollock,know_kandinsky,know_kooning,know_mondrian,
+  know_warhol,know_pink_floyd,know_the_beatles,know_nirvana,know_queen,
+  know_led_zepplin,know_ramones,know_michael_jackson,know_ray_charles,
+  know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath,know_themes,
+  know_painters,know_movements,know_musicians,know_styles,good,thank,greet,
+  answer_greet,ask_end,else_end,is_end,meaning_life,dont_know]).
+
+% heuristic semantic transition
+% TODO: implement generic classes,
+% ex: hsemtrans(small_talk,medium_talk,1)
+% hsemtrans(small_talk,painters_talk,0.25)
+% hsemtrans(painters,small_talk,0.0)
+
+hsemtrans(greet,question_you,1).
+hsemtrans(greet,themes,0.5).
+hsemtrans(greet,picasso,0.25).
+hsemtrans(question_you,themes,1).
+hsemtrans(question_you,picasso,0.5).
+hsemtrans(themes,picasso,1).
+hsemtrans(X,X,1).
+
 listofpred([themes,painters,movements,musicians,styles,
   picasso,van_gogh,matisse,monet,malevich,rothko,pollock,
   kandinsky,kooning,mondrian,warhol,led_zepplin,

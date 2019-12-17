@@ -42,13 +42,13 @@ max_score([], M, M).
 max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
 max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
 
-% True when AS AS1 is the expanded list of answers based on score
-expand_all([],[]).
-expand_all([A|AS], AS1) :- expand(A,AS3), expand_all(AS, AS2), append(AS3,AS2,AS1).
-expand(ans(A,Score), AS) :- expand_aux(A, Score, AS).
-
-expand_aux(A, N,[A]) :- N < 0.1.
-expand_aux(A, N,[A|AS]) :- N >= 0.1, N2 is N - 0.1, expand_aux(A,N2,AS).
+% % True when AS AS1 is the expanded list of answers based on score
+% expand_all([],[]).
+% expand_all([A|AS], AS1) :- expand(A,AS3), expand_all(AS, AS2), append(AS3,AS2,AS1).
+% expand(ans(A,Score), AS) :- expand_aux(A, Score, AS).
+%
+% expand_aux(A, N,[A]) :- N < 0.1.
+% expand_aux(A, N,[A|AS]) :- N >= 0.1, N2 is N - 0.1, expand_aux(A,N2,AS).
 
 %reads the user input and transforms it into a list with the form ["word"|words]
 read_sentence(S) :-
@@ -185,3 +185,35 @@ answer_score(N,X,[ans(_,S)|AS],A) :-
   answer_score(N, Y, AS, A).
 answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
   Y is S + X, Y >= N.
+
+% Assignment 2 predicates
+
+bestFirst(Goal,[h([Goal|Path],_)|_],[Goal|Path]).
+bestFirst(Goal,[h(Path,_)|Paths],Sol) :-
+  expandh(Path,Goal,HExpPaths),
+  insert(HExpPaths,Paths,Paths2),
+  bestFirst(Goal,Paths2,Sol), !.
+
+expandh([First|Path],Goal,ExpPaths) :-
+  findall(h([Next,First|Path],H),
+    (semtrans(First,Next,_),
+    not(member(Next,[First|Path])),
+    heuristics(Next,Goal,H)),
+    ExpPaths).
+
+heuristics(Next,Goal,H) :- hsemtrans(Next,Goal,H).
+
+insert([],L,L).
+insert([HPath|HPaths],HExpPaths,HExpPaths3) :-
+  aux_insert(HPath,HExpPaths,HExpPaths2),
+  insert(HPaths,HExpPaths2,HExpPaths3), !.
+
+aux_insert(HPath,[],[HPath]).
+aux_insert(h(Path,H),
+  [h(Path2,H2)|HExpPaths],
+  [h(Path,H),h(Path2,H2)|HExpPaths]) :-
+    H>=H2, !.
+aux_insert(h(Path,H),
+  [h(Path2,H2)|HExpPaths],
+  [h(Path2,H2)|HExpPaths2]) :-
+    H<H2, aux_insert(h(Path,H),HExpPaths,HExpPaths2), !.
