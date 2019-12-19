@@ -69,7 +69,7 @@ listofpred([themes,painters,movements,musicians,styles,
   pink_floyd,the_beatles,nirvana,queen,ramones,
   michael_jackson,ray_charles,bob_dylan,metallica,
   megadeth,black_sabbath,question_are_you,good,
-  thank,greet,meaning_life,dont_know]).
+  thank,greet,meaning_life,goodbye,yes,no,dont_know]).
 
 normsem([],[]).
 normsem([question,are,you|ISMS],[question_are_you|NSMS]) :-

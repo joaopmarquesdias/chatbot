@@ -113,6 +113,14 @@ semtrans(picasso,know_picasso,1).
 
 %Predicate 3:
 
+chataway(L) :-
+  L >= 4, writesems([goodbye,ask_end,yes,is_end]).
+
+chataway(1) :-
+  writesems([sudden_bye]).
+
+
+writesems(_).
 %Predicate 4:
 % chat_at_aim(S1,S2,L,P)
 % given an initial sentence S1, should produce a goal sentence S2
