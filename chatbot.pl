@@ -100,9 +100,12 @@ pred(OSM,[X|_],X) :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
 
+%Predicate 2:
 % semtrans TODO: (implement using semantic classes)
 semtrans(greet,question_you,1).
 semtrans(question_you,themes,1).
 semtrans(themes,picasso,1).
 
-%Predicate 2:
+%Predicate 3:
+
+%Predicate 4:
