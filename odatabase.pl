@@ -60,7 +60,6 @@ style("Black Sabbath", "Heavy Metal").
 
 styles(AMS) :- findall(M, style(_,M), MS), remove_repetitions(MS, AMS).
 
-%writters(_).
 
 % Semantic values
 
@@ -105,6 +104,8 @@ osemval(know_bob_dylan).
 osemval(know_metallica).
 osemval(know_megadeth).
 osemval(know_black_sabbath).
+
+%class(question) -->
 % Sintax grammars
 % "Small talk"
 osem(good) --> ["good"]; ["great"]; ["superb"]; ["excellent"]; ["marvelous"].
@@ -127,6 +128,8 @@ osem(else_end) -->
 osem(is_end) -->
   ["Goodbye"]; ["Bye"];
   ["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"].
+  osem(sudden_bye) -->
+    ["I", "have", "to", "go,", "sorry"].
 % Sepecific topics
 osem(know_themes) -->
   ["I", "can", "help", "you", "with", "painters", "and", "musicians."].
@@ -254,6 +257,7 @@ osem(know_warhol) -->
   "art", "movement", "known", "as", "pop", "art."];
   ["Warhol", "works", "explore", "the", "relationship", "between", "artistic",
   "expression,", "advertising,", "and", "celebrity", "culture."].
+%Musicians
 osem(know_pink_floyd) -->
   ["Pink", "Floyd", "were", "an", "English", "rock", "band", "formed",
   "in", "London", "in", "1965"];

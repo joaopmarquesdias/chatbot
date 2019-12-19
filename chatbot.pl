@@ -108,4 +108,12 @@ semtrans(themes,picasso,1).
 
 %Predicate 3:
 
+chataway(L) :-
+  L >= 4, writesems([goodbye,ask_end,yes,is_end]).
+
+chataway(1) :-
+  writesems([sudden_bye]).
+
+
+writesems(_).
 %Predicate 4:
