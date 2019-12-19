@@ -63,21 +63,6 @@ sym([know_black_sabbath],[black_sabbath]) :- !.
 sym([X],[X]) :- osemval(X), isemval(X), !.
 
 % Assignment 2
-
-% heuristic semantic transition
-% TODO: implement generic classes,
-% ex: hsemtrans(small_talk,medium_talk,1)
-% hsemtrans(small_talk,painters_talk,0.25)
-% hsemtrans(painters,small_talk,0.0)
-
-hsemtrans(greet,question_you,1).
-hsemtrans(greet,themes,0.5).
-hsemtrans(greet,picasso,0.25).
-hsemtrans(question_you,themes,1).
-hsemtrans(question_you,picasso,0.5).
-hsemtrans(themes,picasso,1).
-hsemtrans(X,X,1).
-
 listofpred([themes,painters,movements,musicians,styles,
   picasso,van_gogh,matisse,monet,malevich,rothko,pollock,
   kandinsky,kooning,mondrian,warhol,led_zepplin,
@@ -91,5 +76,5 @@ normsem([question,are,you|ISMS],[question_are_you|NSMS]) :-
   !, normsem(ISMS,NSMS).
 normsem([know|ISMS],NSMS) :-
   !, normsem(ISMS,NSMS).
-  normsem([ISM|ISMS],[ISM|NSMS]) :-
+normsem([ISM|ISMS],[ISM|NSMS]) :-
   !, normsem(ISMS,NSMS).

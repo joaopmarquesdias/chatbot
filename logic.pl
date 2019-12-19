@@ -1,4 +1,3 @@
-
 /* True when SM is a list of all semantic values (idatabase) in the sentence P
     bottom-up approach */
 

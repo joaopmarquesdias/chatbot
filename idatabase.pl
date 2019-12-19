@@ -60,6 +60,7 @@ isem(question) -->
 isem(know) --> ["Know"]; ["know"]; ["realize"]; ["notice"]; ["recognize"].
 isem(are) --> ["are"].
 isem(meaning_life) --> ["life"]; ["Life"].
+isem(question_are_you) --> ["How", "are", "you?"].
 % Sepecific topics
 isem(themes) --> ["themes"].
 isem(painters) --> ["painters"].

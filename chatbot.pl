@@ -95,6 +95,8 @@ stats(H) :-
 %   SM is the semantic of sentence S
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
+sentence_type(S,SM) :-
+  semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
 pred(OSM,[X|_],X) :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
@@ -102,10 +104,34 @@ pred(_,_,dont_know) :- !.
 
 %Predicate 2:
 % semtrans TODO: (implement using semantic classes)
-semtrans(greet,question_you,1).
-semtrans(question_you,themes,1).
-semtrans(themes,picasso,1).
+semtrans(greet,question_are_you,1).
+semtrans(question_are_you,answer_greet,1).
+semtrans(answer_greet,themes,1).
+semtrans(themes,know_themes,1).
+semtrans(know_themes,picasso,1).
+semtrans(picasso,know_picasso,1).
 
 %Predicate 3:
 
 %Predicate 4:
+% chat_at_aim(S1,S2,L,P)
+% given an initial sentence S1, should produce a goal sentence S2
+% whith the search procedure P and a maximum length L
+chat_at_aim(S1,S2,L,bestfirst) :-
+  sentence_type(S1,SM1),
+  sentence_type(S2,SM2),
+  symmetries([SM2],[SSM2]),
+  NL is L - 1, bestFirst(SSM2,[h([SM1],_)],S,0,NL),
+  reverse(S,RS),
+  write_search_solution(RS).
+
+write_search_solution([]).
+write_search_solution([SM|T]) :-
+  isem(SM, P, []), !,
+  write("- "), print_sentence(P), write("\n"),
+  write_search_solution(T).
+write_search_solution([SM|T]) :-
+  symmetries([SM],[SSM]),
+  osem(SSM, P, []), !,
+  write("- "), print_sentence(P), write("\n"),
+  write_search_solution(T).

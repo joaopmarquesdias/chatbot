@@ -187,12 +187,16 @@ answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
   Y is S + X, Y >= N.
 
 % Assignment 2 predicates
+% bfs
 
-bestFirst(Goal,[h([Goal|Path],_)|_],[Goal|Path]).
-bestFirst(Goal,[h(Path,_)|Paths],Sol) :-
+
+% best first
+bestFirst(Goal,[h(Path,_)|Paths],Sol,N,M) :- N < M,
   expandh(Path,Goal,HExpPaths),
   insert(HExpPaths,Paths,Paths2),
-  bestFirst(Goal,Paths2,Sol), !.
+  N2 is N + 1, bestFirst(Goal,Paths2,Sol,N2,M), !.
+bestFirst(_,[h(Path,_)|_],Path,N,M) :- N >= M.
+bestFirst(Goal,[h([Goal|Path],_)|_],[Goal|Path],N,M) :- N < M.
 
 expandh([First|Path],Goal,ExpPaths) :-
   findall(h([Next,First|Path],H),
@@ -201,7 +205,7 @@ expandh([First|Path],Goal,ExpPaths) :-
     heuristics(Next,Goal,H)),
     ExpPaths).
 
-heuristics(Next,Goal,H) :- hsemtrans(Next,Goal,H).
+heuristics(Next,_,H) :- semtrans(Next,_,H).
 
 insert([],L,L).
 insert([HPath|HPaths],HExpPaths,HExpPaths3) :-
