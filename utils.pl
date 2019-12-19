@@ -188,6 +188,20 @@ answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
 
 % Assignment 2 predicates
 % bfs
+bfs(Goal,[Path|Paths],Sol,N,M) :- N < M,
+  expand(Path,ExpPaths),
+  append(Paths,ExpPaths,Paths2),
+  N2 is N + 1, bfs(Goal,Paths2,Sol,N2,M), !.
+bfs(_,[Path|_],Path,N,M) :- N >= M.
+bfs(Goal,[[Goal|Path]|_],[Goal|Path],N,M) :- N < M.
+
+expand([First|Path],ExpPaths) :-
+  findall([Next,First|Path],(
+  semtrans(First,Next,_),
+  not(member(Next,[First|Path]))),
+  ExpPaths).
+
+% dfs
 
 
 % best first
