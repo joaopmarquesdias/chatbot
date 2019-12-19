@@ -109,7 +109,11 @@ semtrans(question_are_you,answer_greet,1).
 semtrans(answer_greet,themes,1).
 semtrans(themes,know_themes,1).
 semtrans(know_themes,picasso,1).
+semtrans(know_themes,nirvana,1).
 semtrans(picasso,know_picasso,1).
+semtrans(nirvana,know_nirvana,1).
+semtrans(know_picasso,goodbye,1).
+semtrans(know_nirvana,goodbye,1).
 
 %Predicate 3:
 
@@ -125,11 +129,11 @@ writesems(_).
 % chat_at_aim(S1,S2,L,P)
 % given an initial sentence S1, should produce a goal sentence S2
 % whith the search procedure P and a maximum length L
-chat_at_aim(S1,S2,L,bestfirst) :-
+chat_at_aim(S1,S2,L,bfs) :-
   sentence_type(S1,SM1),
   sentence_type(S2,SM2),
   symmetries([SM2],[SSM2]),
-  NL is L - 1, bestFirst(SSM2,[h([SM1],_)],S,0,NL),
+  bfs(SSM2,[[SM1]],S,1,L),
   reverse(S,RS),
   write_search_solution(RS).
 
@@ -139,7 +143,6 @@ write_search_solution([SM|T]) :-
   write("- "), print_sentence(P), write("\n"),
   write_search_solution(T).
 write_search_solution([SM|T]) :-
-  symmetries([SM],[SSM]),
-  osem(SSM, P, []), !,
+  osem(SM, P, []), !,
   write("- "), print_sentence(P), write("\n"),
   write_search_solution(T).
