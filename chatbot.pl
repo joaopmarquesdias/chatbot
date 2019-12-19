@@ -109,7 +109,11 @@ semtrans(question_are_you,answer_greet,1).
 semtrans(answer_greet,themes,1).
 semtrans(themes,know_themes,1).
 semtrans(know_themes,picasso,1).
+semtrans(know_themes,nirvana,1).
 semtrans(picasso,know_picasso,1).
+semtrans(nirvana,know_nirvana,1).
+semtrans(know_picasso,goodbye,1).
+semtrans(know_nirvana,goodbye,1).
 
 %Predicate 3:
 
@@ -121,7 +125,7 @@ chat_at_aim(S1,S2,L,bfs) :-
   sentence_type(S1,SM1),
   sentence_type(S2,SM2),
   symmetries([SM2],[SSM2]),
-  NL is L - 1, bfs(SSM2,[[SM1]],S,0,NL),
+  bfs(SSM2,[[SM1]],S,1,L),
   reverse(S,RS),
   write_search_solution(RS).
 

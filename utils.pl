@@ -201,9 +201,6 @@ expand([First|Path],ExpPaths) :-
   not(member(Next,[First|Path]))),
   ExpPaths).
 
-% dfs
-
-
 % best first
 bestFirst(Goal,[h(Path,_)|Paths],Sol,N,M) :- N < M,
   expandh(Path,Goal,HExpPaths),
