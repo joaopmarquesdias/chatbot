@@ -116,15 +116,14 @@ semtrans(know_picasso,goodbye,1).
 semtrans(know_nirvana,goodbye,1).
 
 %Predicate 3:
-
 chataway(L) :-
   L >= 4, writesems([goodbye,ask_end,yes,is_end]).
 
 chataway(1) :-
   writesems([sudden_bye]).
 
-
 writesems(_).
+
 %Predicate 4:
 % chat_at_aim(S1,S2,L,P)
 % given an initial sentence S1, should produce a goal sentence S2
@@ -132,17 +131,15 @@ writesems(_).
 chat_at_aim(S1,S2,L,bfs) :-
   sentence_type(S1,SM1),
   sentence_type(S2,SM2),
-  symmetries([SM2],[SSM2]),
+  (symmetries([SM2],[SSM2]); SSM2 = SM2),
   bfs(SSM2,[[SM1]],S,1,L),
   reverse(S,RS),
-  write_search_solution(RS).
+  write_search_solution(RS), !.
 
 write_search_solution([]).
 write_search_solution([SM|T]) :-
-  isem(SM, P, []), !,
-  write("- "), print_sentence(P), write("\n"),
-  write_search_solution(T).
-write_search_solution([SM|T]) :-
-  osem(SM, P, []), !,
-  write("- "), print_sentence(P), write("\n"),
-  write_search_solution(T).
+  (findall(P, isem(SM, P, []), PS);
+  findall(P, osem(SM, P, []), PS)),
+  random_member(R,PS),
+  write("- "), print_sentence(R), write("\n"),
+  write_search_solution(T), !.
