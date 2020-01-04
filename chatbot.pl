@@ -94,9 +94,7 @@ stats(H) :-
 % Predicate 1: sentence_type(S,SM)
 %   SM is the semantic of sentence S
 sentence_type(S,SM) :-
-  isemval(SM), !, isem(SM,S,_).
-sentence_type(S,SM) :-
-  osemval(SM), !, osem(SM,S,_).
+  (isemval(SM), !, isem(SM,S,[]));(osemval(SM), !, osem(SM,S,[])).
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
@@ -113,13 +111,55 @@ pred(_,_,dont_know) :- !.
 semtrans(greet,question_are_you,1).
 semtrans(question_are_you,answer_greet,1).
 semtrans(answer_greet,themes,1).
-semtrans(themes,know_themes,1).
-semtrans(know_themes,picasso,1).
-semtrans(know_themes,nirvana,1).
-semtrans(picasso,know_picasso,1).
-semtrans(nirvana,know_nirvana,1).
-semtrans(know_picasso,goodbye,1).
-semtrans(know_nirvana,goodbye,1).
+%semtrans(themes,know_themes,1).
+% semtrans(know_themes,picasso,1).
+% semtrans(know_themes,nirvana,1).
+
+%semtrans from X to know_X
+semtrans(X,Y,1) :-
+  class(painters,Painters), nth0(Z,Painters,X),
+  class(know_painters,Know_painters), nth0(Z, Know_painters,Y), !.
+semtrans(X,Y,1) :-
+  class(musicians,Musicians), nth0(Z,Musicians,X),
+  class(know_musicians,Know_musicians), nth0(Z, Know_musicians,Y), !.
+semtrans(X,Y,1) :-
+  class(icebreaker,Icebreaker), nth0(Z,Icebreaker,X),
+  class(know_icebreaker,Know_icebreaker), nth0(Z, Know_icebreaker,Y), !.
+
+%semtrans from a know_thing to another thing of the same class or not
+semtrans(X,Y,0.9) :-
+  class(know_painters,Know_painters), member(X,Know_painters),
+  class(painters,Painters), member(Y,Painters), !.
+semtrans(X,Y,0.5) :-
+  class(know_painters,Know_painters), member(X,Know_painters),
+  class(musicians,Musicians), member(Y,Musicians), !.
+semtrans(X,Y,0.9) :-
+  class(know_musicians,Know_musicians), member(X,Know_musicians),
+  class(musicians,Musicians), member(Y,Musicians), !.
+semtrans(X,Y,0.5) :-
+  class(know_musicians,Know_musicians), member(X,Know_musicians),
+  class(painters,Painters), member(Y,Painters), !.
+semtrans(X,Y,0.9) :-
+  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
+  class(painters,Painters),member(Y,Painters), !.
+semtrans(X,Y,0.9) :-
+  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
+  class(musicians,Musicians),member(Y,Musicians), !.
+semtrans(X,Y,0.8) :-
+  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
+  class(icebreaker,Icebreaker), member(Y,Icebreaker), !.
+
+%semtrans from know_X to goodbye
+semtrans(X,goodbye,1) :-
+  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker), !.
+semtrans(X,goodbye,1) :-
+  class(know_painters,Know_painters), member(X,Know_painters), !.
+semtrans(X,goodbye,1) :-
+  class(know_musicians,Know_musicians), member(X,Know_musicians), !.
+
+%catch All
+semtrans(_,_,0.0).
+
 
 % Predicate 3: chataway(LEN)
 % Generates a plausable conversation with max length LEN
