@@ -98,11 +98,13 @@ sentence_type(S,SM) :-
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
-pred(OSM,[X|_],X) :- member(X,OSM), !.
+pred(OSM,[X|_],X)   :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
 
-%Predicate 2:
+% Predicate 2: semtrans(A,B,P)
+% P is the probability of going from
+% sentence type A to sentence type B
 % semtrans TODO: (implement using semantic classes)
 semtrans(greet,question_are_you,1).
 semtrans(question_are_you,answer_greet,1).
@@ -115,14 +117,8 @@ semtrans(nirvana,know_nirvana,1).
 semtrans(know_picasso,goodbye,1).
 semtrans(know_nirvana,goodbye,1).
 
-%Predicate 3:
-chataway(L) :-
-  L >= 4, writesems([goodbye,ask_end,yes,is_end]).
-
-chataway(1) :-
-  writesems([sudden_bye]).
-
-writesems(_).
+% Predicate 3: chataway(LEN)
+% Generates a plausable conversation with max length LEN
 
 %Predicate 4:
 % chat_at_aim(S1,S2,L,P)
