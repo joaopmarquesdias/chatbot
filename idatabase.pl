@@ -48,13 +48,36 @@ isemval(megadeth).
 isemval(black_sabbath).
 
 %classes
-class(icebreaker) --> themes; movements; style; painters; musicians.
-class(painters) --> picasso; van_gogh; matisse; monet;
-  malevich; rothko; pollock; kandinsky; kooning; mondrian; warhol.
-class(musicians) --> pink_floyd; the_beatles; nirvana; queen; led_zepplin; ramones;
-  michael_jackson; ray_charles; bob_dylan; metallica; megadeth; black_sabbath.
+class(class,[icebreaker,painters,musicians]).
+class(icebreaker,[themes,movements,style,painters,musicians]).
+class(painters,[picasso,van_gogh,matisse,monet,malevich,
+rothko,pollock,kandinsky,kooning,mondrian,warhol]).
+class(musicians,[led_zepplin,pink_floyd,the_beatles,
+nirvana,queen,ramones,michael_jackson,ray_charles,
+bob_dylan,metallica,megadeth,black_sabbath]).
+class(know_icebreaker,[know_themes,know_movements,know_style,know_painters,know_musicians]).
+class(know_painters,[know_picasso,know_van_gogh,know_matisse,know_monet,know_malevich,
+know_rothko,know_pollock,know_kandinsky,know_kooning,know_mondrian,know_warhol]).
+class(know_musicians,[know_led_zepplin,know_pink_floyd,know_the_beatles,
+know_nirvana,know_queen,know_ramones,know_michael_jackson,know_ray_charles,
+know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath]).
 
-% input sentence list
+% class(icebreaker) --> themes; movements; style; painters; musicians.
+% class(painters) --> picasso; van_gogh; matisse; monet;
+%   malevich; rothko; pollock; kandinsky; kooning; mondrian; warhol.
+% class(musicians) --> pink_floyd; the_beatles; nirvana; queen; led_zepplin; ramones;
+%   michael_jackson; ray_charles; bob_dylan; metallica; megadeth; black_sabbath.
+
+%input sentence list
+
+isem(icebreaker,Phrase) --> ["What", Phrase, "do", "you", "know", "about?"].
+isem(painters,Painter) --> ["What", "do", "you", "know", "about", Painter].
+isem(musicians,Musician) --> ["What", "do", "you", "know", "about", Musician].
+
+%isem(greet) --> osem(greet).
+
+
+% input trigger list
 % "Small talk"
 isemtrigger(iam(X)) --> ["i","am",X]; ["my","name","is",X].
 isemtrigger(you) --> ["you"].

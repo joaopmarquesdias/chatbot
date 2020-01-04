@@ -72,13 +72,13 @@ osemval(answer_greet).
 osemval(ask_end).
 osemval(else_end).
 osemval(is_end).
-osemval(meaning_life).
 % Specific topics
 osemval(know_themes).
-osemval(know_painters).
 osemval(know_movements).
-osemval(know_musicians).
 osemval(know_styles).
+osemval(know_painters).
+osemval(know_musicians).
+osemval(meaning_life).
 % Artists
 osemval(know_picasso).
 osemval(know_van_gogh).
