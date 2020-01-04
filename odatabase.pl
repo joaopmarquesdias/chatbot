@@ -116,6 +116,7 @@ osem(long_greet0) --> ["it", "is", "good"]; ["it is nice"]; ["i am pleased"].
 osem(long_greet1) --> ["meet"]; ["see"].
 osem(greet) --> osem(short_greet).
 osem(greet) --> osem(short_greet), osem(long_greet).
+osem(greetl) --> osem(short_greet), osem(long_greet).
 osem(answer_greet) --> ["I", "am"], osem(good), osem(thank), ["for", "asking"].
 osem(dont_know) -->
   ["I", "can't", "help", "you", "there."];
@@ -128,8 +129,8 @@ osem(else_end) -->
 osem(is_end) -->
   ["Goodbye"]; ["Bye"];
   ["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"].
-  osem(sudden_bye) -->
-    ["I", "have", "to", "go,", "sorry"].
+osem(sudden_bye) -->
+  ["Thank", "you", "but", "I", "have", "to", "go,", "goodbye!"].
 % Sepecific topics
 osem(know_themes) -->
   ["I", "can", "help", "you", "with", "painters", "and", "musicians."].

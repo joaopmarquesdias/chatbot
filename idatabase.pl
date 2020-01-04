@@ -1,4 +1,3 @@
-
 /* input database */
 
 % The structure repeate(X) as the same semantic value as X
@@ -62,20 +61,26 @@ class(know_musicians,[know_led_zepplin,know_pink_floyd,know_the_beatles,
 know_nirvana,know_queen,know_ramones,know_michael_jackson,know_ray_charles,
 know_bob_dylan,know_metallica,know_megadeth,know_black_sabbath]).
 
-% class(icebreaker) --> themes; movements; style; painters; musicians.
-% class(painters) --> picasso; van_gogh; matisse; monet;
-%   malevich; rothko; pollock; kandinsky; kooning; mondrian; warhol.
-% class(musicians) --> pink_floyd; the_beatles; nirvana; queen; led_zepplin; ramones;
-%   michael_jackson; ray_charles; bob_dylan; metallica; megadeth; black_sabbath.
-
 %input sentence list
-
 isem(icebreaker,Phrase) --> ["What", Phrase, "do", "you", "know", "about?"].
-isem(painters,Painter) --> ["What", "do", "you", "know", "about", Painter].
-isem(musicians,Musician) --> ["What", "do", "you", "know", "about", Musician].
+isem(painters,Painter) --> ["What", "do", "you", "know", "about", Painter, "?"].
+isem(musicians,Musician) --> ["What", "do", "you", "know", "about", Musician, "?"].
+isem(X,P2,[]) :-
+  class(painters,L), member(X,L),
+  isemtrigger(X,Y,[]), isem(painters,Y,P,[]), decons(P,P2), !.
+isem(X,P2,[]) :-
+  class(musicians,L), member(X,L),
+  isemtrigger(X,Y,[]), isem(musicians,Y,P,[]), decons(P,P2), !.
+isem(X,P2,[]) :-
+  class(icebreaker,L), member(X,L),
+  isemtrigger(X,Y,[]), isem(icebreaker,Y,P,[]), decons(P,P2), !.
+isem(greet,P,[]) :- osem(greetl,P,[]), !.
+isem(goodbye,P,[]) :- osem(sudden_bye,P,[]), !.
+isem(X,P,[]) :- isemtrigger(X,P,[]).
 
-%isem(greet) --> osem(greet).
-
+decons([],[]).
+decons([X|XS],[X|YS]) :- not(list(X)), !, decons(XS,YS).
+decons([X|XS],ZS) :- list(X), !, decons(XS,YS), append(X,YS,ZS).
 
 % input trigger list
 % "Small talk"
