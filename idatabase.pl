@@ -46,6 +46,12 @@ isemval(metallica).
 isemval(megadeth).
 isemval(black_sabbath).
 
+%classes
+class(icebreaker) --> themes; movements; style; painters; musicians.
+class(painters) --> picasso; van_gogh; matisse; monet;
+  malevich; rothko; pollock; kandinsky; kooning; mondrian; warhol.
+class(musicians) --> pink_floyd; the_beatles; nirvana; queen; led_zepplin; ramones;
+  michael_jackson; ray_charles; bob_dylan; metallica; megadeth; black_sabbath.
 
 % input sentence list
 % "Small talk"

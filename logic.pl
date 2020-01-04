@@ -8,7 +8,7 @@ semantics([_|WS], SM) :- semantics(WS, SM).
 /* SEMANTIC ANALYSIS */
 % NSM is the normalized list, based on relations (rdatabase) of SM
 normalize(SM,NSM) :- normalize_aux(SM, NSM), not(NSM = []), !.
-normalize(_, dont_know).
+normalize(_, [dont_know]).
 
 normalize_aux(SM,NSM) :-
   remove_repetitions(SM, SMR),
