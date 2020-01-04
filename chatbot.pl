@@ -158,6 +158,10 @@ semtrans(X,goodbye,1) :-
 semtrans(X,goodbye,1) :-
   class(know_musicians,Know_musicians), member(X,Know_musicians), !.
 
+%general semtrans
+semtrans(greet,greet,1) :- !.
+semtrans(meaning_life,meaning_life,1) :- !-
+
 %catch All
 semtrans(_,_,0.0).
 
