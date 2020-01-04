@@ -98,7 +98,6 @@ sentence_type(S,SM) :-
 sentence_type(S,SM) :-
   (isemval(SM), isemtrigger(SM,S,[]));(osemval(SM), osem(SM,S,[])).
 
-
 % Predicate 2: semtrans(A,B,P)
 % P is the probability of going from
 % sentence type A to sentence type B
@@ -152,10 +151,11 @@ semtrans(_,_,0.0).
 %chataway(N) :-
 
 
-%Predicate 4:
+% Predicate 4:
 % chat_at_aim(S1,S2,L,P)
-% given an initial sentence S1, should produce a goal sentence S2
+% given an initial sentence S1, and a goal sentence S2
 % whith the search procedure P and a maximum length L
+% produces a plausable conversation
 chat_at_aim(S1,S2,L,P) :-
   sentence_type(S1,SM1),
   sentence_type(S2,SM2),
