@@ -4,6 +4,7 @@
 :- ['rdatabase.pl'].
 :- ['utils.pl'].
 
+%morte a prolog
 % Assignment 1 predicates
 
 % Predicate 1 : answers(S, AS)
