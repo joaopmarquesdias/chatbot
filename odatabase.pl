@@ -264,7 +264,7 @@ osem(know_pink_floyd) -->
   ["Pink", "Floyd", "were", "founded", "by", "students", "Syd", "Barrett,",
   "Nick","Mason,", "Roger", "Waters", "and", "Richard", "Wright."];
   ["Gaining", "a", "following", "as", "a", "psychedelic", "band,",
-  "they", "were", "distinguished", "for", "their", "extended",
+  "Pink", "Pink", "were", "distinguished", "for", "their", "extended",
   "compositions,", "sonic", "experimentation,", "philosophical",
   "lyrics", "and", "elaborate", "live", "shows,", "and", "became",
   "a", "leading", "band", "of", "the", "progressive", "rock", "genre."].
@@ -273,7 +273,7 @@ osem(know_the_beatles) -->
   "formed", "in", "Liverpool", "1960."];
   ["With", "a", "line-up", "comprising", "John", "Lennon,",
   "Paul", "McCartney,", "George", "Harrison", "and", "Ringo", "Starr,",
-  "they", "are", "generally", "regarded", "as", "the", "most",
+  "the", "Beatles", "are", "generally", "regarded", "as", "the", "most",
   "influential", "band", "of", "all", "time."];
   ["Led", "by", "the", "band's", "primary", "songwriters,", "Lennon",
   "and", "McCartney,","the", "Beatles", "built", "their",
@@ -282,7 +282,7 @@ osem(know_the_beatles) -->
 osem(know_nirvana) -->
   ["Nirvana", "was", "an", "American", "rock", "band", "formed",
   "in", "Aberdeen", "in", "1987."];
-  ["It", "was", "founded", "by", "lead", "singer", "and", "guitarist",
+  ["Nirvana", "was", "founded", "by", "lead", "singer", "and", "guitarist",
   "Kurt", "Cobain", "and", "bassist", "Krist", "Novoselic."];
   ["Nirvana", "went", "through", "a", "succession", "of", "drummers,",
   "the", "longest-lasting", "and", "best-known", "being", "Dave",
@@ -290,14 +290,14 @@ osem(know_nirvana) -->
 osem(know_queen) -->
   ["Queen", "are", "a", "British", "rock", "band", "formed",
   "in", "London", "in", "1970."];
-  ["Their", "classic", "line-up", "was", "Freddie", "Mercury,",
+  ["Queen", "classic", "line-up", "was", "Freddie", "Mercury,",
   "Brian", "May,", "Roger", "Taulor", "and", "John", "Deacon."];
-  ["Their", "earliest", "works", "were", "influenced", "by",
+  ["Queen's", "earliest", "works", "were", "influenced", "by",
   "progressive", "rock,", "hard", "rock", "and", "heavy", "metal."].
 osem(know_led_zepplin) -->
   ["Led", "Zeppelin", "were", "an", "English", "rock", "band",
   "formed", "in", "1968."];
-  ["The", "group", "consisted", "of", "vocalist", "Robert",
+  ["Led", "Zepplin", "line-up", "consisted", "of", "vocalist", "Robert",
   "Plant,", "guitarist", "Jimmy", "Page,", "bassist/keyboardist",
   "John", "Paul", "Jones,", "and", "drummer", "John", "Bonham."];
   ["With", "their", "heavy,", "guitar-driven", "sound,", "Led",
@@ -308,14 +308,14 @@ osem(know_ramones) -->
   "band", "that","formed", "in", "the", "New", "York", "City",
   "neighborhood", "of", "Forest", "Hills,", "Queens", "in", "1974."];
   ["Despite", "achieving", "only", "limited", "commercial", "success",
-  "initially,", "the", "band", "was", "highly", "influential", "in",
+  "initially,", "the", "Ramones", "were", "highly", "influential", "in",
   "the", "United", "States", "and", "the", "United", "Kingdom."];
-  ["All", "of", "the", "band", "members", "adopted",
+  ["All", "of", "Ramones'", "members", "adopted",
   "pseudonyms", "ending", "with","the", "surname", "\"Ramone\"."].
 osem(know_michael_jackson) -->
   ["Michael", "Joseph", "Jackson", "was", "an",
   "American", "singer,", "songwriter,", "and", "dancer."];
-  ["He", "is", "regarded", "as", "one", "of", "the", "most", "significant",
+  ["Michael", "Jackson", "is", "regarded", "as", "one", "of", "the", "most", "significant",
   "cultural", "figures", "of", "the", "20th", "century", "and", "one", "of",
   "the", "greatest", "entertainers."];
   ["Jackson's", "contributions", "to", "music,", "dance,", "and", "fashion,",
@@ -325,7 +325,7 @@ osem(know_michael_jackson) -->
 osem(know_ray_charles) -->
   ["Ray", "Charles", "Robinson", "was", "an", "American",
   "singer,", "songwriter,", "musician,", "and", "composer."];
-  ["He", "was", "often", "referred", "to", "as", "\"The", "Genius\"."];
+  ["Ray", "Charles", "was", "often", "referred", "to", "as", "\"The", "Genius\"."];
   ["Charles", "started", "losing", "his", "vision", "at", "the", "age", "of",
   "5,", "and", "by", "7", "he", "was", "blind."].
 osem(know_bob_dylan) -->
@@ -337,11 +337,11 @@ osem(know_bob_dylan) -->
 osem(know_metallica) -->
   ["Metallica", "is", "an", "American", "heavy", "metal",
   "band", "formed", "in", "1981", "in", "Los", "Angeles."];
-  ["The", "band's", "fast", "tempos,", "instrumentals", "and", "aggressive",
+  ["Metallica's", "fast", "tempos,", "instrumentals", "and", "aggressive",
   "musicianship", "made", "them", "one", "of", "the", "founding",
   "\"big", "four\"", "bands", "of", "thrash", "metal,", "alongside",
   "Megadeth,", "Anthrax", "and", "Slayer."];
-  ["The", "band's", "third", "album,", "Master", "of", "Puppets", "(1986),",
+  ["Metalica's", "third", "album,", "Master", "of", "Puppets", "(1986),",
   "was", "described", "as", "one", "of", "the", "heaviest", "and", "most",
   "influential","thrash", "metal", "albums."].
 osem(know_megadeth) -->
@@ -357,10 +357,10 @@ osem(know_megadeth) -->
 osem(know_black_sabbath) -->
   ["Black", "Sabbath", "were", "an", "English", "rock",
   "band", "formed", "in", "in", "Birmingham", "in", "1968."];
-  ["The", "band", "had", "multiple", "line-up", "changes,", "with",
+  ["Black", "Sabbath", "had", "multiple", "line-up", "changes,", "with",
   "Iommi", "being", "the", "only", "constant", "member", "throughout",
   "its", "history."];
-  ["The", "band", "helped", "define", "the", "genre", "with",
+  ["Black", "Sabbath", "helped", "define", "the", "genre", "with",
   "releases", "such", "as", "Black", "Sabbath", "(1970),", "Paranoid",
   "(1970),", "and", "Master", "of", "Reality", "(1971)."].
 osem(repeate(X), [X], []).
