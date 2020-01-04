@@ -83,9 +83,21 @@ trans(greet,question_are_you).
 trans(question_are_you,answer_greet).
 trans(answer_greet,themes).
 trans(themes,know_themes).
-trans(know_themes,picasso).
-trans(know_themes,nirvana).
-trans(picasso,know_picasso).
-trans(nirvana,know_nirvana).
-trans(know_picasso,goodbye).
-trans(know_nirvana,goodbye).
+trans(know_themes, X) :- class(painters, L), member(X,L).
+trans(know_themes, X) :- class(musicians, L), member(X,L).
+trans(X,Y) :-
+  class(painters,Painters), nth0(Z,Painters,X),
+  class(know_painters,Know_painters), nth0(Z, Know_painters,Y).
+trans(X,Y) :-
+  class(musicians,Musicians), nth0(Z,Musicians,X),
+  class(know_musicians,Know_musicians), nth0(Z, Know_musicians,Y).
+trans(X,Y) :-
+  class(know_painters,Know_painters), member(X,Know_painters),
+  class(painters,Painters), member(Y,Painters).
+trans(X,Y) :-
+  class(know_painters,Know_painters), member(X,Know_painters),
+  class(musicians,Musicians), member(Y,Musicians).
+trans(X,goodbye) :-
+  class(know_painters, L), member(X,L).
+trans(X,goodbye) :-
+  class(know_musicians,L), member(X,L).

@@ -102,16 +102,10 @@ sentence_type(S,SM) :-
 % Predicate 2: semtrans(A,B,P)
 % P is the probability of going from
 % sentence type A to sentence type B
-% semtrans TODO: (implement using semantic classes)
-
 semtrans(greet,question_are_you,1).
 semtrans(question_are_you,answer_greet,1).
 semtrans(answer_greet,themes,1).
-%semtrans(themes,know_themes,1).
-% semtrans(know_themes,picasso,1).
-% semtrans(know_themes,nirvana,1).
 
-%semtransfindall(S,osem(is_end,S,[]),Ss), random_member(X,Ss), print_sentence(X) from X to know_X
 semtrans(X,Y,1) :-
   class(painters,Painters), nth0(Z,Painters,X),
   class(know_painters,Know_painters), nth0(Z, Know_painters,Y).
@@ -146,18 +140,19 @@ semtrans(X,Y,0.8) :-
   class(icebreaker,Icebreaker), member(Y,Icebreaker).
 
 %semtrans from know_X to goodbye
-semtrans(X,goodbye,1) :-
+semtrans(X,goodbye,1.0) :-
   class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker).
-semtrans(X,goodbye,1) :-
+semtrans(X,goodbye,1.0) :-
   class(know_painters,Know_painters), member(X,Know_painters).
-semtrans(X,goodbye,1) :-
+semtrans(X,goodbye,1.0) :-
   class(know_musicians,Know_musicians), member(X,Know_musicians).
-
+  
 %catch All
 %semtrans(_,_,0.0).
 
 % Predicate 3: chataway(LEN)
 % Generates a plausable conversation with max length LEN
+
 chataway(1) :- !,
   findall(S,sentence_type(S,is_end),Ss), random_member(X,Ss), print_sentence(X).
 chataway(2) :- !,
@@ -176,9 +171,6 @@ conversation(Len,[]) :-
   findall(SM,(semtrans(Thing,SM,Y),not(Y==0.0)),SMs), random_member(OSem,SMs),
   findall(S,sentence_type(S,Osem),Ss), random_member(Y,Ss),
   print_sentence(S1), nl, print_sentence(Y), Len2 is Len-2, conversation(Len2,Osem).
-
-
-
 
 
 %Predicate 4:
