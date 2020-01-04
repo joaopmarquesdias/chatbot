@@ -100,26 +100,23 @@ sentence_type(S,SM) :-
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
-pred(OSM,[X|_],X)   :- member(X,OSM), !.
-pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
-pred(_,_,dont_know) :- !.
-
-
-
 % Predicate 2: semtrans(A,B,P)
 % P is the probability of going from
 % sentence type A to sentence type B
 % semtrans TODO: (implement using semantic classes)
-semtrans(greet,question_are_you,1).
-semtrans(question_are_you,answer_greet,1).
-semtrans(answer_greet,themes,1).
-semtrans(themes,know_themes,1).
-semtrans(know_themes,picasso,1).
-semtrans(know_themes,nirvana,1).
-semtrans(picasso,know_picasso,1).
-semtrans(nirvana,know_nirvana,1).
-semtrans(know_picasso,goodbye,1).
-semtrans(know_nirvana,goodbye,1).
+trans(greet,question_are_you).
+trans(question_are_you,answer_greet).
+trans(answer_greet,themes).
+trans(themes,know_themes).
+trans(know_themes,picasso).
+trans(know_themes,nirvana).
+trans(picasso,know_picasso).
+trans(nirvana,know_nirvana).
+trans(know_picasso,goodbye).
+trans(know_nirvana,goodbye).
+
+semtrans(nirvana,_,0.1):-!.
+semtrans(_,_,1.0).
 
 % Predicate 3: chataway(LEN)
 % Generates a plausable conversation with max length LEN
@@ -128,18 +125,10 @@ semtrans(know_nirvana,goodbye,1).
 % chat_at_aim(S1,S2,L,P)
 % given an initial sentence S1, should produce a goal sentence S2
 % whith the search procedure P and a maximum length L
-chat_at_aim(S1,S2,L,bfs) :-
+chat_at_aim(S1,S2,L,P) :-
   sentence_type(S1,SM1),
   sentence_type(S2,SM2),
   (symmetries([SM2],[SSM2]); SSM2 = SM2),
-  bfs(SSM2,[[SM1]],S,1,L),
+  call(P,SM1,SSM2,L,S),
   reverse(S,RS),
   write_search_solution(RS), !.
-
-write_search_solution([]).
-write_search_solution([SM|T]) :-
-  (findall(P, isemtrigger(SM, P, []), PS);
-  findall(P, osem(SM, P, []), PS)),
-  random_member(R,PS),
-  write("- "), print_sentence(R), write("\n"),
-  write_search_solution(T), !.
