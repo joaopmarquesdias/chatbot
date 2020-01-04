@@ -72,6 +72,7 @@ osemval(answer_greet).
 osemval(ask_end).
 osemval(else_end).
 osemval(is_end).
+osemval(sudden_bye).
 % Specific topics
 osemval(know_themes).
 osemval(know_movements).

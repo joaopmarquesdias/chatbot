@@ -96,7 +96,7 @@ stats(H) :-
 sentence_type(S,SM) :-
   var(SM), !, semantics(S,ISM), normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 sentence_type(S,SM) :-
-  (isemval(SM), isemtrigger(SM,S,[]));(osemval(SM), osem(SM,S,[])).
+  (isemval(SM), isem(SM,S,[]));(osemval(SM), osem(SM,S,[])).
 
 
 % Predicate 2: semtrans(A,B,P)
@@ -146,7 +146,7 @@ semtrans(X,goodbye,1.0) :-
   class(know_painters,Know_painters), member(X,Know_painters).
 semtrans(X,goodbye,1.0) :-
   class(know_musicians,Know_musicians), member(X,Know_musicians).
-  
+
 %catch All
 %semtrans(_,_,0.0).
 
@@ -154,24 +154,33 @@ semtrans(X,goodbye,1.0) :-
 % Generates a plausable conversation with max length LEN
 
 chataway(1) :- !,
-  findall(S,sentence_type(S,is_end),Ss), random_member(X,Ss), print_sentence(X).
+  findall(S,sentence_type(S,sudden_bye),Ss), random_member(X,Ss), write("- "), print_sentence(X).
 chataway(2) :- !,
   findall(S,sentence_type(S,is_end),Ss), random_member(X,Ss),
-  random_member(Y,Ss), print_sentence(X), nl, print_sentence(Y).
+  random_member(Y,Ss), write("- "), print_sentence(X), nl, write("- "), print_sentence(Y).
 chataway(Len) :-
   mod(Len,2) =:= 0, !, Len1 is Len-2, conversation(Len1,[]), chataway(2).
 chataway(Len) :-
   mod(Len,2) \= 0, !, Len1 is Len-1, conversation(Len1,[]), chataway(1).
 
-
+conversation(0,_) :- !.
 conversation(Len,[]) :-
   class(class,Classes), random_member(Class,Classes),
-  class(Class,Things), random_member(Thing,Things),
-  findall(X,isemtrigger(Thing,X,[]),[Xx|_]), isem(Class,Xx,S1,[]),
-  findall(SM,(semtrans(Thing,SM,Y),not(Y==0.0)),SMs), random_member(OSem,SMs),
-  findall(S,sentence_type(S,Osem),Ss), random_member(Y,Ss),
-  print_sentence(S1), nl, print_sentence(Y), Len2 is Len-2, conversation(Len2,Osem).
-
+  class(Class,Things), random_member(Isem,Things),
+  findall(SM,(semtrans(Isem,SM,Y),not(Y==0.0)),SMs), random_member(Osem,SMs),
+  findall(S,sentence_type(S,Isem),Ss), random_member(S1,Ss),
+  findall(X,sentence_type(X,Osem),Xs), random_member(S2,Xs),
+  write("- "), print_sentence(S1), nl,
+  write("- "), print_sentence(S2), nl,
+  Len2 is Len-2, !, (conversation(Len2,[Osem]),! ;conversation(Len2,[])).
+conversation(Len,[Prevsem]) :-
+  findall(Z,(semtrans(Prevsem,Z,Y),not(Y==0.0)),Zs), random_member(Isem,Zs),
+  findall(SM,(semtrans(Isem,SM,Y),not(Y==0.0)),SMs), random_member(Osem,SMs),
+  findall(S,sentence_type(S,Isem),Ss), random_member(S1,Ss),
+  findall(X,sentence_type(X,Osem),Xs), random_member(S2,Xs),
+  write("- "), print_sentence(S1), nl,
+  write("- "), print_sentence(S2), nl,
+  Len2 is Len-2, !, (conversation(Len2,[Osem]),! ;conversation(Len2,[])).
 
 %Predicate 4:
 % chat_at_aim(S1,S2,L,P)
