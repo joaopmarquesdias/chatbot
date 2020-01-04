@@ -94,7 +94,9 @@ stats(H) :-
 % Predicate 1: sentence_type(S,SM)
 %   SM is the semantic of sentence S
 sentence_type(S,SM) :-
-  semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
+  isemval(SM), !, isem(SM,S,_).
+sentence_type(S,SM) :-
+  osemval(SM), !, osem(SM,S,_).
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 

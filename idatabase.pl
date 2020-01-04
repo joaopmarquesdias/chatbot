@@ -1,3 +1,4 @@
+
 /* input database */
 
 % The structure repeate(X) as the same semantic value as X
@@ -55,51 +56,45 @@ class(musicians) --> pink_floyd; the_beatles; nirvana; queen; led_zepplin; ramon
 
 % input sentence list
 % "Small talk"
-isem(iam(X)) --> ["i","am",X]; ["my","name","is",X].
-isem(you) --> ["you"].
-isem(greet) --> ["hello"]; ["hi"]; ["hey"].
-isem(goodbye) --> ["Goodbye"]; ["Bye"]; ["goodbye"]; ["bye"].
-isem(yes) --> ["yes"]; ["Yes"]; ["y"]; ["Y"].
-isem(no) --> ["no"]; ["No"]; ["n"]; ["N"].
-isem(question) -->
+isemtrigger(iam(X)) --> ["i","am",X]; ["my","name","is",X].
+isemtrigger(you) --> ["you"].
+isemtrigger(greet) --> ["hello"]; ["hi"]; ["hey"].
+isemtrigger(goodbye) --> ["Goodbye"]; ["Bye"]; ["goodbye"]; ["bye"].
+isemtrigger(yes) --> ["yes"]; ["Yes"]; ["y"]; ["Y"].
+isemtrigger(no) --> ["no"]; ["No"]; ["n"]; ["N"].
+isemtrigger(question) -->
   ["how"]; ["where"]; ["what"]; ["why"]; ["when"]; ["can"]; ["do", "you"].
-isem(know) --> ["Know"]; ["know"]; ["realize"]; ["notice"]; ["recognize"].
-isem(are) --> ["are"].
-isem(meaning_life) --> ["life"]; ["Life"].
-isem(question_are_you) --> ["How", "are", "you?"].
+isemtrigger(know) --> ["Know"]; ["know"]; ["realize"]; ["notice"]; ["recognize"].
+isemtrigger(are) --> ["are"].
+isemtrigger(meaning_life) --> ["life"]; ["Life"].
+isemtrigger(question_are_you) --> ["How", "are", "you?"].
 % Sepecific topics
-isem(themes) --> ["themes"].
-isem(painters) --> ["painters"].
-isem(movements) --> ["movements"].
-isem(musicians) --> ["musicians"].
-isem(styles) --> ["styles"].
+isemtrigger(themes) --> ["themes"].
+isemtrigger(painters) --> ["painters"].
+isemtrigger(movements) --> ["movements"].
+isemtrigger(musicians) --> ["musicians"].
+isemtrigger(styles) --> ["styles"].
 % Artists
-isem(picasso) --> ["Picasso"]; ["picasso"].
-isem(van_gogh) --> ["Van", "Gogh"]; ["van", "gogh"].
-isem(matisse) --> ["Matisse"]; ["matisse"].
-isem(monet) --> ["Monet"]; ["monet"].
-isem(malevich) --> ["Malevich"]; ["malevich"].
-isem(rothko) --> ["Rothko"]; ["rothko"].
-isem(pollock) --> ["Pollock"]; ["pollock"].
-isem(kandinsky) --> ["Kandinsky"]; ["kandinsky"].
-isem(mondrian) --> ["Mondrian"]; ["mondrian"].
-isem(warhol) --> ["Warhol"]; ["warhol"].
+isemtrigger(picasso) --> ["Picasso"]; ["picasso"].
+isemtrigger(van_gogh) --> ["Van", "Gogh"]; ["van", "gogh"].
+isemtrigger(matisse) --> ["Matisse"]; ["matisse"].
+isemtrigger(monet) --> ["Monet"]; ["monet"].
+isemtrigger(malevich) --> ["Malevich"]; ["malevich"].
+isemtrigger(rothko) --> ["Rothko"]; ["rothko"].
+isemtrigger(pollock) --> ["Pollock"]; ["pollock"].
+isemtrigger(kandinsky) --> ["Kandinsky"]; ["kandinsky"].
+isemtrigger(mondrian) --> ["Mondrian"]; ["mondrian"].
+isemtrigger(warhol) --> ["Warhol"]; ["warhol"].
 %Musicians
-isem(pink_floyd) --> ["Pink", "Floyd"]; ["pink","floyd"].
-isem(the_beatles)--> ["Beatles"]; ["beatles"].
-isem(nirvana) --> ["Nirvana"]; ["nirvana"].
-isem(queen) --> ["Queen"]; ["queen"].
-isem(led_zepplin) --> ["Led", "Zepplin"]; ["led","zepplin"].
-isem(ramones) --> ["Ramones"]; ["ramones"].
-isem(michael_jackson) --> ["Michael","Jackson"]; ["michael","jackson"].
-isem(ray_charles) --> ["Ray", "Charles"]; ["ray","charles"].
-isem(bob_dylan) --> ["Bob","Dylan"]; ["bob", "dylan"].
-isem(metallica) --> ["Metallica"]; ["metallica"].
-isem(megadeth) --> ["Megadeth"]; ["megadeth"].
-isem(black_sabbath) --> ["Black","Sabbath"]; ["black", "sabbath"].
-
-% input sentence list generator
-islgen(SL, S) :- member(S, SL).
-
-% input semsin relations
-isemsin(S, P) :- isl(S, SL), islgen(SL, P), !.
+isemtrigger(pink_floyd) --> ["Pink", "Floyd"]; ["pink","floyd"].
+isemtrigger(the_beatles)--> ["Beatles"]; ["beatles"].
+isemtrigger(nirvana) --> ["Nirvana"]; ["nirvana"].
+isemtrigger(queen) --> ["Queen"]; ["queen"].
+isemtrigger(led_zepplin) --> ["Led", "Zepplin"]; ["led","zepplin"].
+isemtrigger(ramones) --> ["Ramones"]; ["ramones"].
+isemtrigger(michael_jackson) --> ["Michael","Jackson"]; ["michael","jackson"].
+isemtrigger(ray_charles) --> ["Ray", "Charles"]; ["ray","charles"].
+isemtrigger(bob_dylan) --> ["Bob","Dylan"]; ["bob", "dylan"].
+isemtrigger(metallica) --> ["Metallica"]; ["metallica"].
+isemtrigger(megadeth) --> ["Megadeth"]; ["megadeth"].
+isemtrigger(black_sabbath) --> ["Black","Sabbath"]; ["black", "sabbath"].
