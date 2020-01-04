@@ -42,14 +42,6 @@ max_score([], M, M).
 max_score([ans(S,X)|Xs], ans(_, PM), M):- X >  PM, max_score(Xs, ans(S, X), M).
 max_score([ans(_,X)|Xs], ans(S1, PM), M):- X =< PM, max_score(Xs, ans(S1, PM), M).
 
-% % True when AS AS1 is the expanded list of answers based on score
-% expand_all([],[]).
-% expand_all([A|AS], AS1) :- expand(A,AS3), expand_all(AS, AS2), append(AS3,AS2,AS1).
-% expand(ans(A,Score), AS) :- expand_aux(A, Score, AS).
-%
-% expand_aux(A, N,[A]) :- N < 0.1.
-% expand_aux(A, N,[A|AS]) :- N >= 0.1, N2 is N - 0.1, expand_aux(A,N2,AS).
-
 %reads the user input and transforms it into a list with the form ["word"|words]
 read_sentence(S) :-
   read_string(user_input, "\n", "\r", _, S1),
@@ -200,38 +192,59 @@ pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
 
 % Search procedures
-% bfs
-bfs(Goal,Init,Sol,L) :- bfs(Goal,[[Init]],Sol,0,L).
-bfs(Goal,[Path|Paths],Sol,N,M) :- N < M,
+% Bfs
+bfs(Begin,End,Len,Sol) :- bfs_aux(End,[[Begin]],Sol,Len).
+
+bfs_aux(Goal,[[Goal|Path]|_],[Goal|Path],Len) :-
+  length([Goal|Path], N), N =< Len.
+bfs_aux(Goal,[Path|Paths],Sol,Len) :-
+  length([Goal|Path], N), N =< Len,
   expand(Path,ExpPaths),
   append(Paths,ExpPaths,Paths2),
-  N2 is N + 1, bfs(Goal,Paths2,Sol,N2,M).
-bfs(_,[Path|_],Path,N,M) :- N >= M.
-bfs(Goal,[[Goal|Path]|_],[Goal|Path],N,M) :- N < M.
+  bfs_aux(Goal,Paths2,Sol,Len), !.
+bfs_aux(_,[Path|_],Path,Len) :-
+  length(Path, N), N >= Len.
 
 expand([First|Path],ExpPaths) :-
   findall([Next,First|Path],(
-  trans(First,Next),
-  not(member(Next,[First|Path]))),
-  ExpPaths).
+    trans(First,Next),
+    not(member(Next,[First|Path]))
+    ),
+    ExpPaths).
 
-% dfs
-dfs(S2,S1,RSol,L) :- dfs(S1,S2,Sol,0,L), reverse(Sol,RSol).
-dfs(S1,S2,[S1,S2],N,M) :-
-  N < M, trans(S1,S2).
-dfs(S1,S3,[S1|Sol],N,M) :-
-  N < M, trans(S1,S2),
-  N2 is N + 1, dfs(S2,S3,Sol,N2,M).
+% Dfs
+dfs(S1,S2,Len,Sol4) :-
+  dfs_aux(S1,S2,[S1],Sol),
+  reverse(Sol,Sol2),
+  cut_to_size(Sol2,Sol3,Len),
+  reverse(Sol3,Sol4).
 
-% best first (DONE)
-bestfirst(Begin,End,Len,Sol) :- bestfirst(End,[h([Begin],_)],Sol,1,Len).
-bestfirst(Goal,[h([Goal|Path],_)|_],[Goal|Path],N,M) :- N < M.
-bestfirst(Goal,[h(Path,_)|Paths],Sol,N,M) :-
-  N < M, N2 is N + 1,
+dfs_aux(S1,S2,Sol,[S2|Sol]) :-
+  trans(S1,S2),
+  not(member(S2,Sol)).
+dfs_aux(S1,S3,Sol,Sol2) :-
+  trans(S1,S2),
+  not(member(S2,Sol)),
+  dfs_aux(S2,S3,[S2|Sol],Sol2), !.
+
+cut_to_size([],[],_).
+cut_to_size(_,[],0).
+cut_to_size([X|XS],[X|YS],Len) :-
+  Len > 0, !, Len2 is Len - 1,
+  cut_to_size(XS,YS,Len2), !.
+
+% Best First
+bestfirst(Begin,End,Len,Sol) :- bestfirst_aux(End,[h([Begin],_)],Sol,Len).
+
+bestfirst_aux(Goal,[h([Goal|Path],_)|_],[Goal|Path],Len) :-
+  length([Goal|Path], N), N =< Len.
+bestfirst_aux(Goal,[h(Path,_)|Paths],Sol,Len) :-
+  length([Goal|Path], N), N =< Len,
   expandh(Path,Goal,HExpPaths),
   insert(HExpPaths,Paths,Paths2),
-  bestfirst(Goal,Paths2,Sol,N2,M), !.
-bestfirst(_,[h(Path,_)|_],Path,N,M) :- N >= M.
+  bestfirst_aux(Goal,Paths2,Sol,Len), !.
+bestfirst_aux(_,[h(Path,_)|_],Path,Len) :-
+  length(Path, N), N >= Len.
 
 expandh([First|Path],Goal,ExpPaths) :-
   findall(h([Next,First|Path],H),(
@@ -257,19 +270,22 @@ aux_insert(h(Path,H),[h(Path2,H2)|HExpPaths],
           [h(Path2,H2)|HExpPaths2]) :-
   H<H2, aux_insert(h(Path,H),HExpPaths,HExpPaths2).
 
-% hill climbing
-hillClimbing(Goal,Init,Sol,L) :-
-  hillClimbing(Goal,h([Init],0),Sol,0,L).
-hillClimbing(Goal,h([Goal|Path],_),[Goal,Path],N,M) :- N < M.
-hillClimbing(Goal,h(Path,_),Sol,N,M) :- N < M,
+% Hill Climbing
+hillclimbing(Begin,End,Len,Sol) :-
+  aux_hillclimbing(End,h([Begin],0),Sol,1,Len).
+
+aux_hillclimbing(Goal,h([Goal|Path],_),[Goal|Path],N,M) :- N < M.
+aux_hillclimbing(Goal,h(Path,_),Sol,N,M) :-
+  N < M, N2 is N + 1,
   expandh(Path,Goal,HExpPaths),
   bestpath(HExpPaths,BestPath),
-  N2 is N + 1, hillClimbing(Goal,BestPath,Sol,N2,M), !.
+  aux_hillclimbing(Goal,BestPath,Sol,N2,M), !.
+aux_hillclimbing(_,h(Path,_),Path,N,M) :- N >= M.
 
-bestpath([Path],Path).
+bestpath([Path],Path) :- !.
 bestpath([Path|HPaths],BestPath2) :-
   bestpath(HPaths,BestPath1),
-  aux_bestpath(Path,BestPath1,BestPath2), !.
+  aux_bestpath(Path,BestPath1,BestPath2),!.
 
-aux_bestpath(h(P1,H1),h(_,H2),h(P1,H1)) :- H1 > H2, !.
-aux_bestpath(h(_,H1),h(P2,H2),h(P2,H2)) :- H1 =< H2, !.
+aux_bestpath(h(P1,H1),h(_,H2),h(P1,H1)) :- H1>H2,!.
+aux_bestpath(h(_,H1),h(P2,H2),h(P2,H2)) :- H1=<H2,!.
