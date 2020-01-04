@@ -111,54 +111,74 @@ semtrans(answer_greet,themes,1).
 % semtrans(know_themes,picasso,1).
 % semtrans(know_themes,nirvana,1).
 
-%semtrans from X to know_X
+%semtransfindall(S,osem(is_end,S,[]),Ss), random_member(X,Ss), print_sentence(X) from X to know_X
 semtrans(X,Y,1) :-
   class(painters,Painters), nth0(Z,Painters,X),
-  class(know_painters,Know_painters), nth0(Z, Know_painters,Y), !.
+  class(know_painters,Know_painters), nth0(Z, Know_painters,Y).
 semtrans(X,Y,1) :-
   class(musicians,Musicians), nth0(Z,Musicians,X),
-  class(know_musicians,Know_musicians), nth0(Z, Know_musicians,Y), !.
+  class(know_musicians,Know_musicians), nth0(Z, Know_musicians,Y).
 semtrans(X,Y,1) :-
   class(icebreaker,Icebreaker), nth0(Z,Icebreaker,X),
-  class(know_icebreaker,Know_icebreaker), nth0(Z, Know_icebreaker,Y), !.
+  class(know_icebreaker,Know_icebreaker), nth0(Z, Know_icebreaker,Y).
 
 %semtrans from a know_thing to another thing of the same class or not
 semtrans(X,Y,0.9) :-
   class(know_painters,Know_painters), member(X,Know_painters),
-  class(painters,Painters), member(Y,Painters), !.
+  class(painters,Painters), member(Y,Painters).
 semtrans(X,Y,0.5) :-
   class(know_painters,Know_painters), member(X,Know_painters),
-  class(musicians,Musicians), member(Y,Musicians), !.
+  class(musicians,Musicians), member(Y,Musicians).
 semtrans(X,Y,0.9) :-
   class(know_musicians,Know_musicians), member(X,Know_musicians),
-  class(musicians,Musicians), member(Y,Musicians), !.
+  class(musicians,Musicians), member(Y,Musicians).
 semtrans(X,Y,0.5) :-
   class(know_musicians,Know_musicians), member(X,Know_musicians),
-  class(painters,Painters), member(Y,Painters), !.
+  class(painters,Painters), member(Y,Painters).
 semtrans(X,Y,0.9) :-
   class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
-  class(painters,Painters),member(Y,Painters), !.
+  class(painters,Painters),member(Y,Painters).
 semtrans(X,Y,0.9) :-
   class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
-  class(musicians,Musicians),member(Y,Musicians), !.
+  class(musicians,Musicians),member(Y,Musicians).
 semtrans(X,Y,0.8) :-
   class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker),
-  class(icebreaker,Icebreaker), member(Y,Icebreaker), !.
+  class(icebreaker,Icebreaker), member(Y,Icebreaker).
 
 %semtrans from know_X to goodbye
 semtrans(X,goodbye,1) :-
-  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker), !.
+  class(know_icebreaker,Know_icebreaker), member(X,Know_icebreaker).
 semtrans(X,goodbye,1) :-
-  class(know_painters,Know_painters), member(X,Know_painters), !.
+  class(know_painters,Know_painters), member(X,Know_painters).
 semtrans(X,goodbye,1) :-
-  class(know_musicians,Know_musicians), member(X,Know_musicians), !.
+  class(know_musicians,Know_musicians), member(X,Know_musicians).
 
 %catch All
-semtrans(_,_,0.0).
+%semtrans(_,_,0.0).
 
 % Predicate 3: chataway(LEN)
 % Generates a plausable conversation with max length LEN
-chataway(N) :-
+chataway(1) :- !,
+  findall(S,sentence_type(S,is_end),Ss), random_member(X,Ss), print_sentence(X).
+chataway(2) :- !,
+  findall(S,sentence_type(S,is_end),Ss), random_member(X,Ss),
+  random_member(Y,Ss), print_sentence(X), nl, print_sentence(Y).
+chataway(Len) :-
+  mod(Len,2) =:= 0, !, Len1 is Len-2, conversation(Len1,[]), chataway(2).
+chataway(Len) :-
+  mod(Len,2) \= 0, !, Len1 is Len-1, conversation(Len1,[]), chataway(1).
+
+
+conversation(Len,[]) :-
+  class(class,Classes), random_member(Class,Classes),
+  class(Class,Things), random_member(Thing,Things),
+  findall(X,isemtrigger(Thing,X,[]),[Xx|_]), isem(Class,Xx,S1,[]),
+  findall(SM,(semtrans(Thing,SM,Y),not(Y==0.0)),SMs), random_member(OSem,SMs),
+  findall(S,sentence_type(S,Osem),Ss), random_member(Y,Ss),
+  print_sentence(S1), nl, print_sentence(Y), Len2 is Len-2, conversation(Len2,Osem).
+
+
+
 
 
 %Predicate 4:
