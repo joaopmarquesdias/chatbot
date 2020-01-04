@@ -187,48 +187,89 @@ answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
   Y is S + X, Y >= N.
 
 % Assignment 2 predicates
+write_search_solution([]).
+write_search_solution([SM|T]) :-
+  (findall(P, isem(SM, P, []), PS);
+  findall(P, osem(SM, P, []), PS)),
+  random_member(R,PS),
+  write("- "), print_sentence(R), write("\n"),
+  write_search_solution(T), !.
+
+pred(OSM,[X|_],X)   :- member(X,OSM), !.
+pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
+pred(_,_,dont_know) :- !.
+
+% Search procedures
 % bfs
+bfs(Goal,Init,Sol,L) :- bfs(Goal,[[Init]],Sol,0,L).
 bfs(Goal,[Path|Paths],Sol,N,M) :- N < M,
   expand(Path,ExpPaths),
   append(Paths,ExpPaths,Paths2),
-  N2 is N + 1, bfs(Goal,Paths2,Sol,N2,M), !.
+  N2 is N + 1, bfs(Goal,Paths2,Sol,N2,M).
 bfs(_,[Path|_],Path,N,M) :- N >= M.
 bfs(Goal,[[Goal|Path]|_],[Goal|Path],N,M) :- N < M.
 
 expand([First|Path],ExpPaths) :-
   findall([Next,First|Path],(
-  semtrans(First,Next,_),
+  trans(First,Next),
   not(member(Next,[First|Path]))),
   ExpPaths).
 
-% best first
-bestFirst(Goal,[h(Path,_)|Paths],Sol,N,M) :- N < M,
+% dfs
+dfs(S2,S1,RSol,L) :- dfs(S1,S2,Sol,0,L), reverse(Sol,RSol).
+dfs(S1,S2,[S1,S2],N,M) :-
+  N < M, trans(S1,S2).
+dfs(S1,S3,[S1|Sol],N,M) :-
+  N < M, trans(S1,S2),
+  N2 is N + 1, dfs(S2,S3,Sol,N2,M).
+
+% best first (DONE)
+bestfirst(Begin,End,Len,Sol) :- bestfirst(End,[h([Begin],_)],Sol,1,Len).
+bestfirst(Goal,[h([Goal|Path],_)|_],[Goal|Path],N,M) :- N < M.
+bestfirst(Goal,[h(Path,_)|Paths],Sol,N,M) :-
+  N < M, N2 is N + 1,
   expandh(Path,Goal,HExpPaths),
   insert(HExpPaths,Paths,Paths2),
-  N2 is N + 1, bestFirst(Goal,Paths2,Sol,N2,M), !.
-bestFirst(_,[h(Path,_)|_],Path,N,M) :- N >= M.
-bestFirst(Goal,[h([Goal|Path],_)|_],[Goal|Path],N,M) :- N < M.
+  bestfirst(Goal,Paths2,Sol,N2,M), !.
+bestfirst(_,[h(Path,_)|_],Path,N,M) :- N >= M.
 
 expandh([First|Path],Goal,ExpPaths) :-
-  findall(h([Next,First|Path],H),
-    (semtrans(First,Next,_),
+  findall(h([Next,First|Path],H),(
+    trans(First,Next),
     not(member(Next,[First|Path])),
-    heuristics(Next,Goal,H)),
+    heuristic(Next,Goal,H)
+    ),
     ExpPaths).
 
-heuristics(Next,_,H) :- semtrans(Next,_,H).
+heuristic(Next,Goal,H) :- semtrans(Next,Goal,H).
+heuristic(goodbye,_,1).
 
 insert([],L,L).
 insert([HPath|HPaths],HExpPaths,HExpPaths3) :-
   aux_insert(HPath,HExpPaths,HExpPaths2),
-  insert(HPaths,HExpPaths2,HExpPaths3), !.
+  insert(HPaths,HExpPaths2,HExpPaths3),!.
 
 aux_insert(HPath,[],[HPath]).
-aux_insert(h(Path,H),
-  [h(Path2,H2)|HExpPaths],
-  [h(Path,H),h(Path2,H2)|HExpPaths]) :-
-    H>=H2, !.
-aux_insert(h(Path,H),
-  [h(Path2,H2)|HExpPaths],
-  [h(Path2,H2)|HExpPaths2]) :-
-    H<H2, aux_insert(h(Path,H),HExpPaths,HExpPaths2), !.
+aux_insert(h(Path,H),[h(Path2,H2)|HExpPaths],
+          [h(Path,H),h(Path2,H2)|HExpPaths]) :-
+  H>=H2, !.
+aux_insert(h(Path,H),[h(Path2,H2)|HExpPaths],
+          [h(Path2,H2)|HExpPaths2]) :-
+  H<H2, aux_insert(h(Path,H),HExpPaths,HExpPaths2).
+
+% hill climbing
+hillClimbing(Goal,Init,Sol,L) :-
+  hillClimbing(Goal,h([Init],0),Sol,0,L).
+hillClimbing(Goal,h([Goal|Path],_),[Goal,Path],N,M) :- N < M.
+hillClimbing(Goal,h(Path,_),Sol,N,M) :- N < M,
+  expandh(Path,Goal,HExpPaths),
+  bestpath(HExpPaths,BestPath),
+  N2 is N + 1, hillClimbing(Goal,BestPath,Sol,N2,M), !.
+
+bestpath([Path],Path).
+bestpath([Path|HPaths],BestPath2) :-
+  bestpath(HPaths,BestPath1),
+  aux_bestpath(Path,BestPath1,BestPath2), !.
+
+aux_bestpath(h(P1,H1),h(_,H2),h(P1,H1)) :- H1 > H2, !.
+aux_bestpath(h(_,H1),h(P2,H2),h(P2,H2)) :- H1 =< H2, !.
