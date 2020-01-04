@@ -99,8 +99,6 @@ sentence_type(S,SM) :-
   osemval(SM), !, osem(SM,S,_).
 sentence_type(S,SM) :-
   semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
-sentence_type(S,SM) :-
-  semantics(S,ISM), !, normsem(ISM,NSM), listofpred(X), pred(NSM,X,SM).
 
 pred(OSM,[X|_],X)   :- member(X,OSM), !.
 pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
@@ -140,7 +138,7 @@ chat_at_aim(S1,S2,L,bfs) :-
 
 write_search_solution([]).
 write_search_solution([SM|T]) :-
-  (findall(P, isem(SM, P, []), PS);
+  (findall(P, isemtrigger(SM, P, []), PS);
   findall(P, osem(SM, P, []), PS)),
   random_member(R,PS),
   write("- "), print_sentence(R), write("\n"),

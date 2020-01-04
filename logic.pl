@@ -2,7 +2,7 @@
     bottom-up approach */
 
 semantics([], []).
-semantics(P, [S|SM]) :- isem(S, P, PT), !, semantics(PT,SM).
+semantics(P, [S|SM]) :- isemtrigger(S, P, PT), !, semantics(PT,SM).
 semantics([_|WS], SM) :- !, semantics(WS, SM).
 
 /* SEMANTIC ANALYSIS */
