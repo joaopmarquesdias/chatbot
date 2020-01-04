@@ -78,3 +78,14 @@ normsem([know|ISMS],NSMS) :-
   !, normsem(ISMS,NSMS).
 normsem([ISM|ISMS],[ISM|NSMS]) :-
   !, normsem(ISMS,NSMS).
+
+trans(greet,question_are_you).
+trans(question_are_you,answer_greet).
+trans(answer_greet,themes).
+trans(themes,know_themes).
+trans(know_themes,picasso).
+trans(know_themes,nirvana).
+trans(picasso,know_picasso).
+trans(nirvana,know_nirvana).
+trans(know_picasso,goodbye).
+trans(know_nirvana,goodbye).

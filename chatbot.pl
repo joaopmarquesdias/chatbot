@@ -156,19 +156,10 @@ semtrans(X,goodbye,1) :-
 %catch All
 semtrans(_,_,0.0).
 
-trans(greet,question_are_you).
-trans(question_are_you,answer_greet).
-trans(answer_greet,themes).
-trans(themes,know_themes).
-trans(know_themes,picasso).
-trans(know_themes,nirvana).
-trans(picasso,know_picasso).
-trans(nirvana,know_nirvana).
-trans(know_picasso,goodbye).
-trans(know_nirvana,goodbye).
-
 % Predicate 3: chataway(LEN)
 % Generates a plausable conversation with max length LEN
+chataway(N) :-
+
 
 %Predicate 4:
 % chat_at_aim(S1,S2,L,P)
