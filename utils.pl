@@ -181,7 +181,7 @@ answer_score(N,X,[ans(A,S)|_],ans(A,S)) :-
 % Assignment 2 predicates
 write_search_solution([]).
 write_search_solution([SM|T]) :-
-  (findall(P, isemtrigger(SM, P, []), PS);
+  (findall(P, isem(SM, P, []), PS);
   findall(P, osem(SM, P, []), PS)),
   random_member(R,PS),
   write("- "), print_sentence(R), write("\n"),
@@ -254,8 +254,9 @@ expandh([First|Path],Goal,ExpPaths) :-
     ),
     ExpPaths).
 
-heuristic(Next,Goal,H) :- semtrans(Next,Goal,H).
-heuristic(goodbye,_,1).
+heuristic(Next,Goal,H) :- semtrans(Next,Goal,H), !.
+heuristic(goodbye,_,1.0).
+heuristic(_,_,0.0).
 
 insert([],L,L).
 insert([HPath|HPaths],HExpPaths,HExpPaths3) :-
