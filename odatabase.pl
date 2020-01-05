@@ -128,7 +128,7 @@ osem(ask_end) -->
 osem(else_end) -->
   ["What", "else", "do", "you", "want", "to", "know", "about?"].
 osem(is_end) -->
-  ["Goodbye"]; ["Bye"];
+  ["Goodbye"]; ["Bye"]; ["Farewell"]; ["See","ya"];
   ["Goodbye", "it", "was", "nice", "to", "talk", "to", "you"].
 osem(sudden_bye) -->
   ["Thank", "you", "but", "I", "have", "to", "go,", "goodbye!"].
