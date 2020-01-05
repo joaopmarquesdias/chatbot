@@ -228,7 +228,7 @@ osem(know_pollock) -->
   ["He", "was", "widely", "noticed", "for", "his", "technique", "of", "pouring",
   "or", "splashing", "liquid", "household", "paint", "onto", "a", "horizontal",
   "surface."];
-  ["This", "extreme", "form", "of", "abstraction", "divided", "the", "critics:",
+  ["Pollock's", "extreme", "form", "of", "abstraction", "divided", "the", "critics:",
   "some", "praised", "the", "immediacy", "and", "fluency", "of", "the", "creation,",
   "while", "others", "derided", "the", "random", "effects."].
 osem(know_kooning) -->

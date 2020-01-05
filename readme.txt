@@ -68,6 +68,24 @@ example:
   semtrans(greet,goodbye,0.0).
 
 % Predicate 3: chataway(Len)
+  chataway/1, given a certain length, generates a possible conversation with
+  that length using semtrans and sentence_type. if the Len is an odd number,
+  the conversation will end with a sudden_bye
+  Exs:
+    chataway(5).
+    - What do you know about Kandinsky ?
+    - Kandinsky is generally credited as the pioneer of abstract art.
+    - What do you know about Mondrian ?
+    - Mondrian's art was highly utopian and was concerned with a search for universal values and aesthetics.
+    - Thank you but I have to go, goodbye!
+
+    chataway(4).
+    - What do you know about Queen ?
+    - Queen's earliest works were influenced by progressive rock, hard rock and heavy metal.
+    - Bye
+    - Goodbye 
+
+
 
 
 Predicate 4: chat_at_aim(S1,S2,L,P)

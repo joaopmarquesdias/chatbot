@@ -17,7 +17,7 @@ isemval(are).
 isemval(themes).
 isemval(movements).
 isemval(painters).
-isemval(style).
+isemval(styles).
 isemval(musicians).
 isemval(meaning_life).
 % Artists
@@ -48,7 +48,7 @@ isemval(black_sabbath).
 
 %classes
 class(class,[icebreaker,painters,musicians]).
-class(icebreaker,[themes,movements,style,painters,musicians]).
+class(icebreaker,[themes,movements,styles,painters,musicians]).
 class(painters,[picasso,van_gogh,matisse,monet,malevich,
 rothko,pollock,kandinsky,kooning,mondrian,warhol]).
 class(musicians,[led_zepplin,pink_floyd,the_beatles,
