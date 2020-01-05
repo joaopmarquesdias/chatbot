@@ -207,10 +207,13 @@ osem(know_malevich) -->
   "February", "23", "1879", "in", "the", "Russian", "Empire","and",
   "died", "on", "May", "15","1935", "in", "the", "Soviet", "Union",
   "at", "age", "56"];
-  ["Kandinsky", "is", "generally", "credited", "as", "the", "pioneer", "of",
-  "abstract", "art."];
-  ["Kandinsky", "began", "painting", "studies", "(", "life-drawing,", "sketching",
-  "and", "anatomy", ")", "at", "the", "age", "of", "30."].
+  ["Malevich", "was", "a", "Russian", "avant-garde", "artist", "and", "art",
+   "theorist", "whose", "pioneering", "work", "and", "writing", "had", "a",
+   "profound", "influence", "on", "the", "development", "of", "non-objective,",
+   "or", "abstract", "art,", "in", "the", "20th", "century."];
+  ["Malevich", "his", "art", "and", "his", "writing", "influenced",
+   "contemporaries", "such", "as", "El", "Lissitzky,", "Lyubov", "Popova",
+   "and", "Alexander", "Rodchenko."].
 osem(know_rothko) -->
   ["Markus", "Yakovlevich", "Rothkowitz", "was", "born", "on",
   "September,", "25", "1903", "in", "the", "Russian", "Empire",
@@ -225,10 +228,10 @@ osem(know_pollock) -->
   ["Paul", "Jackson", "Pollock", "was", "born", "on",
   "January,", "28", "1912", "in", "the", "U.S",
   "and", "died", "on", "August,", "11", "1956", "at", "age", "44"];
-  ["He", "was", "widely", "noticed", "for", "his", "technique", "of", "pouring",
+  ["Pollock", "was", "widely", "noticed", "for", "his", "technique", "of", "pouring",
   "or", "splashing", "liquid", "household", "paint", "onto", "a", "horizontal",
   "surface."];
-  ["This", "extreme", "form", "of", "abstraction", "divided", "the", "critics:",
+  ["Pollock's", "extreme", "form", "of", "abstraction", "divided", "the", "critics:",
   "some", "praised", "the", "immediacy", "and", "fluency", "of", "the", "creation,",
   "while", "others", "derided", "the", "random", "effects."].
 osem(know_kooning) -->
