@@ -17,7 +17,7 @@ isemval(are).
 isemval(themes).
 isemval(movements).
 isemval(painters).
-isemval(style).
+isemval(styles).
 isemval(musicians).
 isemval(meaning_life).
 % Artists
@@ -48,13 +48,13 @@ isemval(black_sabbath).
 
 %classes
 class(class,[icebreaker,painters,musicians]).
-class(icebreaker,[themes,movements,style,painters,musicians]).
+class(icebreaker,[themes,movements,styles,painters,musicians]).
 class(painters,[picasso,van_gogh,matisse,monet,malevich,
 rothko,pollock,kandinsky,kooning,mondrian,warhol]).
 class(musicians,[led_zepplin,pink_floyd,the_beatles,
 nirvana,queen,ramones,michael_jackson,ray_charles,
 bob_dylan,metallica,megadeth,black_sabbath]).
-class(know_icebreaker,[know_themes,know_movements,know_style,know_painters,know_musicians]).
+class(know_icebreaker,[know_themes,know_movements,know_styles,know_painters,know_musicians]).
 class(know_painters,[know_picasso,know_van_gogh,know_matisse,know_monet,know_malevich,
 know_rothko,know_pollock,know_kandinsky,know_kooning,know_mondrian,know_warhol]).
 class(know_musicians,[know_led_zepplin,know_pink_floyd,know_the_beatles,
@@ -113,6 +113,7 @@ isemtrigger(pollock) --> ["Pollock"]; ["pollock"].
 isemtrigger(kandinsky) --> ["Kandinsky"]; ["kandinsky"].
 isemtrigger(mondrian) --> ["Mondrian"]; ["mondrian"].
 isemtrigger(warhol) --> ["Warhol"]; ["warhol"].
+isemtrigger(kooning) --> ["Kooning"]; ["kooning"].
 %Musicians
 isemtrigger(pink_floyd) --> ["Pink", "Floyd"]; ["pink","floyd"].
 isemtrigger(the_beatles)--> ["Beatles"]; ["beatles"].
