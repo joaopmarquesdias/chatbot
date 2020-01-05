@@ -192,7 +192,7 @@ pred(OSM,[_|Xs],SM) :- pred(OSM,Xs,SM), !.
 pred(_,_,dont_know) :- !.
 
 % Search procedures
-% Bfs
+% Standart format for bfs
 bfs(Begin,End,Len,Sol) :- bfs_aux(End,[[Begin]],Sol,Len).
 
 bfs_aux(Goal,[[Goal|Path]|_],[Goal|Path],Len) :-
@@ -213,6 +213,7 @@ expand([First|Path],ExpPaths) :-
     ExpPaths).
 
 % Dfs
+% Standart format for dfs
 dfs(S1,S2,Len,Sol4) :-
   dfs_aux(S1,S2,[S1],Sol),
   reverse(Sol,Sol2),
@@ -234,6 +235,7 @@ cut_to_size([X|XS],[X|YS],Len) :-
   cut_to_size(XS,YS,Len2), !.
 
 % Best First
+% Standart format for bestfirst
 bestfirst(Begin,End,Len,Sol) :- bestfirst_aux(End,[h([Begin],_)],Sol,Len).
 
 bestfirst_aux(Goal,[h([Goal|Path],_)|_],[Goal|Path],Len) :-
@@ -272,6 +274,7 @@ aux_insert(h(Path,H),[h(Path2,H2)|HExpPaths],
   H<H2, aux_insert(h(Path,H),HExpPaths,HExpPaths2).
 
 % Hill Climbing
+% Standart format for hillclimbing
 hillclimbing(Begin,End,Len,Sol) :-
   aux_hillclimbing(End,h([Begin],0),Sol,1,Len).
 
@@ -283,6 +286,7 @@ aux_hillclimbing(Goal,h(Path,_),Sol,N,M) :-
   aux_hillclimbing(Goal,BestPath,Sol,N2,M), !.
 aux_hillclimbing(_,h(Path,_),Path,N,M) :- N >= M.
 
+% BestPath
 bestpath([Path],Path) :- !.
 bestpath([Path|HPaths],BestPath2) :-
   bestpath(HPaths,BestPath1),

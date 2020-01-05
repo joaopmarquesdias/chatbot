@@ -83,11 +83,8 @@ example:
     - What do you know about Queen ?
     - Queen's earliest works were influenced by progressive rock, hard rock and heavy metal.
     - Bye
-    - Goodbye 
-
-
-
-
+    - Goodbye
+    
 Predicate 4: chat_at_aim(S1,S2,L,P)
   S1 is a initial sentence, S2 is a goal sentence,
   L is the maximum length, and P is the search procedure
